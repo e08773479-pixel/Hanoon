@@ -129,3 +129,25 @@
     font-size: 16px;
   }
 }
+
+/* HANOON Premium Header Icon */
+.brand-icon {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 4px 12px rgba(213, 179, 108, 0.28));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brand-icon:hover {
+    transform: scale(1.08);
+    filter: drop-shadow(0 5px 18px rgba(213, 179, 108, 0.5));
+}
+
+@media (max-width: 600px) {
+    .brand-icon {
+        width: 48px;
+        height: 48px;
+    }
+}
