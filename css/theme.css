@@ -1,0 +1,319 @@
+/* =========================================
+   HANOON DESIGN SYSTEM
+   Version 1.0
+========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: dark;
+
+  /* Brand */
+  --gold: #D5B36C;
+  --gold-light: #E8CD91;
+  --gold-dark: #A98237;
+
+  /* Dark theme */
+  --bg: #10131C;
+  --surface: #1B202B;
+  --surface-2: #222A37;
+  --surface-3: #293241;
+
+  --text: #F4F0E7;
+  --text-secondary: #B8BCC6;
+  --text-muted: #858C99;
+
+  --border: #303644;
+  --border-light: rgba(213,179,108,.18);
+
+  /* Status */
+  --success: #43B58A;
+  --warning: #E5A84B;
+  --danger: #E16B76;
+  --info: #75A9D8;
+
+  /* Effects */
+  --shadow-sm: 0 4px 12px rgba(0,0,0,.12);
+  --shadow-md: 0 10px 30px rgba(0,0,0,.2);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,.28);
+
+  --gold-glow: 0 0 35px rgba(213,179,108,.12);
+
+  /* Layout */
+  --header-height: 76px;
+  --sidebar-width: 270px;
+  --content-width: 1440px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Typography */
+  --font-ar: 'Cairo', sans-serif;
+  --font-en: 'Inter', sans-serif;
+
+  /* Motion */
+  --transition-fast: 160ms ease;
+  --transition-normal: 260ms ease;
+  --transition-slow: 420ms ease;
+}
+
+/* =========================================
+   LIGHT THEME
+========================================= */
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #F6F4EF;
+  --surface: #FFFFFF;
+  --surface-2: #F0EDE6;
+  --surface-3: #E8E4DB;
+
+  --text: #20232B;
+  --text-secondary: #646B78;
+  --text-muted: #8B9099;
+
+  --border: #E2DED4;
+  --border-light: rgba(169,130,55,.22);
+
+  --shadow-sm: 0 4px 12px rgba(32,35,43,.05);
+  --shadow-md: 0 10px 30px rgba(32,35,43,.08);
+  --shadow-lg: 0 20px 60px rgba(32,35,43,.12);
+
+  --gold-glow: 0 0 35px rgba(169,130,55,.09);
+}
+
+/* =========================================
+   RESET & GLOBAL
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-ar);
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ar);
+  line-height: 1.8;
+  transition:
+    background var(--transition-normal),
+    color var(--transition-normal);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+img {
+  display: block;
+}
+
+::selection {
+  background: rgba(213,179,108,.28);
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* =========================================
+   TYPOGRAPHY
+========================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.45;
+  font-weight: 800;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.8rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+h3 {
+  font-size: 1.35rem;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+small {
+  color: var(--text-muted);
+}
+
+.font-en {
+  font-family: var(--font-en);
+  direction: ltr;
+}
+
+/* =========================================
+   COMMON UTILITIES
+========================================= */
+
+.container {
+  width: min(
+    calc(100% - 40px),
+    var(--content-width)
+  );
+  margin-inline: auto;
+}
+
+.text-gold {
+  color: var(--gold);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.bg-surface {
+  background: var(--surface);
+}
+
+.border-gold {
+  border-color: var(--border-light);
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-md {
+  border-radius: var(--radius-md);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.rounded-xl {
+  border-radius: var(--radius-xl);
+}
+
+.shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+.gold-glow {
+  box-shadow: var(--gold-glow);
+}
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-dark);
+}
+
+/* =========================================
+   RESPONSIVE FOUNDATIONS
+========================================= */
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 64px;
+    --sidebar-width: 0px;
+  }
+
+  .container {
+    width: min(
+      calc(100% - 28px),
+      var(--content-width)
+    );
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
