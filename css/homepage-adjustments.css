@@ -1,0 +1,131 @@
+
+/* HANOON - Homepage visual adjustments */
+
+/* تثبيت الخلفيات دون تعطيل تمرير الصفحة */
+.hero-section,
+.featured-section,
+.learning-section,
+.community-section,
+.site-footer {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* تثبيت ترتيب محتويات كروت الأقسام */
+.section-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 82px 24px 25px;
+  overflow: hidden;
+}
+
+/* رفع أرقام الأقسام */
+.section-card .section-icon {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  left: auto;
+  width: 46px;
+  height: 46px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(246,223,170,.75);
+  border-radius: 50%;
+  background: rgba(12,16,32,.88);
+  color: #f6dfaa;
+  font-size: 15px;
+  font-weight: 800;
+  box-shadow: 0 5px 20px rgba(0,0,0,.35);
+}
+
+/* إبعاد العنوان عن الرقم */
+.section-card h3 {
+  position: relative;
+  z-index: 2;
+  margin: 12px 0 10px;
+  padding-top: 8px;
+  color: #f6dfaa;
+  line-height: 1.7;
+  font-size: clamp(17px, 2vw, 21px);
+}
+
+/* تحسين وضوح الوصف */
+.section-card p {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  color: #fff;
+  line-height: 2;
+  font-size: 14px;
+  text-shadow: 0 2px 8px rgba(0,0,0,.9);
+}
+
+/* رابط القسم */
+.section-card .card-link {
+  position: relative;
+  z-index: 2;
+  margin-top: 18px;
+  color: #f6dfaa;
+}
+
+/* خلفية أكثر ثباتًا ووضوحًا */
+.section-card::before {
+  background: linear-gradient(
+    180deg,
+    rgba(5,9,19,.12) 0%,
+    rgba(5,9,19,.35) 35%,
+    rgba(5,9,19,.96) 100%
+  );
+}
+
+/* منع قص النصوص على الهاتف */
+@media (max-width: 768px) {
+  .section-card {
+    min-height: 300px;
+    padding: 82px 17px 22px;
+  }
+
+  .section-card .section-icon {
+    top: 12px;
+    right: 13px;
+    width: 42px;
+    height: 42px;
+  }
+
+  .section-card h3 {
+    font-size: 17px;
+    line-height: 1.8;
+    margin-top: 10px;
+  }
+
+  .section-card p {
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  .hero-section,
+  .featured-section,
+  .learning-section,
+  .community-section,
+  .site-footer {
+    background-attachment: scroll;
+  }
+}
+
+/* شاشة صغيرة جدًا */
+@media (max-width: 420px) {
+  .section-card {
+    min-height: 280px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .section-card h3 {
+    font-size: 16px;
+  }
+}
