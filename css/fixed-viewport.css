@@ -1,0 +1,64 @@
+
+/* =====================================
+   HANOON - Fixed Viewport
+   تثبيت عرض الصفحة ومنع التكبير
+===================================== */
+
+html {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* منع تكبير الصور والعناصر */
+img,
+svg,
+video,
+iframe {
+    max-width: 100%;
+}
+
+/* منع خروج العناصر من الشاشة */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* منع التكبير التلقائي للحقول في iPhone */
+input,
+textarea,
+select,
+button {
+    font-size: 16px;
+}
+
+/* تثبيت عرض الحاويات */
+.container,
+.main-container,
+.page-container {
+    max-width: 100%;
+}
+
+/* الحفاظ على تناسب المحتوى مع الهاتف */
+@media (max-width: 768px) {
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    img {
+        height: auto;
+    }
+}
