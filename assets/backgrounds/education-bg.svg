@@ -1,0 +1,79 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="eduBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0D1925"/>
+      <stop offset=".5" stop-color="#142D36"/>
+      <stop offset="1" stop-color="#101722"/>
+    </linearGradient>
+
+    <radialGradient id="eduGlow">
+      <stop offset="0" stop-color="#38CDBB" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#38CDBB" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="eduGold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A98237" stop-opacity=".15"/>
+      <stop offset=".5" stop-color="#E8CD91" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#A98237" stop-opacity=".15"/>
+    </linearGradient>
+
+    <pattern id="eduGrid" width="70" height="70" patternUnits="userSpaceOnUse">
+      <path d="M70 0H0V70" fill="none" stroke="#38CDBB" stroke-opacity=".055"/>
+      <circle cx="0" cy="0" r="2" fill="#38CDBB" fill-opacity=".16"/>
+    </pattern>
+  </defs>
+
+  <rect width="1400" height="800" fill="url(#eduBg)"/>
+  <ellipse cx="970" cy="370" rx="550" ry="430" fill="url(#eduGlow)"/>
+  <rect width="1400" height="800" fill="url(#eduGrid)"/>
+
+  <!-- Graduation cap -->
+  <g transform="translate(900 180)" fill="none" stroke="url(#eduGold)" stroke-width="4" stroke-linejoin="round">
+    <path d="M-180 70L0 0L180 70L0 145Z" fill="#38CDBB" fill-opacity=".08"/>
+    <path d="M-105 112V185C-35 230 35 230 105 185V112"/>
+    <path d="M180 70V175"/>
+    <path d="M165 190H195"/>
+    <circle cx="180" cy="177" r="7" fill="#E8CD91"/>
+  </g>
+
+  <!-- Learning steps -->
+  <g fill="#38CDBB" fill-opacity=".06" stroke="#38CDBB" stroke-opacity=".3" stroke-width="2">
+    <path d="M130 590H330V650H130Z"/>
+    <path d="M330 520H530V650H330Z"/>
+    <path d="M530 450H730V650H530Z"/>
+    <path d="M730 380H930V650H730Z"/>
+  </g>
+
+  <g fill="none" stroke="#E8CD91" stroke-opacity=".55" stroke-width="3">
+    <path d="M180 620H280"/>
+    <path d="M380 550H480"/>
+    <path d="M580 480H680"/>
+    <path d="M780 410H880"/>
+    <path d="M210 560L260 510L310 525"/>
+  </g>
+
+  <!-- Knowledge orbit -->
+  <g fill="none" stroke="#38CDBB" stroke-opacity=".28">
+    <circle cx="1110" cy="520" r="120"/>
+    <circle cx="1110" cy="520" r="155" stroke-dasharray="5 12"/>
+    <path d="M1110 365V675M955 520H1265"/>
+  </g>
+
+  <!-- Small stars -->
+  <g fill="#E8CD91">
+    <circle cx="210" cy="190" r="3" opacity=".6"/>
+    <circle cx="420" cy="280" r="2" opacity=".5"/>
+    <circle cx="690" cy="150" r="2.5" opacity=".6"/>
+    <circle cx="1190" cy="180" r="2" opacity=".6"/>
+    <circle cx="1250" cy="680" r="3" opacity=".4"/>
+  </g>
+
+  <g stroke="#E8CD91" stroke-width="2" opacity=".55">
+    <path d="M350 150V180M335 165H365"/>
+    <path d="M1180 330V354M1168 342H1192"/>
+    <path d="M90 420V444M78 432H102"/>
+  </g>
+
+  <rect x="1" y="1" width="1398" height="798" fill="none" stroke="#D5B36C" stroke-opacity=".1"/>
+</svg>
