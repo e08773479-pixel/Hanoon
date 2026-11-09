@@ -1,281 +1,182 @@
 
-/* =========================================
-   HANOON — Navigation Manager
-   Desktop / Mobile Navigation
-========================================= */
-
 (() => {
   "use strict";
 
-  const SELECTORS = {
-    menuToggle: "#menuToggle",
-    mobileMenu: "#mobileMenu",
-    mobileClose: "#mobileMenuClose",
-    menuLinks: "#mobileMenu a",
-    dropdownToggles: "[data-dropdown-toggle]",
-    dropdowns: "[data-dropdown]"
-  };
+  const HANOON = window.HANOON || {};
 
-  const get = (selector, parent = document) =>
-    parent.querySelector(selector);
+  const Navigation = {
+    initialized: false,
 
-  const getAll = (selector, parent = document) =>
-    [...parent.querySelectorAll(selector)];
+    // قائمة الصفحات المعتمدة
+    routes: {
+      home: "../index.html",
+      auth: "auth.html",
+      library: "library.html",
+      book: "book.html",
+      articles: "articles.html",
+      article: "article.html",
+      stories: "stories.html",
+      poetry: "poetry.html",
+      research: "research.html",
+      learning: "learning.html",
+      course: "course.html",
+      lesson: "lesson.html",
+      exams: "exams.html",
+      community: "community.html",
+      profile: "profile.html",
+      settings: "settings.html",
+      notifications: "notifications.html",
+      admin: "admin.html",
+      search: "search.html"
+    },
 
-  /* =========================================
-     MOBILE MENU
-  ========================================= */
+    // الحصول على مسار الصفحة
+    getCurrentPage() {
+      const pathname = window.location.pathname;
+      return pathname.split("/").pop() || "index.html";
+    },
 
-  const openMobileMenu = () => {
-    const menu = get(SELECTORS.mobileMenu);
-    const toggle = get(SELECTORS.menuToggle);
+    // الانتقال إلى صفحة داخل الموقع
+    go(page, params = {}) {
+      const route = this.routes[page];
 
-    if (!menu) return;
-
-    menu.classList.add("is-open");
-    menu.setAttribute("aria-hidden", "false");
-
-    if (toggle) {
-      toggle.setAttribute("aria-expanded", "true");
-    }
-
-    document.body.classList.add("menu-open");
-
-    const firstLink = menu.querySelector("a, button");
-
-    if (firstLink) {
-      firstLink.focus();
-    }
-  };
-
-  const closeMobileMenu = () => {
-    const menu = get(SELECTORS.mobileMenu);
-    const toggle = get(SELECTORS.menuToggle);
-
-    if (!menu) return;
-
-    menu.classList.remove("is-open");
-    menu.setAttribute("aria-hidden", "true");
-
-    if (toggle) {
-      toggle.setAttribute("aria-expanded", "false");
-    }
-
-    document.body.classList.remove("menu-open");
-  };
-
-  const toggleMobileMenu = () => {
-    const menu = get(SELECTORS.mobileMenu);
-
-    if (!menu) return;
-
-    if (menu.classList.contains("is-open")) {
-      closeMobileMenu();
-    } else {
-      openMobileMenu();
-    }
-  };
-
-  /* =========================================
-     DROPDOWN MENUS
-  ========================================= */
-
-  const closeAllDropdowns = (except = null) => {
-    getAll(SELECTORS.dropdowns).forEach((dropdown) => {
-      if (dropdown === except) return;
-
-      dropdown.classList.remove("is-open");
-
-      const button = dropdown.querySelector(
-        SELECTORS.dropdownToggles
-      );
-
-      if (button) {
-        button.setAttribute("aria-expanded", "false");
-      }
-    });
-  };
-
-  const toggleDropdown = (button) => {
-    const dropdown = button.closest(SELECTORS.dropdowns);
-
-    if (!dropdown) return;
-
-    const isOpen = dropdown.classList.contains("is-open");
-
-    closeAllDropdowns(dropdown);
-
-    dropdown.classList.toggle("is-open", !isOpen);
-
-    button.setAttribute(
-      "aria-expanded",
-      String(!isOpen)
-    );
-  };
-
-  /* =========================================
-     ACTIVE NAVIGATION LINK
-  ========================================= */
-
-  const normalizePath = (path) => {
-    if (!path || path === "/") return "index.html";
-
-    return path.split("/").pop().toLowerCase();
-  };
-
-  const markActiveLinks = () => {
-    const currentPage = normalizePath(
-      window.location.pathname
-    );
-
-    getAll("nav a, #mobileMenu a").forEach((link) => {
-      const href = link.getAttribute("href");
-
-      if (
-        !href ||
-        href.startsWith("#") ||
-        href.startsWith("http") ||
-        href.startsWith("mailto:")
-      ) {
+      if (!route) {
+        console.error(`HANOON: Unknown route "${page}"`);
+        HANOON.toast?.("الصفحة المطلوبة غير موجودة", "error");
         return;
       }
 
-      const linkPage = normalizePath(
-        href.split("?")[0].split("#")[0]
-      );
+      const target = new URL(route, document.baseURI);
 
-      const isActive = linkPage === currentPage;
-
-      link.classList.toggle("active", isActive);
-
-      if (isActive) {
-        link.setAttribute("aria-current", "page");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
-  };
-
-  /* =========================================
-     HEADER SCROLL EFFECT
-  ========================================= */
-
-  const handleHeaderScroll = () => {
-    const header = get(".site-header");
-
-    if (!header) return;
-
-    header.classList.toggle(
-      "is-scrolled",
-      window.scrollY > 20
-    );
-  };
-
-  /* =========================================
-     EVENT LISTENERS
-  ========================================= */
-
-  const bindEvents = () => {
-    const menuToggle = get(SELECTORS.menuToggle);
-    const mobileClose = get(SELECTORS.mobileClose);
-    const mobileMenu = get(SELECTORS.mobileMenu);
-
-    if (menuToggle) {
-      menuToggle.addEventListener(
-        "click",
-        toggleMobileMenu
-      );
-    }
-
-    if (mobileClose) {
-      mobileClose.addEventListener(
-        "click",
-        closeMobileMenu
-      );
-    }
-
-    if (mobileMenu) {
-      mobileMenu.addEventListener("click", (event) => {
-        const link = event.target.closest("a");
-
-        if (link) {
-          closeMobileMenu();
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          target.searchParams.set(key, String(value));
         }
       });
-    }
 
-    getAll(SELECTORS.dropdownToggles).forEach((button) => {
-      button.addEventListener("click", (event) => {
-        event.stopPropagation();
-        toggleDropdown(button);
+      window.location.assign(target.href);
+    },
+
+    // الرجوع إلى الصفحة السابقة
+    back(fallback = "home") {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        this.go(fallback);
+      }
+    },
+
+    // استبدال الصفحة الحالية
+    replace(page, params = {}) {
+      const route = this.routes[page];
+
+      if (!route) {
+        HANOON.toast?.("تعذر فتح الصفحة", "error");
+        return;
+      }
+
+      const target = new URL(route, document.baseURI);
+
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          target.searchParams.set(key, String(value));
+        }
       });
-    });
 
-    document.addEventListener("click", (event) => {
-      const insideDropdown = event.target.closest(
-        SELECTORS.dropdowns
-      );
+      window.location.replace(target.href);
+    },
 
-      if (!insideDropdown) {
-        closeAllDropdowns();
-      }
+    // قراءة بيانات الرابط
+    getParams() {
+      return new URLSearchParams(window.location.search);
+    },
 
-      const insideMenu =
-        event.target.closest(SELECTORS.mobileMenu);
+    // ربط أزرار الانتقال
+    bindNavigationButtons() {
+      document.querySelectorAll("[data-go]").forEach(button => {
+        button.addEventListener("click", () => {
+          const page = button.dataset.go;
 
-      const insideToggle =
-        event.target.closest(SELECTORS.menuToggle);
+          if (page) {
+            this.go(page);
+          }
+        });
+      });
 
-      if (!insideMenu && !insideToggle) {
-        closeMobileMenu();
-      }
-    });
+      document.querySelectorAll("[data-back]").forEach(button => {
+        button.addEventListener("click", () => {
+          this.back(button.dataset.back || "home");
+        });
+      });
+    },
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        closeMobileMenu();
-        closeAllDropdowns();
-      }
-    });
+    // ربط الروابط الداخلية
+    bindInternalLinks() {
+      document.querySelectorAll("a[data-route]").forEach(link => {
+        link.addEventListener("click", event => {
+          const page = link.dataset.route;
 
-    window.addEventListener(
-      "scroll",
-      handleHeaderScroll,
-      { passive: true }
-    );
+          if (!page || !this.routes[page]) return;
 
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 900) {
-        closeMobileMenu();
-      }
-    });
+          event.preventDefault();
+          this.go(page);
+        });
+      });
+    },
+
+    // تحديث الرابط النشط
+    updateActiveNavigation() {
+      const currentPage = this.getCurrentPage();
+
+      document.querySelectorAll("[data-page]").forEach(item => {
+        const isActive = item.dataset.page === currentPage;
+
+        item.classList.toggle("active", isActive);
+
+        if (isActive) {
+          item.setAttribute("aria-current", "page");
+        } else {
+          item.removeAttribute("aria-current");
+        }
+      });
+    },
+
+    // التعامل مع روابط العودة
+    bindReturnLinks() {
+      document.querySelectorAll("[data-return]").forEach(link => {
+        link.addEventListener("click", event => {
+          event.preventDefault();
+
+          const fallback = link.dataset.return || "home";
+          this.back(fallback);
+        });
+      });
+    },
+
+    // تهيئة نظام التنقل
+    init() {
+      if (this.initialized) return;
+
+      this.bindNavigationButtons();
+      this.bindInternalLinks();
+      this.updateActiveNavigation();
+      this.bindReturnLinks();
+
+      this.initialized = true;
+    }
   };
 
-  /* =========================================
-     INITIALIZATION
-  ========================================= */
+  HANOON.Navigation = Navigation;
 
-  const initializeNavigation = () => {
-    bindEvents();
-    markActiveLinks();
-    handleHeaderScroll();
-  };
+  window.HANOON = HANOON;
 
   if (document.readyState === "loading") {
     document.addEventListener(
       "DOMContentLoaded",
-      initializeNavigation,
+      () => Navigation.init(),
       { once: true }
     );
   } else {
-    initializeNavigation();
+    Navigation.init();
   }
-
-  // Public navigation controls.
-  window.HANOON_NAVIGATION = Object.freeze({
-    open: openMobileMenu,
-    close: closeMobileMenu,
-    toggle: toggleMobileMenu
-  });
-
 })();
