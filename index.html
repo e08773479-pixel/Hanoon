@@ -1,1011 +1,356 @@
 
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="dark">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0C1020">
 
-  <title>هنون HANOON | المعرفة والتعلم والحياة</title>
+  <title>HANOON | المعرفة تصنع الفرق</title>
+  <meta name="description" content="هنون منصة معرفية متكاملة للقراءة والتعلم والثقافة والتطوير.">
 
-  <meta name="description" content="هنون منصة عربية للمعرفة والقراءة والتعلم والبحث واكتشاف الأفكار.">
-  <meta name="theme-color" content="#10131C">
-  <meta name="author" content="يوسف أشرف">
-
-  <link rel="icon" type="image/svg+xml" href="assets/logo/hanoon-icon.svg">
+  <link rel="icon" href="assets/logo/logo.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.json">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/theme.css">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/pages.css">
 </head>
 
 <body>
 
-  <div id="app">
+  <!-- شاشة البداية -->
+  <div class="splash-screen" id="splashScreen">
+    <div class="splash-content">
+      <img src="assets/logo/logo.svg" alt="HANOON">
+      <h1>HANOON</h1>
+      <p>المعرفة تصنع الفرق</p>
+      <div class="splash-spinner"></div>
+    </div>
+  </div>
 
-    <!-- ================= HEADER ================= -->
+  <!-- رأس الموقع -->
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="index.html">
+      <img src="assets/logo/logo.svg" alt="HANOON">
+      <span>
+        <strong>HANOON</strong>
+        <small>المعرفة تصنع الفرق</small>
+      </span>
+    </a>
 
-    <header class="site-header">
-      <div class="header-inner">
+    <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
 
-        <a href="index.html" class="brand" aria-label="الصفحة الرئيسية لهنون">
-          <img src="assets/logo/hanoon-icon.svg" alt="شعار هنون">
-          <span class="brand-info">
-            <span class="brand-name">HANOON</span>
-            <span class="brand-tagline">KNOWLEDGE • LEARNING • LIFE</span>
-          </span>
-        </a>
-
-        <nav class="header-nav" aria-label="القائمة الرئيسية">
-
-          <a href="index.html" class="nav-link active">
-            <svg class="icon"><use href="assets/icons/icons.svg#home"></use></svg>
-            الرئيسية
-          </a>
-
-          <a href="categories.html" class="nav-link">
-            <svg class="icon"><use href="assets/icons/icons.svg#library"></use></svg>
-            المجالات
-          </a>
-
-          <a href="books.html" class="nav-link">
-            <svg class="icon"><use href="assets/icons/icons.svg#book"></use></svg>
-            الكتب
-          </a>
-
-          <a href="articles.html" class="nav-link">
-            <svg class="icon"><use href="assets/icons/icons.svg#article"></use></svg>
-            المقالات
-          </a>
-
-          <a href="stories.html" class="nav-link">
-            <svg class="icon"><use href="assets/icons/icons.svg#pen"></use></svg>
-            القصص
-          </a>
-
-          <a href="learning.html" class="nav-link">
-            <svg class="icon"><use href="assets/icons/icons.svg#graduation"></use></svg>
-            التعلم
-          </a>
-
-        </nav>
-
-        <div class="header-actions">
-
-          <button class="header-icon-btn" id="themeToggle"
-                  type="button" aria-label="تغيير المظهر">
-            <svg class="icon"><use href="assets/icons/icons.svg#moon"></use></svg>
-          </button>
-
-          <a href="search.html" class="header-icon-btn desktop-only"
-             aria-label="البحث">
-            <svg class="icon"><use href="assets/icons/icons.svg#search"></use></svg>
-          </a>
-
-          <a href="login.html" class="btn btn-primary btn-sm desktop-only">
-            تسجيل الدخول
-          </a>
-
-          <button class="header-icon-btn mobile-menu-btn"
-                  id="mobileMenuToggle"
-                  type="button"
-                  aria-label="فتح القائمة"
-                  aria-expanded="false">
-            <svg class="icon"><use href="assets/icons/icons.svg#menu"></use></svg>
-          </button>
-
-        </div>
-
-      </div>
-    </header>
-
-    <!-- ================= MOBILE NAVIGATION ================= -->
-
-    <nav class="mobile-nav" id="mobileNav" aria-label="قائمة الهاتف">
-      <div class="mobile-nav-list">
-
-        <a href="index.html" class="nav-link active">الرئيسية</a>
-        <a href="categories.html" class="nav-link">المجالات</a>
-        <a href="books.html" class="nav-link">الكتب والمكتبة</a>
-        <a href="articles.html" class="nav-link">المقالات</a>
-        <a href="poetry.html" class="nav-link">الشعر والأدب</a>
-        <a href="stories.html" class="nav-link">القصص</a>
-        <a href="research.html" class="nav-link">الأبحاث</a>
-        <a href="learning.html" class="nav-link">مسارات التعلم</a>
-        <a href="exams.html" class="nav-link">الاختبارات</a>
-        <a href="author.html" class="nav-link">عن الكاتب</a>
-        <a href="login.html" class="nav-link">تسجيل الدخول</a>
-
-      </div>
+    <nav class="main-navigation" id="mainNavigation">
+      <a class="active" href="index.html">الرئيسية</a>
+      <a href="pages/library.html">المكتبة</a>
+      <a href="pages/articles.html">المقالات</a>
+      <a href="pages/stories.html">القصص</a>
+      <a href="pages/learning.html">التعلم</a>
+      <a href="pages/exams.html">الاختبارات</a>
+      <a href="pages/community.html">المجتمع</a>
     </nav>
 
-    <main class="main-content">
+    <div class="header-controls">
+      <button id="searchToggle" class="icon-button" aria-label="البحث">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="10.8" cy="10.8" r="6.8"></circle>
+          <path d="m16 16 5 5"></path>
+        </svg>
+      </button>
 
-      <!-- ================= HERO ================= -->
+      <button id="themeToggle" class="icon-button" aria-label="تغيير المظهر">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+        </svg>
+      </button>
 
-      <section class="hero page-bg">
+      <a class="account-button" href="pages/auth.html" id="accountButton">
+        تسجيل الدخول
+      </a>
+    </div>
+  </header>
 
-        <div class="hero-content">
-
-          <div class="hero-copy">
-
-            <div class="hero-kicker">
-              <span>مساحة للمعرفة والاكتشاف</span>
-            </div>
-
-            <h1 class="hero-title">
-              المعرفة تبدأ
-              <span class="highlight">بسؤال</span>
-              <br>
-              والحياة تتغير بفكرة.
-            </h1>
-
-            <p class="hero-description">
-              أهلًا بك في هنون، مساحة عربية تجمع المعرفة والقراءة
-              والتعلم والبحث والتفكير. اكتشف موضوعات جديدة،
-              اقرأ الكتب والمقالات، وابدأ رحلتك في تعلم مهارات
-              تصنع فرقًا في حياتك.
-            </p>
-
-            <div class="hero-actions">
-              <a href="categories.html" class="btn btn-primary btn-lg">
-                اكتشف مجالات المعرفة
-                <svg class="icon">
-                  <use href="assets/icons/icons.svg#arrow-left"></use>
-                </svg>
-              </a>
-
-              <a href="books.html" class="btn btn-outline btn-lg">
-                تصفح المكتبة
-              </a>
-            </div>
-
-            <form class="hero-search search-box" action="search.html" method="GET">
-              <input
-                type="search"
-                name="q"
-                placeholder="ابحث عن كتاب، موضوع، مقال أو مهارة..."
-                aria-label="ابحث في هنون"
-              >
-
-              <span class="search-icon">
-                <svg class="icon">
-                  <use href="assets/icons/icons.svg#search"></use>
-                </svg>
-              </span>
-            </form>
-
-            <div class="hero-stats">
-
-              <div class="hero-stat">
-                <strong>30</strong>
-                <span>كتابًا مستهدفًا</span>
-              </div>
-
-              <div class="hero-stat">
-                <strong>100</strong>
-                <span>مقال مستهدف</span>
-              </div>
-
-              <div class="hero-stat">
-                <strong>7</strong>
-                <span>مسارات تعلم</span>
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="hero-visual">
-            <img
-              src="assets/backgrounds/section-bg.svg"
-              alt="خلفية زخرفية لهوية هنون"
-            >
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- ================= FEATURES ================= -->
-
-      <div class="feature-strip">
-
-        <div class="feature-item">
-          <div class="feature-icon">
-            <svg class="icon"><use href="assets/icons/icons.svg#book"></use></svg>
-          </div>
-          <div class="feature-text">
-            <strong>مكتبة معرفية</strong>
-            <span>كتب وموضوعات متنوعة</span>
-          </div>
-        </div>
-
-        <div class="feature-item">
-          <div class="feature-icon">
-            <svg class="icon"><use href="assets/icons/icons.svg#graduation"></use></svg>
-          </div>
-          <div class="feature-text">
-            <strong>تعلم تفاعلي</strong>
-            <span>مسارات ودروس واختبارات</span>
-          </div>
-        </div>
-
-        <div class="feature-item">
-          <div class="feature-icon">
-            <svg class="icon"><use href="assets/icons/icons.svg#article"></use></svg>
-          </div>
-          <div class="feature-text">
-            <strong>محتوى متنوع</strong>
-            <span>مقالات وقصص وأبحاث</span>
-          </div>
-        </div>
-
-        <div class="feature-item">
-          <div class="feature-icon">
-            <svg class="icon"><use href="assets/icons/icons.svg#chart"></use></svg>
-          </div>
-          <div class="feature-text">
-            <strong>تطور مستمر</strong>
-            <span>تقدم ونقاط وإنجازات</span>
-          </div>
-        </div>
-
+  <!-- البحث -->
+  <section class="search-panel" id="searchPanel" hidden>
+    <form id="globalSearchForm">
+      <label for="globalSearchInput">ابحث في عالم هنون</label>
+      <div class="search-field">
+        <input id="globalSearchInput" type="search"
+          placeholder="كتاب، مقال، درس، موضوع..." autocomplete="off">
+        <button type="submit">بحث</button>
       </div>
-
-      <!-- ================= CATEGORIES ================= -->
-
-      <section class="section">
-        <div class="page-container">
-
-          <div class="section-header">
-            <div class="section-heading">
-              <span class="section-eyebrow">اكتشف العالم</span>
-              <h2 class="section-title">مجالات المعرفة</h2>
-              <p class="section-description">
-                المعرفة ليست مجالًا واحدًا؛ إنها مجموعة من العلوم
-                والأفكار والتجارب التي تساعدنا على فهم أنفسنا والعالم.
-              </p>
-            </div>
-
-            <a href="categories.html" class="btn btn-secondary">
-              جميع المجالات
-            </a>
-          </div>
-
-          <div class="category-grid">
-
-            <a href="category.html?id=human-life" class="category-card">
-              <div class="category-card-top">
-                <div class="category-card-icon">
-                  <svg class="icon"><use href="assets/icons/icons.svg#user"></use></svg>
-                </div>
-                <span class="category-card-count">03 كتب</span>
-              </div>
-              <h3 class="category-card-title">الإنسان والحياة</h3>
-            </a>
-
-            <a href="category.html?id=society" class="category-card">
-              <div class="category-card-top">
-                <div class="category-card-icon">
-                  <svg class="icon"><use href="assets/icons/icons.svg#globe"></use></svg>
-                </div>
-                <span class="category-card-count">03 كتب</span>
-              </div>
-              <h3 class="category-card-title">المجتمع والثقافة</h3>
-            </a>
-
-            <a href="category.html?id=thought" class="category-card">
-              <div class="category-card-top">
-                <div class="category-card-icon">
-                  <svg class="icon"><use href="assets/icons/icons.svg#search"></use></svg>
-                </div>
-                <span class="category-card-count">03 كتب</span>
-              </div>
-              <h3 class="category-card-title">الفكر والفلسفة</h3>
-            </a>
-
-            <a href="category.html?id=history" class="category-card">
-              <div class="category-card-top">
-                <div class="category-card-icon">
-                  <svg class="icon"><use href="assets/icons/icons.svg#calendar"></use></svg>
-                </div>
-                <span class="category-card-count">03 كتب</span>
-              </div>
-              <h3 class="category-card-title">التاريخ والحضارات</h3>
-            </a>
-
-            <a href="category.html?id=programming" class="category-card">
-              <div class="category-card-top">
-                <div class="category-card-icon">
-                  <svg class="icon"><use href="assets/icons/icons.svg#chart"></use></svg>
-                </div>
-                <span class="category-card-count">03 كتب</span>
-              </div>
-              <h3 class="category-card-title">البرمجة والتطوير</h3>
-            </a>
-
-            <a href="category.html?id=cybersecurity" class="category-card">
-              <div class="category-card-top">
-                <div class="category-card-icon">
-                  <svg class="icon"><use href="assets/icons/icons.svg#settings"></use></svg>
-                </div>
-                <span class="category-card-count">03 كتب</span>
-              </div>
-              <h3 class="category-card-title">الأمن السيبراني</h3>
-            </a>
-
-            <a href="category.html?id=science" class="category-card">
-              <div class="category-card-top">
-                <div class="category-card-icon">
-                  <svg class="icon"><use href="assets/icons/icons.svg#globe"></use></svg>
-                </div>
-                <span class="category-card-count">03 كتب</span>
-              </div>
-              <h3 class="category-card-title">العلوم الطبيعية</h3>
-            </a>
-
-            <a href="category.html?id=technology" class="category-card">
-              <div class="category-card-top">
-                <div class="category-card-icon">
-                  <svg class="icon"><use href="assets/icons/icons.svg#settings"></use></svg>
-                </div>
-                <span class="category-card-count">03 كتب</span>
-              </div>
-              <h3 class="category-card-title">التكنولوجيا والذكاء الاصطناعي</h3>
-            </a>
-
-            <a href="category.html?id=economics" class="category-card">
-              <div class="category-card-top">
-                <div class="category-card-icon">
-                  <svg class="icon"><use href="assets/icons/icons.svg#chart"></use></svg>
-                </div>
-                <span class="category-card-count">03 كتب</span>
-              </div>
-              <h3 class="category-card-title">الاقتصاد وريادة الأعمال</h3>
-            </a>
-
-            <a href="category.html?id=learning" class="category-card">
-              <div class="category-card-top">
-                <div class="category-card-icon">
-                  <svg class="icon"><use href="assets/icons/icons.svg#graduation"></use></svg>
-                </div>
-                <span class="category-card-count">03 كتب</span>
-              </div>
-              <h3 class="category-card-title">التعلم واللغات</h3>
-            </a>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ================= BOOKS ================= -->
-
-      <section class="section section-bg">
-        <div class="page-container">
-
-          <div class="section-header">
-            <div class="section-heading">
-              <span class="section-eyebrow">عالم القراءة</span>
-              <h2 class="section-title">من مكتبة هنون</h2>
-              <p class="section-description">
-                كتب منظمة في مجالات متعددة، تساعدك على اكتساب المعرفة
-                وبناء فهم أعمق للأفكار والموضوعات.
-              </p>
-            </div>
-
-            <a href="books.html" class="btn btn-secondary">
-              استكشف المكتبة
-            </a>
-          </div>
-
-          <div class="book-grid">
-
-            <article class="book-card">
-              <a href="book.html?id=human-life" class="book-card-cover">
-                <img src="assets/covers/human-life.png"
-                     alt="غلاف كتاب الإنسان والحياة"
-                     loading="lazy">
-              </a>
-              <div class="book-card-body">
-                <span class="badge">الإنسان والحياة</span>
-                <h3 class="book-card-title">
-                  <a href="book.html?id=human-life">الإنسان والحياة</a>
-                </h3>
-                <p class="book-card-author">تأليف: يوسف أشرف</p>
-                <p class="book-card-description">
-                  حكاية الإنسان مع نفسه والناس والمجتمع والعالم.
-                </p>
-                <div class="book-card-meta">
-                  <span>12 فصلًا مبدئيًا</span>
-                  <span>قراءة معرفية</span>
-                </div>
-              </div>
-            </article>
-
-            <article class="book-card">
-              <a href="book.html?id=human-psychology" class="book-card-cover">
-                <img src="assets/covers/human-psychology.png"
-                     alt="غلاف كتاب النفس البشرية"
-                     loading="lazy">
-              </a>
-              <div class="book-card-body">
-                <span class="badge">الإنسان والحياة</span>
-                <h3 class="book-card-title">
-                  <a href="book.html?id=human-psychology">النفس البشرية</a>
-                </h3>
-                <p class="book-card-author">تأليف: يوسف أشرف</p>
-                <p class="book-card-description">
-                  رحلة لفهم المشاعر والتفكير والسلوك الإنساني.
-                </p>
-                <div class="book-card-meta">
-                  <span>12 فصلًا مبدئيًا</span>
-                  <span>قراءة معرفية</span>
-                </div>
-              </div>
-            </article>
-
-            <article class="book-card">
-              <a href="book.html?id=human-relations" class="book-card-cover">
-                <img src="assets/covers/human-relations.png"
-                     alt="غلاف كتاب العلاقات الإنسانية"
-                     loading="lazy">
-              </a>
-              <div class="book-card-body">
-                <span class="badge">الإنسان والحياة</span>
-                <h3 class="book-card-title">
-                  <a href="book.html?id=human-relations">العلاقات الإنسانية</a>
-                </h3>
-                <p class="book-card-author">تأليف: يوسف أشرف</p>
-                <p class="book-card-description">
-                  فهم العلاقات والتواصل والاختلاف بين الناس.
-                </p>
-                <div class="book-card-meta">
-                  <span>12 فصلًا مبدئيًا</span>
-                  <span>قراءة معرفية</span>
-                </div>
-              </div>
-            </article>
-
-            <article class="book-card">
-              <a href="book.html?id=programming-basics" class="book-card-cover">
-                <img src="assets/covers/programming-basics.png"
-                     alt="غلاف كتاب مدخل البرمجة"
-                     loading="lazy">
-              </a>
-              <div class="book-card-body">
-                <span class="badge">البرمجة</span>
-                <h3 class="book-card-title">
-                  <a href="book.html?id=programming-basics">مدخل البرمجة</a>
-                </h3>
-                <p class="book-card-author">تأليف: يوسف أشرف</p>
-                <p class="book-card-description">
-                  بداية منظمة لفهم البرمجة والمنطق وبناء التطبيقات.
-                </p>
-                <div class="book-card-meta">
-                  <span>12 فصلًا مبدئيًا</span>
-                  <span>تعلم تقني</span>
-                </div>
-              </div>
-            </article>
-
-            <article class="book-card">
-              <a href="book.html?id=cybersecurity-basics" class="book-card-cover">
-                <img src="assets/covers/cybersecurity-basics.png"
-                     alt="غلاف كتاب أساسيات الأمن السيبراني"
-                     loading="lazy">
-              </a>
-              <div class="book-card-body">
-                <span class="badge">الأمن السيبراني</span>
-                <h3 class="book-card-title">
-                  <a href="book.html?id=cybersecurity-basics">أساسيات الأمن السيبراني</a>
-                </h3>
-                <p class="book-card-author">تأليف: يوسف أشرف</p>
-                <p class="book-card-description">
-                  مدخل إلى حماية المعلومات والأنظمة والاستخدام الآمن.
-                </p>
-                <div class="book-card-meta">
-                  <span>12 فصلًا مبدئيًا</span>
-                  <span>تعلم تقني</span>
-                </div>
-              </div>
-            </article>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ================= ARTICLES ================= -->
-
-      <section class="section">
-        <div class="page-container">
-
-          <div class="section-header">
-            <div class="section-heading">
-              <span class="section-eyebrow">أفكار تستحق القراءة</span>
-              <h2 class="section-title">مقالات مختارة</h2>
-              <p class="section-description">
-                موضوعات قصيرة ومنظمة تفتح أبوابًا جديدة للفهم
-                والتأمل والبحث.
-              </p>
-            </div>
-
-            <a href="articles.html" class="btn btn-secondary">
-              جميع المقالات
-            </a>
-          </div>
-
-          <div class="article-grid">
-
-            <article class="article-card">
-              <a href="article.html?id=human-thinking-01" class="article-card-image">
-                <img src="assets/articles/human-thinking.jpg"
-                     alt="التفكير الإنساني"
-                     loading="lazy">
-              </a>
-              <div class="article-card-body">
-                <span class="badge">الفكر والإنسان</span>
-                <h3 class="article-card-title">
-                  <a href="article.html?id=human-thinking-01">
-                    لماذا نحتاج إلى التفكير قبل إصدار الأحكام؟
-                  </a>
-                </h3>
-                <p class="article-card-excerpt">
-                  التفكير المتأني يساعدنا على التمييز بين الانطباع
-                  الأول والحقيقة، وبين ما نعرفه وما نفترضه.
-                </p>
-                <div class="article-card-footer">
-                  <span>مقال معرفي</span>
-                  <span>قراءة قصيرة</span>
-                </div>
-              </div>
-            </article>
-
-            <article class="article-card">
-              <a href="article.html?id=learning-01" class="article-card-image">
-                <img src="assets/articles/learning.jpg"
-                     alt="التعلم واكتساب المعرفة"
-                     loading="lazy">
-              </a>
-              <div class="article-card-body">
-                <span class="badge">التعلم</span>
-                <h3 class="article-card-title">
-                  <a href="article.html?id=learning-01">
-                    كيف نتعلم بطريقة أكثر فاعلية؟
-                  </a>
-                </h3>
-                <p class="article-card-excerpt">
-                  التعلم ليس مجرد جمع للمعلومات، بل عملية فهم
-                  وتطبيق ومراجعة وبناء للخبرة.
-                </p>
-                <div class="article-card-footer">
-                  <span>مقال تعليمي</span>
-                  <span>قراءة قصيرة</span>
-                </div>
-              </div>
-            </article>
-
-            <article class="article-card">
-              <a href="article.html?id=technology-01" class="article-card-image">
-                <img src="assets/articles/technology.jpg"
-                     alt="التكنولوجيا والمستقبل"
-                     loading="lazy">
-              </a>
-              <div class="article-card-body">
-                <span class="badge">التكنولوجيا</span>
-                <h3 class="article-card-title">
-                  <a href="article.html?id=technology-01">
-                    كيف تغير التكنولوجيا طريقة حياتنا؟
-                  </a>
-                </h3>
-                <p class="article-card-excerpt">
-                  التكنولوجيا ليست أدوات نستخدمها فقط؛ إنها عامل
-                  يؤثر في العمل والتواصل والتعلم والمجتمع.
-                </p>
-                <div class="article-card-footer">
-                  <span>مقال تقني</span>
-                  <span>قراءة قصيرة</span>
-                </div>
-              </div>
-            </article>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ================= LEARNING PATHS ================= -->
-
-      <section class="section section-bg">
-        <div class="page-container">
-
-          <div class="section-header">
-            <div class="section-heading">
-              <span class="section-eyebrow">تعلم خطوة بخطوة</span>
-              <h2 class="section-title">مسارات التعلم</h2>
-              <p class="section-description">
-                مسارات تعليمية منظمة تبدأ من الأساسيات وتتدرج
-                نحو موضوعات أكثر تقدمًا، مع دروس واختبارات
-                لمتابعة تطورك.
-              </p>
-            </div>
-
-            <a href="learning.html" class="btn btn-secondary">
-              جميع المسارات
-            </a>
-          </div>
-
-          <div class="course-grid">
-
-            <article class="ui-card interactive">
-              <span class="badge">المسار الأول</span>
-              <h3 class="ui-card-title">تعلم البرمجة</h3>
-              <p class="ui-card-description">
-                من فهم أساسيات البرمجة إلى بناء تطبيقات ومشروعات عملية.
-              </p>
-              <div class="progress-info">
-                <span>مستويات تعليمية</span>
-                <span>5 مستويات مستهدفة</span>
-              </div>
-              <a href="course.html?id=programming" class="btn btn-secondary btn-block">
-                استكشف المسار
-              </a>
-            </article>
-
-            <article class="ui-card interactive">
-              <span class="badge">المسار الثاني</span>
-              <h3 class="ui-card-title">الأمن السيبراني</h3>
-              <p class="ui-card-description">
-                تعلم حماية الأنظمة والشبكات وفهم مبادئ الأمن الرقمي.
-              </p>
-              <div class="progress-info">
-                <span>مستويات تعليمية</span>
-                <span>5 مستويات مستهدفة</span>
-              </div>
-              <a href="course.html?id=cybersecurity" class="btn btn-secondary btn-block">
-                استكشف المسار
-              </a>
-            </article>
-
-            <article class="ui-card interactive">
-              <span class="badge">المسار الثالث</span>
-              <h3 class="ui-card-title">تعلم اللغة الإنجليزية</h3>
-              <p class="ui-card-description">
-                بناء مهارات اللغة من المفردات والقواعد إلى القراءة والتواصل.
-              </p>
-              <div class="progress-info">
-                <span>مستويات تعليمية</span>
-                <span>5 مستويات مستهدفة</span>
-              </div>
-              <a href="course.html?id=english" class="btn btn-secondary btn-block">
-                استكشف المسار
-              </a>
-            </article>
-
-            <article class="ui-card interactive">
-              <span class="badge">المسار الرابع</span>
-              <h3 class="ui-card-title">العلوم</h3>
-              <p class="ui-card-description">
-                استكشاف المفاهيم العلمية وفهم الظواهر من حولنا.
-              </p>
-              <div class="progress-info">
-                <span>مستويات تعليمية</span>
-                <span>5 مستويات مستهدفة</span>
-              </div>
-              <a href="course.html?id=science" class="btn btn-secondary btn-block">
-                استكشف المسار
-              </a>
-            </article>
-
-            <article class="ui-card interactive">
-              <span class="badge">المسار الخامس</span>
-              <h3 class="ui-card-title">تحليل البيانات</h3>
-              <p class="ui-card-description">
-                فهم البيانات وتنظيمها وتحليلها واستخلاص النتائج منها.
-              </p>
-              <div class="progress-info">
-                <span>مستويات تعليمية</span>
-                <span>5 مستويات مستهدفة</span>
-              </div>
-              <a href="course.html?id=data-analysis" class="btn btn-secondary btn-block">
-                استكشف المسار
-              </a>
-            </article>
-
-            <article class="ui-card interactive">
-              <span class="badge">المسار السادس</span>
-              <h3 class="ui-card-title">الذكاء الاصطناعي</h3>
-              <p class="ui-card-description">
-                التعرف على الذكاء الاصطناعي ومفاهيمه وتطبيقاته.
-              </p>
-              <div class="progress-info">
-                <span>مستويات تعليمية</span>
-                <span>5 مستويات مستهدفة</span>
-              </div>
-              <a href="course.html?id=artificial-intelligence" class="btn btn-secondary btn-block">
-                استكشف المسار
-              </a>
-            </article>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ================= STORIES AND RESEARCH ================= -->
-
-      <section class="section">
-        <div class="page-container">
-
-          <div class="section-header">
-            <div class="section-heading">
-              <span class="section-eyebrow">مساحات أخرى للاكتشاف</span>
-              <h2 class="section-title">أكثر من مجرد مكتبة</h2>
-              <p class="section-description">
-                في هنون، ستجد مساحات مختلفة للقراءة والتعبير
-                والبحث وتطوير المهارات.
-              </p>
-            </div>
-          </div>
-
-          <div class="content-grid cols-2">
-
-            <article class="ui-card interactive">
-              <span class="badge">الأدب والإبداع</span>
-              <h3 class="ui-card-title">القصص والشعر</h3>
-              <p class="ui-card-description">
-                مساحة للأدب والحكايات والنصوص الشعرية والتأملات
-                التي تناقش الإنسان والحياة والمجتمع.
-              </p>
-              <a href="stories.html" class="btn btn-outline">
-                اكتشف القصص
-              </a>
-              <a href="poetry.html" class="btn btn-ghost">
-                تصفح الشعر
-              </a>
-            </article>
-
-            <article class="ui-card interactive">
-              <span class="badge">البحث والمعرفة</span>
-              <h3 class="ui-card-title">الأبحاث والدراسات</h3>
-              <p class="ui-card-description">
-                موضوعات بحثية منظمة، تعرض الأفكار والمعلومات
-                والمصادر بطريقة واضحة تساعد على الفهم والتوسع.
-              </p>
-              <a href="research.html" class="btn btn-outline">
-                استكشف الأبحاث
-              </a>
-            </article>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ================= USER PROGRESS ================= -->
-
-      <section class="section section-bg">
-        <div class="content-container">
-
-          <div class="section-header">
-            <div class="section-heading">
-              <span class="section-eyebrow">رحلتك المعرفية</span>
-              <h2 class="section-title">اجعل التعلم عادة مستمرة</h2>
-              <p class="section-description">
-                عند تسجيل الدخول، ستتمكن من متابعة قراءتك
-                ودروسك ونتائج اختباراتك وإنجازاتك من مكان واحد.
-              </p>
-            </div>
-          </div>
-
-          <div class="ui-card">
-
-            <div class="content-grid cols-2">
-
-              <div>
-                <h3 class="ui-card-title">مساحة تقدمك الشخصي</h3>
-                <p class="ui-card-description">
-                  احفظ الكتب التي تقرؤها، وتابع الفصول التي أنهيتها،
-                  وراجع نتائج اختباراتك ونقاطك وإنجازاتك.
-                </p>
-
-                <a href="register.html" class="btn btn-primary">
-                  أنشئ حسابك
-                </a>
-
-                <a href="login.html" class="btn btn-outline">
-                  لدي حساب بالفعل
-                </a>
-              </div>
-
-              <div class="content-grid cols-2">
-
-                <div class="stat-card">
-                  <span class="stat-label">الكتب المقروءة</span>
-                  <strong class="stat-value">—</strong>
-                  <span class="stat-caption">يظهر بعد تسجيل الدخول</span>
-                </div>
-
-                <div class="stat-card">
-                  <span class="stat-label">الدروس المكتملة</span>
-                  <strong class="stat-value">—</strong>
-                  <span class="stat-caption">يظهر بعد تسجيل الدخول</span>
-                </div>
-
-                <div class="stat-card">
-                  <span class="stat-label">النقاط</span>
-                  <strong class="stat-value">—</strong>
-                  <span class="stat-caption">تُحسب من الأنشطة والاختبارات</span>
-                </div>
-
-                <div class="stat-card">
-                  <span class="stat-label">الإنجازات</span>
-                  <strong class="stat-value">—</strong>
-                  <span class="stat-caption">تُفتح مع تقدمك</span>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ================= ABOUT AUTHOR ================= -->
-
-      <section class="section">
-        <div class="content-container">
-
-          <div class="split-layout">
-
-            <div class="split-copy">
-              <span class="section-eyebrow">صاحب المشروع</span>
-
-              <h2 class="section-title">عن هنون وكاتبها</h2>
-
-              <p class="section-description">
-                هنون مشروع معرفي عربي يهدف إلى جمع موضوعات الحياة
-                والعلوم والتقنية والفكر والتعلم في مساحة واحدة
-                منظمة، تساعد القارئ على اكتشاف المعرفة والتقدم
-                في رحلته التعليمية.
-              </p>
-
-              <p class="section-description">
-                إعداد وتأليف: يوسف أشرف.
-                يهتم المشروع بالبرمجة والأمن السيبراني وتحليل
-                البيانات والتكنولوجيا والبحث والكتابة.
-              </p>
-
-              <a href="author.html" class="btn btn-secondary">
-                تعرف على المشروع والكاتب
-              </a>
-            </div>
-
-            <div class="split-image">
-              <img
-                src="assets/backgrounds/hero-bg.svg"
-                alt="الهوية البصرية لمشروع هنون"
-                loading="lazy"
-              >
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ================= CALL TO ACTION ================= -->
-
-      <section class="section section-bg">
-        <div class="narrow-container" style="text-align:center">
-
-          <span class="section-eyebrow">ابدأ رحلتك الآن</span>
-
-          <h2 class="section-title">
-            كل معرفة جديدة تفتح بابًا جديدًا.
-          </h2>
-
-          <p class="section-description" style="margin-inline:auto">
-            اختر موضوعًا يثير فضولك، ابدأ القراءة، وتعلم شيئًا
-            جديدًا اليوم. رحلتك المعرفية تبدأ بخطوة.
+      <div id="searchResults" aria-live="polite"></div>
+    </form>
+  </section>
+
+  <main>
+
+    <!-- الواجهة الرئيسية -->
+    <section class="hero-section">
+      <div class="hero-background"></div>
+      <div class="hero-shade"></div>
+
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">مرحبًا بك في عالم المعرفة</span>
+
+          <h1>
+            المعرفة بداية كل شيء،
+            <span>والتطور رحلة لا تنتهي</span>
+          </h1>
+
+          <p>
+            مساحة تجمع الكتب والأفكار والعلوم والتجارب الإنسانية،
+            وتمنحك رحلة متكاملة لاكتشاف نفسك وفهم العالم من حولك.
           </p>
 
-          <div class="hero-actions" style="justify-content:center">
-            <a href="books.html" class="btn btn-primary btn-lg">
-              ابدأ القراءة
+          <div class="hero-actions">
+            <a href="pages/library.html" class="button button-gold">
+              اكتشف المكتبة
             </a>
-
-            <a href="learning.html" class="btn btn-outline btn-lg">
+            <a href="pages/learning.html" class="button button-glass">
               ابدأ التعلم
             </a>
           </div>
 
-        </div>
-      </section>
-
-    </main>
-
-    <!-- ================= FOOTER ================= -->
-
-    <footer class="site-footer">
-
-      <div class="page-container">
-
-        <div class="footer-grid">
-
-          <div>
-            <a href="index.html" class="brand">
-              <img src="assets/logo/hanoon-icon.svg" alt="هنون">
-              <span class="brand-info">
-                <span class="brand-name">HANOON</span>
-                <span class="brand-tagline">KNOWLEDGE • LEARNING • LIFE</span>
-              </span>
-            </a>
-
-            <p class="footer-brand-description">
-              هنون مساحة عربية للمعرفة والقراءة والتعلم والبحث،
-              تجمع مجالات متعددة في تجربة واحدة منظمة.
-            </p>
+          <div class="hero-motto">
+            <span>اكتشف</span>
+            <i></i>
+            <span>تعلّم</span>
+            <i></i>
+            <span>تطوّر</span>
           </div>
-
-          <div>
-            <h3 class="footer-heading">استكشف</h3>
-            <div class="footer-links">
-              <a href="categories.html">مجالات المعرفة</a>
-              <a href="books.html">المكتبة والكتب</a>
-              <a href="articles.html">المقالات</a>
-              <a href="stories.html">القصص</a>
-              <a href="research.html">الأبحاث</a>
-            </div>
-          </div>
-
-          <div>
-            <h3 class="footer-heading">التعلم</h3>
-            <div class="footer-links">
-              <a href="learning.html">مسارات التعلم</a>
-              <a href="courses.html">الدورات</a>
-              <a href="exams.html">الاختبارات</a>
-              <a href="progress.html">التقدم الدراسي</a>
-              <a href="achievements.html">الإنجازات</a>
-            </div>
-          </div>
-
-          <div>
-            <h3 class="footer-heading">هنون</h3>
-            <div class="footer-links">
-              <a href="author.html">عن الكاتب</a>
-              <a href="profile.html">الملف الشخصي</a>
-              <a href="settings.html">الإعدادات</a>
-              <a href="login.html">تسجيل الدخول</a>
-              <a href="register.html">إنشاء حساب</a>
-            </div>
-          </div>
-
         </div>
 
-        <div class="footer-bottom">
-          <span>© <span id="currentYear">2026</span> HANOON. جميع الحقوق محفوظة.</span>
-          <span>المعرفة • التعلم • الحياة</span>
+        <div class="hero-emblem">
+          <img src="assets/logo/logo.svg" alt="شعار هنون">
         </div>
-
       </div>
 
-    </footer>
+      <div class="hero-bottom">
+        <span>رحلتك نحو معرفة أعمق تبدأ من هنا</span>
+        <a href="#platformSections" aria-label="اكتشف أقسام الموقع">اكتشف الأقسام ↓</a>
+      </div>
+    </section>
 
-  </div>
+    <!-- أقسام المنصة -->
+    <section class="content-section" id="platformSections">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">عالم متكامل من المعرفة</span>
+          <h2>اكتشف أقسام هنون</h2>
+          <p>كل مجال يفتح أمامك بابًا جديدًا للفهم والتعلم.</p>
+        </div>
+      </div>
 
-  <!-- JavaScript files will be connected as we build them -->
-  <script src="js/theme.js" defer></script>
-  <script src="js/navigation.js" defer></script>
-  <script src="js/app.js" defer></script>
+      <div class="sections-grid">
+
+        <a href="pages/library.html" class="section-card">
+          <span class="section-icon">01</span>
+          <h3>المكتبة المعرفية</h3>
+          <p>كتب متخصصة ورحلات قراءة في مختلف مجالات الحياة.</p>
+          <span class="card-link">استكشف المكتبة ←</span>
+        </a>
+
+        <a href="pages/articles.html" class="section-card">
+          <span class="section-icon">02</span>
+          <h3>المقالات والأفكار</h3>
+          <p>موضوعات وتحليلات وأفكار تساعدك على توسيع مداركك.</p>
+          <span class="card-link">اكتشف المقالات ←</span>
+        </a>
+
+        <a href="pages/stories.html" class="section-card">
+          <span class="section-icon">03</span>
+          <h3>القصص والروايات</h3>
+          <p>حكايات وتجارب إنسانية وأعمال أدبية متنوعة.</p>
+          <span class="card-link">ابدأ القراءة ←</span>
+        </a>
+
+        <a href="pages/poetry.html" class="section-card">
+          <span class="section-icon">04</span>
+          <h3>الشعر والأدب</h3>
+          <p>مساحة للكلمة الجميلة والنصوص الأدبية والإبداع.</p>
+          <span class="card-link">اكتشف الأدب ←</span>
+        </a>
+
+        <a href="pages/research.html" class="section-card">
+          <span class="section-icon">05</span>
+          <h3>الأبحاث والمعرفة</h3>
+          <p>موضوعات بحثية منظمة ومعلومات قابلة للاستكشاف.</p>
+          <span class="card-link">تصفح الأبحاث ←</span>
+        </a>
+
+        <a href="pages/learning.html" class="section-card">
+          <span class="section-icon">06</span>
+          <h3>مسارات التعلم</h3>
+          <p>تعلم تدريجي منظم من الأساسيات إلى المستويات المتقدمة.</p>
+          <span class="card-link">اختر مسارك ←</span>
+        </a>
+
+        <a href="pages/exams.html" class="section-card">
+          <span class="section-icon">07</span>
+          <h3>الاختبارات والتحديات</h3>
+          <p>اختبر معرفتك وتابع تقدمك وحقق إنجازات جديدة.</p>
+          <span class="card-link">ابدأ الاختبار ←</span>
+        </a>
+
+        <a href="pages/community.html" class="section-card">
+          <span class="section-icon">08</span>
+          <h3>مجتمع هنون</h3>
+          <p>شارك الأفكار وناقش الموضوعات مع مجتمع المعرفة.</p>
+          <span class="card-link">انضم للمجتمع ←</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- الكتب المميزة -->
+    <section class="content-section featured-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">مختارات معرفية</span>
+          <h2>رحلات تستحق القراءة</h2>
+          <p>اكتشف مجموعة من الموضوعات التي تفتح لك آفاقًا جديدة.</p>
+        </div>
+        <a href="pages/library.html" class="text-link">المكتبة كاملة ←</a>
+      </div>
+
+      <div class="books-grid" id="featuredBooks">
+        <!-- تُحمّل بيانات الكتب من مصدر المحتوى المركزي -->
+      </div>
+    </section>
+
+    <!-- مسارات التعلم -->
+    <section class="content-section learning-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">خطوتك القادمة</span>
+          <h2>تعلّم بطريقة منظمة</h2>
+          <p>مسارات تساعدك على بناء المعرفة والمهارات خطوة بخطوة.</p>
+        </div>
+        <a href="pages/learning.html" class="text-link">كل المسارات ←</a>
+      </div>
+
+      <div class="learning-grid">
+        <a href="pages/learning.html" class="learning-card">
+          <span>01</span>
+          <h3>تطوير الذات</h3>
+          <p>الوعي، التفكير، العادات، وإدارة الحياة.</p>
+        </a>
+
+        <a href="pages/learning.html" class="learning-card">
+          <span>02</span>
+          <h3>البرمجة والتقنية</h3>
+          <p>أساسيات البرمجة والتطبيقات والتكنولوجيا.</p>
+        </a>
+
+        <a href="pages/learning.html" class="learning-card">
+          <span>03</span>
+          <h3>الثقافة والعلوم</h3>
+          <p>اكتشف العلوم والمجتمع والتاريخ والفكر.</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- أحدث المقالات -->
+    <section class="content-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">أفكار تستحق التأمل</span>
+          <h2>من أحدث المقالات</h2>
+        </div>
+        <a href="pages/articles.html" class="text-link">جميع المقالات ←</a>
+      </div>
+
+      <div class="articles-grid" id="latestArticles">
+        <!-- تُحمّل المقالات من قاعدة المحتوى -->
+      </div>
+    </section>
+
+    <!-- مساحة المستخدم -->
+    <section class="content-section personal-section">
+      <div class="personal-card">
+        <div>
+          <span class="eyebrow">رحلتك الشخصية</span>
+          <h2>اجعل المعرفة جزءًا من يومك</h2>
+          <p>
+            أنشئ حسابك، واحفظ قراءاتك، وتابع تقدمك،
+            واجمع النقاط والإنجازات مع كل خطوة.
+          </p>
+          <a href="pages/auth.html" class="button button-gold">
+            أنشئ حسابك
+          </a>
+        </div>
+        <div class="personal-decoration">H</div>
+      </div>
+    </section>
+
+    <!-- المجتمع -->
+    <section class="content-section community-section">
+      <div class="community-card">
+        <span class="eyebrow">المعرفة تنمو بالمشاركة</span>
+        <h2>فكرتك قد تلهم شخصًا آخر</h2>
+        <p>شارك ما تعلمته، ناقش الأفكار، وكن جزءًا من مجتمع هنون.</p>
+        <a href="pages/community.html" class="button button-gold">
+          اكتشف المجتمع
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- التذييل -->
+  <footer class="site-footer">
+    <div class="footer-main">
+
+      <div class="footer-brand">
+        <img src="assets/logo/logo.svg" alt="شعار HANOON">
+        <h2>HANOON</h2>
+        <p>المعرفة تصنع الفرق</p>
+        <span>اكتشف، تعلّم، تطوّر.</span>
+      </div>
+
+      <div class="footer-column">
+        <h3>استكشف</h3>
+        <a href="pages/library.html">المكتبة</a>
+        <a href="pages/articles.html">المقالات</a>
+        <a href="pages/stories.html">القصص</a>
+        <a href="pages/research.html">الأبحاث</a>
+      </div>
+
+      <div class="footer-column">
+        <h3>تعلّم</h3>
+        <a href="pages/learning.html">مسارات التعلم</a>
+        <a href="pages/exams.html">الاختبارات</a>
+        <a href="pages/community.html">المجتمع</a>
+      </div>
+
+      <div class="footer-column">
+        <h3>حسابك</h3>
+        <a href="pages/auth.html">تسجيل الدخول</a>
+        <a href="pages/profile.html">الملف الشخصي</a>
+        <a href="pages/settings.html">الإعدادات</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© <span id="currentYear">2026</span> HANOON. جميع الحقوق محفوظة.</p>
+      <span>صُنع بشغف من أجل المعرفة.</span>
+    </div>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
 
 </body>
 </html>
