@@ -360,7 +360,6 @@
 
 <script src="../data/books.js"></script>
 
-
 <script>
 (function () {
   "use strict";
@@ -394,10 +393,7 @@
 
   renderBook(book);
 
-  // ==========================================
   // حماية النصوص
-  // ==========================================
-
   function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, function (char) {
       return {
@@ -410,10 +406,7 @@
     });
   }
 
-  // ==========================================
   // المفضلة
-  // ==========================================
-
   function getFavorites() {
     try {
       const value = JSON.parse(
@@ -454,10 +447,7 @@
     return favorites.includes(id);
   }
 
-  // ==========================================
   // نظام تقدم القراءة
-  // ==========================================
-
   function getCompletedKey() {
     return READER_PREFIX + "completed_" + book.id;
   }
@@ -503,10 +493,7 @@
     ) || book.chapters[0] || null;
   }
 
-  // ==========================================
   // إنشاء روابط الفصول
-  // ==========================================
-
   function createChapterURL(chapter) {
     return "chapter.html?book=" +
       encodeURIComponent(book.id) +
@@ -514,16 +501,18 @@
       encodeURIComponent(chapter.id);
   }
 
-  // ==========================================
   // عرض الكتاب
-  // ==========================================
-
   function renderBook(book) {
     document.title = book.title + " | HANOON";
 
     const saved = isFavorite(book.id);
     const progress = getProgress();
     const nextChapter = getNextChapter();
+
+    // التحقق من إكمال جميع الفصول
+    const isBookCompleted =
+      progress.total > 0 &&
+      progress.completedCount === progress.total;
 
     const firstChapterURL = nextChapter
       ? createChapterURL(nextChapter)
@@ -635,9 +624,13 @@
           <div class="book-actions">
 
             <a class="action-btn primary-btn" href="${firstChapterURL}">
-              ${progress.completedCount > 0
-                ? "واصل القراءة ←"
-                : "ابدأ القراءة"}
+              ${
+                isBookCompleted
+                  ? "مراجعة الكتاب ↻"
+                  : progress.completedCount > 0
+                    ? "واصل القراءة ←"
+                    : "ابدأ القراءة"
+              }
             </a>
 
             <button
@@ -831,7 +824,6 @@
     `;
 
     // زر المفضلة
-
     document.getElementById("favoriteBtn").addEventListener(
       "click",
       function () {
@@ -844,17 +836,13 @@
     );
 
     // زر المشاركة
-
     document.getElementById("shareBtn").addEventListener(
       "click",
       shareBook
     );
   }
 
-  // ==========================================
   // تحديث تقدم الكتاب
-  // ==========================================
-
   function updateProgressDisplay() {
     const progress = getProgress();
 
@@ -891,10 +879,7 @@
       : "كل فصل تنهيه يقرّبك من إكمال الكتاب.";
   }
 
-  // ==========================================
   // المشاركة
-  // ==========================================
-
   async function shareBook() {
     const shareData = {
       title: book.title,
@@ -918,10 +903,7 @@
     }
   }
 
-  // ==========================================
   // رسائل الخطأ
-  // ==========================================
-
   function showError(title, message) {
     container.innerHTML = `
       <div class="error-state">
@@ -934,10 +916,7 @@
     `;
   }
 
-  // ==========================================
   // تحديث عند تغيير التخزين
-  // ==========================================
-
   window.addEventListener("storage", function (event) {
     if (event.key === getCompletedKey()) {
       updateProgressDisplay();
@@ -947,7 +926,6 @@
 
 })();
 </script>
-
 
 </body>
 </html>
