@@ -1,11 +1,46 @@
 
 /* ==========================================
    HANOON - SMART CHAPTER LOADER
-   تحميل الفصل المستقل مع دعم المحتوى الحالي
+   تحميل الفصول وتنسيق المحتوى تلقائيًا
 ========================================== */
 
 (function () {
   "use strict";
+
+  // حماية النصوص العادية قبل عرضها داخل صفحة القراءة
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, function (char) {
+      return {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char];
+    });
+  }
+
+  // تحويل النص العادي إلى فقرات مرتبة
+  function formatContent(value) {
+    const content = String(value ?? "").trim();
+
+    if (!content) {
+      return "<p>محتوى هذا الفصل غير متاح حاليًا.</p>";
+    }
+
+    // إذا كان المحتوى مكتوبًا بالفعل بصيغة HTML
+    if (/<\/?[a-z][\s\S]*?>/i.test(content)) {
+      return content;
+    }
+
+    // تقسيم النص إلى فقرات
+    return content
+      .split(/\n\s*\n/)
+      .map(paragraph => paragraph.trim())
+      .filter(Boolean)
+      .map(paragraph => `<p>${escapeHTML(paragraph).replace(/\n/g, "<br>")}</p>`)
+      .join("");
+  }
 
   async function getChapter(bookId, chapterNumber) {
     if (
@@ -22,7 +57,7 @@
     const filePath =
       `../content/books/${encodeURIComponent(bookId)}/chapter-${number}.js`;
 
-    // أولًا: محاولة تحميل الملف المستقل
+    // أولًا: تحميل ملف الفصل المستقل
     try {
       const chapterModule = await import(filePath);
       const chapter = chapterModule.default;
@@ -38,7 +73,7 @@
       return {
         title: chapter.title || "",
         summary: chapter.summary || "",
-        content: chapter.content,
+        content: formatContent(chapter.content),
         bookId,
         chapterNumber,
         source: "independent-file"
@@ -46,11 +81,11 @@
 
     } catch (error) {
       console.info(
-        `HANOON: الملف المستقل للفصل ${number} غير متاح حاليًا، سيتم استخدام المحتوى الحالي.`
+        `HANOON: لم يتم تحميل الملف المستقل للفصل ${number}، سيتم تجربة بيانات الكتاب الحالية.`
       );
     }
 
-    // ثانيًا: استخدام المحتوى الموجود في books.js مؤقتًا
+    // ثانيًا: استخدام بيانات الفصل الموجودة حاليًا في books.js
     const book = window.HANOON_BOOKS_API?.getById(bookId);
 
     const chapter = book?.chapters?.[chapterNumber - 1];
@@ -66,7 +101,7 @@
     return {
       title: chapter.title || "",
       summary: chapter.summary || "",
-      content: chapter.content,
+      content: formatContent(chapter.content),
       bookId,
       chapterNumber,
       source: "books-data"
