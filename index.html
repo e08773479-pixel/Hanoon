@@ -410,6 +410,52 @@
     </div>
   </footer>
 
+<script>
+(function () {
+  const image = document.getElementById("headerProfileImage");
+  const initial = document.getElementById("headerProfileInitial");
+
+  function updateProfileImage() {
+    try {
+      const saved = localStorage.getItem("hanoon_user_profile");
+      if (!saved) return;
+
+      const profile = JSON.parse(saved);
+      const name = profile.name || profile.username || "مستخدم";
+      const avatar = profile.avatar || profile.photoURL || profile.photo || "";
+
+      initial.textContent = name.trim().charAt(0) || "م";
+
+      if (!avatar) return;
+
+      image.onload = function () {
+        image.hidden = false;
+        initial.hidden = true;
+      };
+
+      image.onerror = function () {
+        image.hidden = true;
+        initial.hidden = false;
+      };
+
+      image.src = avatar;
+    } catch (error) {
+      console.error("Profile image error:", error);
+    }
+  }
+
+  updateProfileImage();
+
+  window.addEventListener("pageshow", updateProfileImage);
+
+  window.addEventListener("storage", function (event) {
+    if (event.key === "hanoon_user_profile") {
+      updateProfileImage();
+    }
+  });
+})();
+</script>
+
   <script type="module" src="js/app.js"></script>
 
 </body>
