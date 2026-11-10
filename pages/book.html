@@ -26,9 +26,7 @@
       --muted: #A7ABC0;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -42,14 +40,8 @@
       overflow-x: hidden;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font-family: inherit;
-    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
 
     .topbar {
       min-height: 72px;
@@ -92,9 +84,7 @@
       margin-bottom: 22px;
     }
 
-    .breadcrumb a {
-      color: var(--gold);
-    }
+    .breadcrumb a { color: var(--gold); }
 
     .book-hero {
       display: grid;
@@ -183,15 +173,8 @@
       background: var(--panel);
     }
 
-    .author-name {
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    .author-caption {
-      color: var(--muted);
-      font-size: 11px;
-    }
+    .author-name { font-weight: 800; color: var(--text); }
+    .author-caption { color: var(--muted); font-size: 11px; }
 
     .book-actions {
       display: flex;
@@ -221,13 +204,9 @@
       color: var(--text);
     }
 
-    .action-btn:active {
-      transform: scale(.97);
-    }
+    .action-btn:active { transform: scale(.97); }
 
-    .chapters-section {
-      margin-top: 48px;
-    }
+    .chapters-section { margin-top: 48px; }
 
     .section-heading {
       display: flex;
@@ -237,15 +216,8 @@
       margin-bottom: 20px;
     }
 
-    .section-heading h2 {
-      font-size: 25px;
-      margin: 0;
-    }
-
-    .section-heading span {
-      color: var(--gold);
-      font-size: 13px;
-    }
+    .section-heading h2 { font-size: 25px; margin: 0; }
+    .section-heading span { color: var(--gold); font-size: 13px; }
 
     .chapters-grid {
       display: grid;
@@ -281,15 +253,8 @@
       font-weight: 900;
     }
 
-    .chapter-info {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .chapter-info h3 {
-      margin: 0 0 5px;
-      font-size: 14px;
-    }
+    .chapter-info { min-width: 0; flex: 1; }
+    .chapter-info h3 { margin: 0 0 5px; font-size: 14px; }
 
     .chapter-info p {
       margin: 0;
@@ -298,10 +263,7 @@
       line-height: 1.8;
     }
 
-    .chapter-arrow {
-      color: var(--gold);
-      font-size: 20px;
-    }
+    .chapter-arrow { color: var(--gold); font-size: 20px; }
 
     .quote-box {
       margin-top: 40px;
@@ -333,14 +295,8 @@
       border-radius: 20px;
     }
 
-    .error-state h2 {
-      color: var(--gold);
-    }
-
-    .error-state p {
-      color: var(--muted);
-      line-height: 2;
-    }
+    .error-state h2 { color: var(--gold); }
+    .error-state p { color: var(--muted); line-height: 2; }
 
     .footer {
       text-align: center;
@@ -351,13 +307,8 @@
     }
 
     @media (max-width: 700px) {
-      .topbar {
-        min-height: 62px;
-      }
-
-      .page {
-        margin-top: 22px;
-      }
+      .topbar { min-height: 62px; }
+      .page { margin-top: 22px; }
 
       .book-hero {
         grid-template-columns: 1fr;
@@ -370,289 +321,251 @@
         margin: auto;
       }
 
-      .book-details {
-        text-align: center;
-      }
-
-      .author {
-        justify-content: center;
-      }
-
-      .book-actions {
-        justify-content: center;
-      }
-
-      .chapters-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .section-heading h2 {
-        font-size: 20px;
-      }
+      .book-details { text-align: center; }
+      .author { justify-content: center; }
+      .book-actions { justify-content: center; }
+      .chapters-grid { grid-template-columns: 1fr; }
+      .section-heading h2 { font-size: 20px; }
     }
   </style>
 </head>
 
 <body>
 
-  <header class="topbar">
-    <a class="brand" href="../index.html">HANOON</a>
-    <a class="back-link" href="library.html">العودة للمكتبة ←</a>
-  </header>
+<header class="topbar">
+  <a class="brand" href="../index.html">HANOON</a>
+  <a class="back-link" href="library.html">العودة للمكتبة ←</a>
+</header>
 
-  <main class="page" id="bookPage">
+<main class="page" id="bookPage">
+  <div class="breadcrumb">
+    <a href="../index.html">الرئيسية</a>
+    /
+    <a href="library.html">المكتبة</a>
+    /
+    تفاصيل الكتاب
+  </div>
 
-    <div class="breadcrumb">
-      <a href="../index.html">الرئيسية</a>
-      /
-      <a href="library.html">المكتبة</a>
-      /
-      تفاصيل الكتاب
+  <div id="bookContent">
+    <div class="error-state">
+      <h2>جاري تحميل الكتاب...</h2>
+      <p>لحظات ونجهز لك محتوى الكتاب.</p>
     </div>
+  </div>
+</main>
 
-    <div id="bookContent">
-      <div class="error-state">
-        <h2>جاري تحميل الكتاب...</h2>
-        <p>لحظات ونجهز لك محتوى الكتاب.</p>
+<footer class="footer">
+  HANOON — المعرفة تصنع الفرق
+</footer>
+
+<script src="../data/books.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  const FAVORITES_KEY = "hanoon-book-favorites";
+  const container = document.getElementById("bookContent");
+  const params = new URLSearchParams(window.location.search);
+  const bookId = params.get("id");
+
+  if (!window.HANOON_BOOKS_API) {
+    showError("ملف بيانات الكتب غير موجود",
+      "تأكد من وجود data/books.js ورفعه في المسار الصحيح.");
+    return;
+  }
+
+  if (!bookId) {
+    showError("لم يتم تحديد الكتاب",
+      "ارجع إلى المكتبة واختر الكتاب الذي تريد قراءته.");
+    return;
+  }
+
+  const book = window.HANOON_BOOKS_API.getById(bookId);
+
+  if (!book) {
+    showError("الكتاب غير موجود",
+      "قد يكون الرابط غير صحيح أو أن هذا الكتاب غير مسجل في المكتبة.");
+    return;
+  }
+
+  renderBook(book);
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, function (char) {
+      return {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+      }[char];
+    });
+  }
+
+  function getFavorites() {
+    try {
+      const value = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
+      return Array.isArray(value) ? value : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function isFavorite(id) {
+    return getFavorites().includes(id);
+  }
+
+  function toggleFavorite(id) {
+    let favorites = getFavorites();
+
+    if (favorites.includes(id)) {
+      favorites = favorites.filter(item => item !== id);
+    } else {
+      favorites.push(id);
+    }
+
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+
+    window.dispatchEvent(new CustomEvent("hanoon:favorites-changed", {
+      detail: { bookId: id, favorites }
+    }));
+
+    return favorites.includes(id);
+  }
+
+  function renderBook(book) {
+    document.title = book.title + " | HANOON";
+
+    const saved = isFavorite(book.id);
+
+    const chaptersHTML = book.chapters.map(function (chapter, index) {
+      const chapterUrl =
+        "chapter.html?book=" +
+        encodeURIComponent(book.id) +
+        "&chapter=" +
+        encodeURIComponent(chapter.id);
+
+      return `
+        <a class="chapter-card" href="${chapterUrl}">
+          <div class="chapter-number">${String(index + 1).padStart(2, "0")}</div>
+          <div class="chapter-info">
+            <h3>${escapeHTML(chapter.title)}</h3>
+            <p>${escapeHTML(chapter.summary || "افتح الفصل لبدء القراءة.")}</p>
+          </div>
+          <span class="chapter-arrow">←</span>
+        </a>
+      `;
+    }).join("");
+
+    const firstChapterUrl = book.chapters.length
+      ? "chapter.html?book=" + encodeURIComponent(book.id) +
+        "&chapter=" + encodeURIComponent(book.chapters[0].id)
+      : "#chapters";
+
+    container.innerHTML = `
+      <section class="book-hero">
+        <div class="cover-wrap">
+          <img
+            src="${escapeHTML(book.cover)}"
+            alt="${escapeHTML(book.title)}"
+            onerror="this.style.display='none'"
+          >
+          <div class="cover-overlay"></div>
+          <span class="book-number">الكتاب رقم ${escapeHTML(book.number)}</span>
+        </div>
+
+        <div class="book-details">
+          <span class="category">${escapeHTML(book.category)}</span>
+          <h1 class="book-title">${escapeHTML(book.title)}</h1>
+          <p class="book-description">${escapeHTML(book.description)}</p>
+
+          <div class="author">
+            <img
+              src="${escapeHTML(book.author.image)}"
+              alt="${escapeHTML(book.author.name)}"
+              onerror="this.style.display='none'"
+            >
+            <div>
+              <div class="author-name">${escapeHTML(book.author.name)}</div>
+              <div class="author-caption">كاتب ومؤسس HANOON</div>
+            </div>
+          </div>
+
+          <div class="book-actions">
+            <a class="action-btn primary-btn" href="${firstChapterUrl}">
+              ابدأ القراءة
+            </a>
+
+            <button class="action-btn secondary-btn" id="favoriteBtn" type="button">
+              ${saved ? "★ في المفضلة" : "☆ أضف للمفضلة"}
+            </button>
+
+            <button class="action-btn secondary-btn" id="shareBtn" type="button">
+              مشاركة الكتاب
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapters-section" id="chapters">
+        <div class="section-heading">
+          <h2>فهرس الكتاب</h2>
+          <span>${book.chapters.length} فصول</span>
+        </div>
+        <div class="chapters-grid">${chaptersHTML}</div>
+      </section>
+
+      <div class="quote-box">
+        <p>«المعرفة لا تكتمل بقراءة الكلمات، بل تبدأ عندما تتحول إلى فهم وعمل»</p>
+        <span>HANOON — المعرفة تصنع الفرق</span>
       </div>
-    </div>
+    `;
 
-  </main>
+    document.getElementById("favoriteBtn").addEventListener("click", function () {
+      const nowSaved = toggleFavorite(book.id);
+      this.textContent = nowSaved ? "★ في المفضلة" : "☆ أضف للمفضلة";
+    });
 
-  <footer class="footer">
-    HANOON — المعرفة تصنع الفرق
-  </footer>
+    document.getElementById("shareBtn").addEventListener("click", shareBook);
+  }
 
-  <script src="../data/books.js"></script>
+  async function shareBook() {
+    const shareData = {
+      title: book.title,
+      text: "اكتشف كتاب " + book.title + " على منصة HANOON",
+      url: window.location.href
+    };
 
-  <script>
-    (function () {
-      "use strict";
-
-      const container = document.getElementById("bookContent");
-      const params = new URLSearchParams(window.location.search);
-      const bookId = params.get("id");
-
-      if (!window.HANOON_BOOKS_API) {
-        showError(
-          "ملف بيانات الكتب غير موجود",
-          "تأكد من إنشاء data/books.js ورفعه في المسار الصحيح."
-        );
-        return;
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("تم نسخ رابط الكتاب.");
+      } else {
+        alert("المشاركة غير مدعومة في هذا المتصفح.");
       }
-
-      if (!bookId) {
-        showError(
-          "لم يتم تحديد الكتاب",
-          "ارجع إلى المكتبة واختر الكتاب الذي تريد قراءته."
-        );
-        return;
+    } catch (error) {
+      if (error.name !== "AbortError") {
+        alert("تعذرت المشاركة من هذا الجهاز.");
       }
+    }
+  }
 
-      const book = window.HANOON_BOOKS_API.getById(bookId);
-
-      if (!book) {
-        showError(
-          "الكتاب غير موجود",
-          "قد يكون الرابط غير صحيح أو أن هذا الكتاب غير مسجل في المكتبة."
-        );
-        return;
-      }
-
-      renderBook(book);
-
-      function escapeHTML(value) {
-        return String(value ?? "").replace(/[&<>"']/g, function (char) {
-          return {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#039;"
-          }[char];
-        });
-      }
-
-      function renderBook(book) {
-        document.title = book.title + " | HANOON";
-
-        const saved = isFavorite(book.id);
-
-        const chaptersHTML = book.chapters.map(function (chapter, index) {
-          const chapterUrl =
-            "chapter.html?book=" +
-            encodeURIComponent(book.id) +
-            "&chapter=" +
-            encodeURIComponent(chapter.id);
-
-          return `
-            <a class="chapter-card" href="${chapterUrl}">
-              <div class="chapter-number">${String(index + 1).padStart(2, "0")}</div>
-
-              <div class="chapter-info">
-                <h3>${escapeHTML(chapter.title)}</h3>
-                <p>${escapeHTML(chapter.summary || "افتح الفصل لبدء القراءة.")}</p>
-              </div>
-
-              <span class="chapter-arrow">←</span>
-            </a>
-          `;
-        }).join("");
-
-        container.innerHTML = `
-          <section class="book-hero">
-
-            <div class="cover-wrap">
-              <img
-                src="${escapeHTML(book.cover)}"
-                alt="${escapeHTML(book.title)}"
-                onerror="this.style.display='none'"
-              >
-              <div class="cover-overlay"></div>
-              <span class="book-number">الكتاب رقم ${escapeHTML(book.number)}</span>
-            </div>
-
-            <div class="book-details">
-
-              <span class="category">${escapeHTML(book.category)}</span>
-
-              <h1 class="book-title">${escapeHTML(book.title)}</h1>
-
-              <p class="book-description">
-                ${escapeHTML(book.description)}
-              </p>
-
-              <div class="author">
-                <img
-                  src="${escapeHTML(book.author.image)}"
-                  alt="${escapeHTML(book.author.name)}"
-                  onerror="this.style.display='none'"
-                >
-                <div>
-                  <div class="author-name">${escapeHTML(book.author.name)}</div>
-                  <div class="author-caption">كاتب ومؤسس HANOON</div>
-                </div>
-              </div>
-
-              <div class="book-actions">
-                <a
-                  class="action-btn primary-btn"
-                  href="${book.chapters.length ? "chapter.html?book=" + encodeURIComponent(book.id) + "&chapter=" + encodeURIComponent(book.chapters[0].id) : "#chapters"}"
-                >
-                  ابدأ القراءة
-                </a>
-
-                <button
-                  class="action-btn secondary-btn"
-                  id="favoriteBtn"
-                  type="button"
-                >
-                  ${saved ? "★ في المفضلة" : "☆ أضف للمفضلة"}
-                </button>
-
-                <button
-                  class="action-btn secondary-btn"
-                  id="shareBtn"
-                  type="button"
-                >
-                  مشاركة الكتاب
-                </button>
-              </div>
-
-            </div>
-          </section>
-
-          <section class="chapters-section" id="chapters">
-
-            <div class="section-heading">
-              <h2>فهرس الكتاب</h2>
-              <span>${book.chapters.length} فصول</span>
-            </div>
-
-            <div class="chapters-grid">
-              ${chaptersHTML}
-            </div>
-
-          </section>
-
-          <div class="quote-box">
-            <p>«المعرفة لا تكتمل بقراءة الكلمات، بل تبدأ عندما تتحول إلى فهم وعمل»</p>
-            <span>HANOON — المعرفة تصنع الفرق</span>
-          </div>
-        `;
-
-        document.getElementById("favoriteBtn")
-          .addEventListener("click", function () {
-            const nowSaved = toggleFavorite(book.id);
-            this.textContent = nowSaved ? "★ في المفضلة" : "☆ أضف للمفضلة";
-          });
-
-        document.getElementById("shareBtn")
-          .addEventListener("click", shareBook);
-      }
-
-      function getFavorites() {
-        try {
-          return JSON.parse(localStorage.getItem("hanoon_favorites") || "[]");
-        } catch (error) {
-          return [];
-        }
-      }
-
-      function isFavorite(id) {
-        return getFavorites().includes(id);
-      }
-
-      function toggleFavorite(id) {
-        let favorites = getFavorites();
-
-        if (favorites.includes(id)) {
-          favorites = favorites.filter(function (item) {
-            return item !== id;
-          });
-        } else {
-          favorites.push(id);
-        }
-
-        localStorage.setItem("hanoon_favorites", JSON.stringify(favorites));
-        return favorites.includes(id);
-      }
-
-      async function shareBook() {
-        const shareData = {
-          title: book.title,
-          text: "اكتشف كتاب " + book.title + " على منصة HANOON",
-          url: window.location.href
-        };
-
-        try {
-          if (navigator.share) {
-            await navigator.share(shareData);
-          } else {
-            await navigator.clipboard.writeText(window.location.href);
-            alert("تم نسخ رابط الكتاب.");
-          }
-        } catch (error) {
-          if (error.name !== "AbortError") {
-            alert("تعذرت المشاركة من هذا الجهاز.");
-          }
-        }
-      }
-
-      function showError(title, message) {
-        container.innerHTML = `
-          <div class="error-state">
-            <h2>${escapeHTML(title)}</h2>
-            <p>${escapeHTML(message)}</p>
-            <a class="action-btn primary-btn" href="library.html">
-              العودة للمكتبة
-            </a>
-          </div>
-        `;
-      }
-
-    })();
-  </script>
+  function showError(title, message) {
+    container.innerHTML = `
+      <div class="error-state">
+        <h2>${escapeHTML(title)}</h2>
+        <p>${escapeHTML(message)}</p>
+        <a class="action-btn primary-btn" href="library.html">
+          العودة للمكتبة
+        </a>
+      </div>
+    `;
+  }
+})();
+</script>
 
 </body>
 </html>
