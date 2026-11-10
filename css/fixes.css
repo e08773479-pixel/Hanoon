@@ -435,3 +435,18 @@ video {
     gap: 16px;
   }
 }
+
+/* HANOON - Mobile Navigation Toggle */
+@media (max-width: 768px) {
+  .site-header .main-navigation {
+    display: none !important;
+    flex: 0 0 100%;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .site-header .main-navigation.is-open {
+    display: flex !important;
+  }
+}
