@@ -2,799 +2,940 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <link rel="stylesheet" href="../css/fixed-viewport.css">
   <meta charset="UTF-8">
-  
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101321">
 
-  <meta name="theme-color" content="#0C1020">
-  <meta name="description" content="اكتشف مقالات HANOON المعرفية والثقافية والتطويرية.">
-  <title>المقالات | HANOON</title>
+  <title>المقالات | هنون</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/theme.css">
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/components.css">
-  <link rel="stylesheet" href="../css/layout.css">
-  <link rel="stylesheet" href="../css/pages.css">
 
   <style>
     :root {
-      --gold: #D5B36C;
-      --navy: #0C1020;
-      --panel: #171D32;
-      --purple: #8C75F5;
-      --teal: #35BDB0;
-      --cream: #F5EAD1;
+      --bg: #101321;
+      --surface: #191e30;
+      --surface2: #20263b;
+      --gold: #d6b36b;
+      --gold-light: #f0d69b;
+      --purple: #9d8bfa;
+      --text: #f5f3fb;
+      --muted: #a6a9ba;
+      --border: rgba(255,255,255,.09);
+      --radius: 20px;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      margin: 0;
-      background: var(--navy);
-      color: #fff;
-      font-family: 'Cairo', sans-serif;
+      background:
+        radial-gradient(ellipse at 10% 5%, rgba(105,82,170,.13), transparent 35%),
+        radial-gradient(ellipse at 90% 40%, rgba(214,179,107,.07), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Cairo", sans-serif;
+      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    a { color: inherit; text-decoration: none; }
-    button, input { font: inherit; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
 
     .articles-page {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 5% 15%, rgba(140,117,245,.10), transparent 28%),
-        radial-gradient(circle at 95% 45%, rgba(53,189,176,.08), transparent 25%),
-        var(--navy);
+      width: min(1440px, 100%);
+      margin: auto;
+      padding: 0 30px 80px;
     }
 
-    .topbar {
-      position: relative;
-      z-index: 5;
+    /* Header */
+
+    .ha-topbar {
+      height: 76px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
       gap: 20px;
-      padding: 17px 6%;
-      background: rgba(12,16,32,.88);
-      border-bottom: 1px solid rgba(213,179,108,.16);
-      backdrop-filter: blur(18px);
     }
 
-    .brand {
+    .ha-brand {
       display: flex;
       align-items: center;
       gap: 12px;
-    }
-
-    .brand img {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-    }
-
-    .brand span {
-      color: var(--gold);
-      font-size: 19px;
+      font-size: 23px;
       font-weight: 900;
-      letter-spacing: 2px;
+      color: var(--gold-light);
     }
 
-    .top-links {
+    .ha-brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: #171727;
+      background: linear-gradient(135deg, #f2d99e, #bd9450);
+      box-shadow: 0 5px 25px rgba(214,179,107,.2);
+      font-size: 23px;
+    }
+
+    .ha-top-actions {
       display: flex;
       align-items: center;
-      gap: 24px;
-      color: #c4c4d2;
-      font-size: 13px;
+      gap: 10px;
     }
 
-    .top-links a:hover { color: var(--gold); }
-
-    .home-btn {
-      border: 1px solid rgba(213,179,108,.4);
-      border-radius: 30px;
-      padding: 9px 19px;
-      color: var(--gold);
+    .ha-top-link {
+      padding: 9px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--muted);
       font-size: 13px;
+      transition: .25s;
     }
 
-    .hero {
+    .ha-top-link:hover {
+      color: var(--gold-light);
+      border-color: var(--gold);
+    }
+
+    /* Hero */
+
+    .ha-hero {
       position: relative;
-      min-height: 440px;
+      overflow: hidden;
+      margin: 35px 0 48px;
+      min-height: 340px;
+      border-radius: 28px;
+      padding: 55px;
       display: flex;
       align-items: center;
-      overflow: hidden;
-      padding: 65px 8%;
       background:
-        linear-gradient(90deg, rgba(9,13,27,.96), rgba(9,13,27,.76) 48%, rgba(9,13,27,.22)),
-        linear-gradient(0deg, rgba(12,16,32,.35), transparent),
-        url("https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=2000&q=85") center/cover;
+        linear-gradient(100deg, rgba(12,15,29,.96), rgba(20,22,42,.78)),
+        url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85") center/cover;
+      border: 1px solid rgba(214,179,107,.2);
     }
 
-    .hero::after {
+    .ha-hero::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 75% 45%, transparent, rgba(12,16,32,.25) 65%);
-      pointer-events: none;
+      width: 380px;
+      height: 380px;
+      border: 1px solid rgba(214,179,107,.15);
+      border-radius: 50%;
+      left: -110px;
+      top: -150px;
+      box-shadow:
+        0 0 0 35px rgba(214,179,107,.025),
+        0 0 0 70px rgba(214,179,107,.02);
     }
 
-    .hero-content {
+    .ha-hero-content {
       position: relative;
       z-index: 1;
-      max-width: 650px;
+      max-width: 680px;
     }
 
-    .eyebrow {
+    .ha-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 9px;
-      color: var(--gold);
+      color: var(--gold-light);
       font-size: 13px;
       font-weight: 700;
-      letter-spacing: 1px;
+      margin-bottom: 17px;
     }
 
-    .eyebrow::before {
+    .ha-eyebrow::before {
       content: "";
-      width: 27px;
+      width: 25px;
       height: 2px;
       background: var(--gold);
     }
 
-    .hero h1 {
-      margin: 18px 0 13px;
-      font-size: clamp(36px, 6vw, 66px);
-      line-height: 1.35;
+    .ha-hero h1 {
+      font-size: clamp(30px, 5vw, 53px);
+      line-height: 1.5;
       font-weight: 900;
+      margin-bottom: 15px;
     }
 
-    .hero h1 span { color: var(--gold); }
+    .ha-hero h1 span {
+      color: var(--gold-light);
+    }
 
-    .hero p {
-      max-width: 540px;
-      color: #d0d0dc;
+    .ha-hero p {
+      color: #c2c3d0;
       font-size: 15px;
       line-height: 2.1;
+      max-width: 590px;
     }
 
-    .hero-stats {
+    .ha-hero-stats {
       display: flex;
-      gap: 28px;
-      flex-wrap: wrap;
+      gap: 30px;
       margin-top: 28px;
+      flex-wrap: wrap;
     }
 
-    .stat strong {
-      display: block;
-      color: var(--gold);
-      font-size: 23px;
-    }
-
-    .stat small { color: #aaaabc; }
-
-    .section {
-      padding: 65px 7%;
-    }
-
-    .section-heading {
+    .ha-stat {
       display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-      margin-bottom: 28px;
+      flex-direction: column;
     }
 
-    .section-heading h2 {
-      margin: 7px 0 0;
-      font-size: 28px;
+    .ha-stat strong {
+      color: var(--gold-light);
+      font-size: 25px;
+      line-height: 1.4;
+    }
+
+    .ha-stat span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Section headings */
+
+    .ha-section {
+      margin-top: 48px;
+    }
+
+    .ha-section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 23px;
+    }
+
+    .ha-section-heading h2 {
+      font-size: 24px;
       font-weight: 900;
     }
 
-    .section-heading p {
-      color: #a9a9ba;
+    .ha-section-heading p {
+      color: var(--muted);
       font-size: 13px;
-      margin: 5px 0 0;
+      margin-top: 4px;
     }
 
-    .gold-text { color: var(--gold); }
-
-    .featured-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 22px;
-    }
-
-    .featured-main, .featured-side {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.09);
-      border-radius: 22px;
-      background: var(--panel);
-      min-height: 360px;
-    }
-
-    .featured-main img, .featured-side img {
-      width: 100%;
-      height: 100%;
-      min-height: 360px;
-      object-fit: cover;
-      transition: transform .7s ease;
-    }
-
-    .featured-main:hover img, .featured-side:hover img {
-      transform: scale(1.06);
-    }
-
-    .image-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: end;
-      padding: 27px;
-      background: linear-gradient(0deg, rgba(5,8,20,.97), rgba(5,8,20,.03) 85%);
-    }
-
-    .tag {
-      display: inline-block;
-      width: fit-content;
-      padding: 6px 13px;
-      border-radius: 30px;
-      background: rgba(213,179,108,.17);
-      border: 1px solid rgba(213,179,108,.4);
+    .ha-heading-mark {
       color: var(--gold);
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
     }
 
-    .image-overlay h3 {
-      margin: 13px 0 7px;
-      font-size: clamp(20px, 3vw, 30px);
-      font-weight: 900;
+    /* Featured */
+
+    .ha-featured-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 15px;
     }
 
-    .image-overlay p {
-      margin: 0;
-      max-width: 540px;
-      color: #d0d0dc;
-      font-size: 13px;
-      line-height: 1.9;
+    .ha-featured-card {
+      min-height: 235px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 19px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      isolation: isolate;
     }
 
-    .read-link {
-      display: inline-flex;
-      width: fit-content;
-      margin-top: 17px;
-      color: var(--gold);
+    .ha-featured-card img {
+      width: 100%;
+      height: 100%;
+      min-height: 235px;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      transition: transform .5s;
+      z-index: -2;
+    }
+
+    .ha-featured-card:hover img {
+      transform: scale(1.07);
+    }
+
+    .ha-featured-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        0deg,
+        rgba(10,12,24,.98),
+        rgba(10,12,24,.08) 90%
+      );
+      z-index: -1;
+    }
+
+    .ha-featured-content {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ha-featured-content small {
+      color: var(--gold-light);
+      font-size: 12px;
+    }
+
+    .ha-featured-content strong {
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .ha-featured-content > span {
+      color: #c7c5d2;
+      font-size: 12px;
+    }
+
+    /* Categories */
+
+    .ha-categories {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      overflow-x: auto;
+      padding: 4px 2px 13px;
+      scrollbar-width: thin;
+      scrollbar-color: #55506e transparent;
+    }
+
+    .ha-category-btn {
+      flex: 0 0 auto;
+      padding: 10px 19px;
+      color: #c0c1cf;
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: rgba(255,255,255,.025);
+      transition: .25s;
       font-size: 13px;
+    }
+
+    .ha-category-btn:hover,
+    .ha-category-btn.active {
+      background: linear-gradient(135deg, #e5c987, #bd9857);
+      color: #1a1920;
+      border-color: transparent;
       font-weight: 800;
     }
 
-    .featured-side {
-      min-height: 360px;
-    }
+    /* Toolbar */
 
-    .featured-side img { min-height: 360px; }
-
-    .category-strip {
+    .ha-toolbar {
       display: flex;
-      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 25px 0;
       flex-wrap: wrap;
-      margin: 30px 0;
     }
 
-    .category {
-      padding: 10px 20px;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 30px;
-      background: rgba(255,255,255,.035);
-      color: #c5c5d3;
-      font-size: 13px;
-      cursor: pointer;
+    .ha-search-box {
+      flex: 1;
+      min-width: 220px;
+      position: relative;
+    }
+
+    .ha-search-box input {
+      width: 100%;
+      height: 51px;
+      padding: 0 48px 0 17px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 14px;
+      color: white;
+      outline: none;
       transition: .25s;
     }
 
-    .category:hover, .category.active {
-      color: var(--navy);
-      background: var(--gold);
+    .ha-search-box input:focus {
       border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(214,179,107,.09);
     }
 
-    .search-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: min(100%, 520px);
-      padding: 7px 17px;
-      border: 1px solid rgba(213,179,108,.25);
-      border-radius: 15px;
-      background: rgba(255,255,255,.045);
+    .ha-search-icon {
+      position: absolute;
+      right: 17px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      font-size: 19px;
     }
 
-    .search-area span { color: var(--gold); font-size: 20px; }
-
-    .search-area input {
-      width: 100%;
-      padding: 9px 0;
-      color: #fff;
-      background: transparent;
-      border: 0;
-      outline: 0;
+    .ha-sort-box select {
+      height: 51px;
+      min-width: 165px;
+      padding: 0 15px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: white;
+      outline: none;
     }
 
-    .search-area input::placeholder { color: #9292a5; }
+    .ha-results-count {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
 
-    .articles-grid {
+    /* Articles */
+
+    .ha-articles-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 23px;
+      gap: 22px;
     }
 
-    .article-card {
+    .ha-card {
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 19px;
-      background: linear-gradient(145deg, #1b2239, #12182b);
-      transition: transform .3s, border-color .3s;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, #1c2235, #171b2b);
+      transition: transform .3s, border-color .3s, box-shadow .3s;
+      animation: haFade .5s both;
+      animation-delay: calc(var(--card-index, 0) * 40ms);
     }
 
-    .article-card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(213,179,108,.48);
+    @keyframes haFade {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .article-cover {
-      position: relative;
+    .ha-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(214,179,107,.38);
+      box-shadow: 0 18px 45px rgba(0,0,0,.2);
+    }
+
+    .ha-card-image {
       height: 210px;
+      display: block;
       overflow: hidden;
+      position: relative;
+      background: #252a3d;
     }
 
-    .article-cover img {
+    .ha-card-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform .6s;
+      transition: transform .5s;
     }
 
-    .article-card:hover .article-cover img { transform: scale(1.08); }
+    .ha-card:hover .ha-card-image img {
+      transform: scale(1.06);
+    }
 
-    .article-cover .tag {
+    .ha-card-category {
       position: absolute;
-      top: 14px;
-      right: 14px;
+      bottom: 13px;
+      right: 13px;
+      background: rgba(15,18,32,.86);
       backdrop-filter: blur(10px);
-    }
-
-    .article-body { padding: 20px; }
-
-    .article-meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      color: #9999ad;
+      border: 1px solid rgba(214,179,107,.35);
+      border-radius: 20px;
+      padding: 6px 12px;
+      color: var(--gold-light);
       font-size: 11px;
     }
 
-    .article-body h3 {
-      margin: 13px 0 9px;
-      font-size: 18px;
-      line-height: 1.7;
+    .ha-card-body {
+      padding: 18px;
+    }
+
+    .ha-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 13px;
+    }
+
+    .ha-card-meta > span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ha-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .ha-card h3 {
+      font-size: 17px;
+      line-height: 1.9;
+      margin-bottom: 9px;
       font-weight: 800;
     }
 
-    .article-body p {
-      margin: 0;
-      color: #aeb0c0;
-      font-size: 12px;
-      line-height: 2;
+    .ha-card h3 a:hover {
+      color: var(--gold-light);
     }
 
-    .article-footer {
+    .ha-card-body > p {
+      color: #aeb1c1;
+      font-size: 12px;
+      line-height: 2;
+      min-height: 50px;
+      margin-bottom: 18px;
+    }
+
+    .ha-card-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,.08);
+      gap: 10px;
     }
 
-    .author {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #c5c5d3;
+    .ha-author {
+      color: #c0c1d0;
       font-size: 11px;
     }
 
-    .author-dot {
-      width: 27px;
-      height: 27px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      color: var(--navy);
+    .ha-read-link {
+      color: var(--gold-light);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .ha-read-link span {
+      display: inline-block;
+      transition: transform .2s;
+    }
+
+    .ha-read-link:hover span {
+      transform: translateX(-4px);
+    }
+
+    /* Empty state */
+
+    .ha-empty {
+      grid-column: 1/-1;
+      padding: 65px 20px;
+      text-align: center;
+      border: 1px dashed var(--border);
+      border-radius: 20px;
+      background: rgba(255,255,255,.02);
+    }
+
+    .ha-empty-icon {
+      font-size: 38px;
+      color: var(--gold);
+    }
+
+    .ha-empty h3 {
+      margin: 12px 0;
+    }
+
+    .ha-empty p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .ha-empty button {
+      margin-top: 20px;
+      border: 0;
+      border-radius: 12px;
       background: var(--gold);
+      color: #191722;
+      padding: 10px 20px;
+      font-weight: 800;
+    }
+
+    /* Pagination */
+
+    .ha-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 35px;
+    }
+
+    .ha-page-btn {
+      min-width: 40px;
+      height: 40px;
+      border-radius: 11px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 0 12px;
+      transition: .2s;
+    }
+
+    .ha-page-btn:hover:not(:disabled),
+    .ha-page-btn.active {
+      background: var(--gold);
+      color: #171722;
+      border-color: var(--gold);
       font-weight: 900;
     }
 
-    .article-footer a {
-      color: var(--gold);
-      font-size: 12px;
-      font-weight: 800;
+    .ha-page-btn:disabled {
+      opacity: .35;
+      cursor: not-allowed;
     }
 
-    .empty-state {
-      display: none;
-      padding: 40px;
-      text-align: center;
-      color: #aaaabc;
-      grid-column: 1 / -1;
-      border: 1px dashed rgba(213,179,108,.3);
-      border-radius: 18px;
-    }
+    /* Footer */
 
-    .quote-banner {
-      position: relative;
-      overflow: hidden;
-      margin: 10px 7% 65px;
-      padding: 55px 8%;
-      border: 1px solid rgba(213,179,108,.2);
-      border-radius: 25px;
-      background:
-        linear-gradient(90deg, rgba(12,16,32,.94), rgba(12,16,32,.78)),
-        url("https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1800&q=85") center/cover;
-      text-align: center;
-    }
-
-    .quote-banner .quote-mark {
-      color: var(--gold);
-      font-size: 55px;
-      line-height: 1;
-    }
-
-    .quote-banner h2 {
-      max-width: 760px;
-      margin: 10px auto;
-      font-size: clamp(20px, 3vw, 30px);
-      line-height: 1.9;
-    }
-
-    .quote-banner p { color: var(--gold); font-size: 13px; }
-
-    .newsletter {
-      padding: 45px 7%;
-      background: linear-gradient(110deg, rgba(140,117,245,.16), rgba(53,189,176,.08));
-      border-top: 1px solid rgba(255,255,255,.07);
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      text-align: center;
-    }
-
-    .newsletter h2 { margin: 0 0 10px; font-size: 25px; }
-    .newsletter p { color: #b4b4c4; font-size: 13px; }
-
-    .newsletter-note {
-      display: inline-block;
-      margin-top: 12px;
-      color: var(--gold);
-      font-size: 12px;
-    }
-
-    .footer {
+    .ha-footer {
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+      padding: 30px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
       gap: 20px;
-      padding: 28px 7%;
-      color: #9999aa;
+      flex-wrap: wrap;
+      color: var(--muted);
       font-size: 12px;
     }
 
-    .footer strong { color: var(--gold); }
-
-    @media (max-width: 850px) {
-      .featured-grid { grid-template-columns: 1fr; }
-      .featured-main, .featured-side, .featured-main img, .featured-side img {
-        min-height: 310px;
-      }
-      .articles-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .top-links { gap: 12px; }
+    .ha-footer strong {
+      color: var(--gold-light);
+      font-size: 18px;
     }
 
-    @media (max-width: 560px) {
-      .topbar { padding: 12px 5%; }
-      .brand img { width: 40px; height: 40px; }
-      .brand span { font-size: 16px; }
-      .top-links a:not(.home-btn) { display: none; }
-      .hero { min-height: 400px; padding: 55px 7%; background-position: 58% center; }
-      .hero p { font-size: 13px; }
-      .hero-stats { gap: 20px; }
-      .section { padding: 45px 5%; }
-      .section-heading { align-items: start; flex-direction: column; }
-      .section-heading h2 { font-size: 24px; }
-      .articles-grid { grid-template-columns: 1fr; }
-      .article-cover { height: 220px; }
-      .quote-banner { margin: 5px 5% 45px; padding: 38px 6%; }
-      .footer { justify-content: center; text-align: center; }
+    /* Responsive */
+
+    @media (max-width: 950px) {
+      .ha-featured-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .ha-featured-card:first-child {
+        grid-column: 1/-1;
+      }
+
+      .ha-articles-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .articles-page {
+        padding: 0 15px 50px;
+      }
+
+      .ha-topbar {
+        height: 65px;
+      }
+
+      .ha-brand {
+        font-size: 19px;
+      }
+
+      .ha-top-link {
+        padding: 7px 10px;
+        font-size: 11px;
+      }
+
+      .ha-hero {
+        min-height: 340px;
+        margin: 20px 0 35px;
+        padding: 27px 21px;
+        border-radius: 20px;
+      }
+
+      .ha-hero h1 {
+        font-size: 31px;
+      }
+
+      .ha-hero p {
+        font-size: 13px;
+      }
+
+      .ha-hero-stats {
+        gap: 20px;
+      }
+
+      .ha-section {
+        margin-top: 36px;
+      }
+
+      .ha-section-heading h2 {
+        font-size: 20px;
+      }
+
+      .ha-featured-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+
+      .ha-featured-card {
+        min-height: 180px;
+      }
+
+      .ha-featured-card img {
+        min-height: 180px;
+      }
+
+      .ha-featured-card:first-child {
+        min-height: 220px;
+      }
+
+      .ha-featured-card:first-child img {
+        min-height: 220px;
+      }
+
+      .ha-featured-content {
+        padding: 13px;
+      }
+
+      .ha-featured-content strong {
+        font-size: 13px;
+      }
+
+      .ha-featured-content small,
+      .ha-featured-content > span {
+        font-size: 10px;
+      }
+
+      .ha-toolbar {
+        gap: 9px;
+      }
+
+      .ha-search-box {
+        min-width: 100%;
+      }
+
+      .ha-sort-box,
+      .ha-sort-box select {
+        width: 100%;
+      }
+
+      .ha-articles-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 11px;
+      }
+
+      .ha-card {
+        border-radius: 14px;
+      }
+
+      .ha-card-image {
+        height: 135px;
+      }
+
+      .ha-card-body {
+        padding: 11px;
+      }
+
+      .ha-card-meta {
+        font-size: 9px;
+        flex-wrap: wrap;
+      }
+
+      .ha-card h3 {
+        font-size: 13px;
+        line-height: 1.8;
+      }
+
+      .ha-card-body > p {
+        font-size: 10px;
+        line-height: 1.8;
+        min-height: 55px;
+      }
+
+      .ha-card-footer {
+        flex-wrap: wrap;
+      }
+
+      .ha-author,
+      .ha-read-link {
+        font-size: 10px;
+      }
+
+      .ha-footer {
+        margin-top: 50px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .ha-articles-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ha-card-image {
+        height: 190px;
+      }
     }
   </style>
 </head>
 
 <body>
-<div class="articles-page">
 
-  <header class="topbar">
-    <a class="brand" href="../index.html">
-      <img src="../assets/logo/logo.svg" alt="شعار HANOON">
-      <span>HANOON</span>
-    </a>
+  <main class="articles-page">
 
-    <nav class="top-links">
-      <a href="../index.html">الرئيسية</a>
-      <a href="library.html">المكتبة</a>
-      <a href="learning.html">التعلم</a>
-      <a href="community.html">المجتمع</a>
-      <a class="home-btn" href="../index.html">العودة للرئيسية</a>
-    </nav>
-  </header>
+    <header class="ha-topbar">
+      <a class="ha-brand" href="../index.html">
+        <span class="ha-brand-mark">هـ</span>
+        <span>هنون</span>
+      </a>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <span class="eyebrow">HANOON KNOWLEDGE JOURNAL</span>
-        <h1>أفكار تُلهمك،<br><span>ومعرفة تغيّر عالمك</span></h1>
+      <nav class="ha-top-actions">
+        <a class="ha-top-link" href="../index.html">الرئيسية</a>
+        <a class="ha-top-link" href="library.html">المكتبة</a>
+      </nav>
+    </header>
+
+    <section class="ha-hero">
+      <div class="ha-hero-content">
+
+        <div class="ha-eyebrow">مساحة للفكر والمعرفة</div>
+
+        <h1>
+          اقرأ أكثر،
+          <span>اكتشف أعمق</span>
+        </h1>
+
         <p>
-          مساحة تجمع الأفكار العميقة والرؤى الجديدة.
-          اقرأ، اكتشف، وتعرّف على موضوعات توسّع آفاقك
-          وتمنحك منظورًا مختلفًا للحياة.
+          عالم من المقالات والأفكار والتجارب الإنسانية.
+          اكتشف موضوعات جديدة، ووسّع معرفتك، واجعل كل قراءة
+          خطوة نحو فهم أفضل للحياة.
         </p>
 
-        <div class="hero-stats">
-          <div class="stat">
-            <strong>01</strong>
-            <small>اكتشف فكرة</small>
+        <div class="ha-hero-stats">
+          <div class="ha-stat">
+            <strong id="haTotalArticles">0</strong>
+            <span>مقال متاح حاليًا</span>
           </div>
-          <div class="stat">
-            <strong>02</strong>
-            <small>وسّع معرفتك</small>
+
+          <div class="ha-stat">
+            <strong>متنوع</strong>
+            <span>موضوعات متعددة</span>
           </div>
-          <div class="stat">
-            <strong>03</strong>
-            <small>اصنع الفرق</small>
+
+          <div class="ha-stat">
+            <strong>هنون</strong>
+            <span>مساحتك المعرفية</span>
           </div>
         </div>
+
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-heading">
+    <section class="ha-section">
+
+      <div class="ha-section-heading">
         <div>
-          <span class="eyebrow">EDITOR'S CHOICE</span>
-          <h2>مختارات <span class="gold-text">هنون</span></h2>
-          <p>موضوعات تستحق أن تبدأ بها رحلتك اليوم.</p>
+          <h2>اختيارات هنون</h2>
+          <p>مجموعة من المقالات التي تستحق وقتك</p>
         </div>
+
+        <span class="ha-heading-mark">مقالات مختارة</span>
       </div>
 
-      <div class="featured-grid">
-        <a class="featured-main" href="article.html">
-          <img
-            src="https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?auto=format&fit=crop&w=1200&q=85"
-            alt="كتب وملاحظات على مكتب">
-          <div class="image-overlay">
-            <span class="tag">فكر وثقافة</span>
-            <h3>قوة المعرفة في صناعة مستقبل الإنسان</h3>
-            <p>كيف يمكن لفكرة واحدة أن تغيّر طريقة رؤيتنا للعالم وتفتح أبوابًا جديدة للمستقبل؟</p>
-            <span class="read-link">اكتشف المقال ←</span>
-          </div>
-        </a>
+      <div class="ha-featured-grid" id="haFeatured"></div>
 
-        <a class="featured-side" href="article.html">
-          <img
-            src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1000&q=85"
-            alt="مفكرة وتخطيط">
-          <div class="image-overlay">
-            <span class="tag">تطوير الذات</span>
-            <h3>ابدأ بنفسك.. فكل تغيير عظيم يبدأ من الداخل</h3>
-            <p>خطوات صغيرة تصنع تحولات كبيرة.</p>
-            <span class="read-link">اقرأ المزيد ←</span>
-          </div>
-        </a>
-      </div>
     </section>
 
-    <section class="section" style="padding-top: 10px;">
-      <div class="section-heading">
+    <section class="ha-section">
+
+      <div class="ha-section-heading">
         <div>
-          <span class="eyebrow">EXPLORE IDEAS</span>
-          <h2>اكتشف <span class="gold-text">المقالات</span></h2>
-          <p>اختر المجال الذي يثير فضولك.</p>
+          <h2>اكتشف حسب اهتمامك</h2>
+          <p>اختر المجال الذي ترغب في القراءة عنه</p>
         </div>
       </div>
 
-      <div class="search-area">
-        <span>⌕</span>
-        <input id="articleSearch" type="search" placeholder="ابحث عن عنوان أو موضوع...">
+      <div class="ha-categories" id="haCategories"></div>
+
+    </section>
+
+    <section class="ha-section" id="haAllArticles">
+
+      <div class="ha-section-heading">
+        <div>
+          <h2>جميع المقالات</h2>
+          <p>أفكار جديدة ومعرفة تستحق الاكتشاف</p>
+        </div>
       </div>
 
-      <div class="category-strip" id="categoryStrip">
-        <button class="category active" data-category="all">كل المقالات</button>
-        <button class="category" data-category="thought">فكر وثقافة</button>
-        <button class="category" data-category="self">تطوير الذات</button>
-        <button class="category" data-category="science">علوم ومعرفة</button>
-        <button class="category" data-category="life">الحياة والمجتمع</button>
-        <button class="category" data-category="technology">التكنولوجيا</button>
-      </div>
+      <div class="ha-toolbar">
 
-      <div class="articles-grid" id="articlesGrid">
+        <div class="ha-search-box">
+          <span class="ha-search-icon">⌕</span>
+          <input
+            type="search"
+            id="haSearch"
+            placeholder="ابحث عن مقال أو موضوع..."
+            autocomplete="off"
+          >
+        </div>
 
-        <article class="article-card" data-category="thought">
-          <div class="article-cover">
-            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=80" alt="الكتابة والتفكير" loading="lazy">
-            <span class="tag">فكر وثقافة</span>
-          </div>
-          <div class="article-body">
-            <div class="article-meta"><span>رحلة فكرية</span><span>6 دقائق قراءة</span></div>
-            <h3>لماذا نحتاج إلى التفكير النقدي؟</h3>
-            <p>في عالم مليء بالمعلومات، تصبح القدرة على التحليل والتمييز بين الحقيقة والرأي مهارة لا غنى عنها.</p>
-            <div class="article-footer">
-              <div class="author"><span class="author-dot">هـ</span> فريق هنون</div>
-              <a href="article.html">اقرأ المقال ←</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="article-card" data-category="self">
-          <div class="article-cover">
-            <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=80" alt="شروق الشمس" loading="lazy">
-            <span class="tag">تطوير الذات</span>
-          </div>
-          <div class="article-body">
-            <div class="article-meta"><span>نمو شخصي</span><span>5 دقائق قراءة</span></div>
-            <h3>كيف تبني عادة صغيرة تغيّر حياتك؟</h3>
-            <p>لا تنتظر لحظة مثالية؛ ابدأ بخطوة بسيطة، وامنح الاستمرار فرصة ليصنع أثره.</p>
-            <div class="article-footer">
-              <div class="author"><span class="author-dot">هـ</span> فريق هنون</div>
-              <a href="article.html">اقرأ المقال ←</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="article-card" data-category="science">
-          <div class="article-cover">
-            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=80" alt="مختبر علمي" loading="lazy">
-            <span class="tag">علوم ومعرفة</span>
-          </div>
-          <div class="article-body">
-            <div class="article-meta"><span>اكتشافات</span><span>8 دقائق قراءة</span></div>
-            <h3>العلم.. رحلة لا تتوقف نحو المجهول</h3>
-            <p>كل اكتشاف جديد يفتح أسئلة أخرى، وهكذا تتقدم المعرفة عبر الفضول والتجربة.</p>
-            <div class="article-footer">
-              <div class="author"><span class="author-dot">هـ</span> فريق هنون</div>
-              <a href="article.html">اقرأ المقال ←</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="article-card" data-category="life">
-          <div class="article-cover">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80" alt="أصدقاء يتشاركون الوقت" loading="lazy">
-            <span class="tag">الحياة والمجتمع</span>
-          </div>
-          <div class="article-body">
-            <div class="article-meta"><span>علاقات إنسانية</span><span>7 دقائق قراءة</span></div>
-            <h3>أثر الكلمة الطيبة في حياة الآخرين</h3>
-            <p>قد تكون كلمة بسيطة سببًا في منح إنسان أملًا جديدًا أو دفعة للاستمرار.</p>
-            <div class="article-footer">
-              <div class="author"><span class="author-dot">هـ</span> فريق هنون</div>
-              <a href="article.html">اقرأ المقال ←</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="article-card" data-category="technology">
-          <div class="article-cover">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="دوائر إلكترونية" loading="lazy">
-            <span class="tag">التكنولوجيا</span>
-          </div>
-          <div class="article-body">
-            <div class="article-meta"><span>مستقبل رقمي</span><span>9 دقائق قراءة</span></div>
-            <h3>كيف تعيد التكنولوجيا تشكيل حياتنا؟</h3>
-            <p>من أدوات التواصل إلى التعلم والعمل، أصبحت التقنية جزءًا أساسيًا من تفاصيل يومنا.</p>
-            <div class="article-footer">
-              <div class="author"><span class="author-dot">هـ</span> فريق هنون</div>
-              <a href="article.html">اقرأ المقال ←</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="article-card" data-category="thought">
-          <div class="article-cover">
-            <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=900&q=80" alt="مكتبة وكتب" loading="lazy">
-            <span class="tag">فكر وثقافة</span>
-          </div>
-          <div class="article-body">
-            <div class="article-meta"><span>القراءة</span><span>4 دقائق قراءة</span></div>
-            <h3>القراءة ليست هواية فقط.. إنها أسلوب حياة</h3>
-            <p>كل كتاب نافذة جديدة، وكل صفحة قد تحمل فكرة تغير نظرتك إلى شيء اعتدت عليه.</p>
-            <div class="article-footer">
-              <div class="author"><span class="author-dot">هـ</span> فريق هنون</div>
-              <a href="article.html">اقرأ المقال ←</a>
-            </div>
-          </div>
-        </article>
-
-        <div class="empty-state" id="emptyState">
-          لا توجد مقالات تطابق بحثك. جرّب كلمة أخرى.
+        <div class="ha-sort-box">
+          <select id="haSort">
+            <option value="latest">الأحدث أولًا</option>
+            <option value="oldest">الأقدم أولًا</option>
+            <option value="title">ترتيب العناوين</option>
+          </select>
         </div>
 
       </div>
+
+      <div class="ha-results-count" id="haResultsCount"></div>
+
+      <div class="ha-articles-grid" id="haArticlesGrid"></div>
+
+      <div class="ha-pagination" id="haPagination"></div>
+
     </section>
 
-    <section class="quote-banner">
-      <div class="quote-mark">“</div>
-      <h2>المعرفة لا تمنحنا إجابات فقط، بل تعلّمنا كيف نطرح الأسئلة الصحيحة.</h2>
-      <p>HANOON — المعرفة تصنع الفرق</p>
-    </section>
+    <footer class="ha-footer">
+      <strong>هنون | HANOON</strong>
+      <span>المعرفة تبدأ بخطوة، والقراءة تفتح الطريق.</span>
+      <a href="../index.html">العودة للرئيسية ←</a>
+    </footer>
 
-    <section class="newsletter">
-      <span class="eyebrow">KEEP DISCOVERING</span>
-      <h2>رحلتك مع المعرفة لا تنتهي</h2>
-      <p>تابع اكتشاف المقالات والأفكار الجديدة داخل مكتبة هنون.</p>
-      <span class="newsletter-note">اقرأ أكثر، تعلّم أكثر، واصنع الفرق.</span>
-    </section>
   </main>
 
-  <footer class="footer">
-    <span>© HANOON — جميع الحقوق محفوظة</span>
-    <strong>المعرفة تصنع الفرق</strong>
-    <a href="../index.html">العودة إلى الرئيسية ↑</a>
-  </footer>
+  <!-- ملفات المقالات -->
+  <script src="../data/articles.js"></script>
+  <script src="../js/articles.js"></script>
 
-</div>
-
-<script>
-  const searchInput = document.getElementById('articleSearch');
-  const categoryButtons = document.querySelectorAll('.category');
-  const cards = document.querySelectorAll('.article-card');
-  const emptyState = document.getElementById('emptyState');
-
-  let selectedCategory = 'all';
-
-  function filterArticles() {
-    const term = searchInput.value.trim().toLowerCase();
-    let visibleCount = 0;
-
-    cards.forEach(card => {
-      const matchesCategory =
-        selectedCategory === 'all' ||
-        card.dataset.category === selectedCategory;
-
-      const matchesSearch = card.textContent.toLowerCase().includes(term);
-      const visible = matchesCategory && matchesSearch;
-
-      card.style.display = visible ? '' : 'none';
-
-      if (visible) visibleCount++;
-    });
-
-    emptyState.style.display = visibleCount ? 'none' : 'block';
-  }
-
-  searchInput.addEventListener('input', filterArticles);
-
-  categoryButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      categoryButtons.forEach(item => item.classList.remove('active'));
-      button.classList.add('active');
-      selectedCategory = button.dataset.category;
-      filterArticles();
-    });
-  });
-  <script src="../js/global-back.js"></script>
-</script>
 </body>
 </html>
