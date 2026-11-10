@@ -1,0 +1,973 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0C1020">
+  <title>HANOON | المكتبة</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #0C1020;
+      --panel: #171D32;
+      --panel2: #202944;
+      --gold: #D5B36C;
+      --purple: #8C75F5;
+      --teal: #35BDB0;
+      --white: #F5EAD1;
+      --muted: #A9AEC2;
+      --border: rgba(213,179,108,.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Cairo', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input {
+      font-family: inherit;
+    }
+
+    .page-background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(rgba(12,16,32,.92), rgba(12,16,32,.97)),
+        url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=2000&q=85')
+        center/cover;
+    }
+
+    .page-background::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(140,117,245,.10), transparent 35%),
+        radial-gradient(circle at 90% 55%, rgba(213,179,108,.09), transparent 30%);
+    }
+
+    .container {
+      width: min(1240px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(12,16,32,.88);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+    }
+
+    .header-inner {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand img {
+      width: 53px;
+      height: 53px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+    }
+
+    .nav a {
+      font-size: 13px;
+      color: #C2C5D4;
+      transition: .2s;
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--gold);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: rgba(255,255,255,.04);
+      color: var(--white);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 19px;
+    }
+
+    .profile-link {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--navy);
+      background: linear-gradient(135deg, #F3DDA5, #B78A43);
+      font-weight: 900;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 390px;
+      margin-top: 28px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(213,179,108,.25);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      padding: 55px;
+      background:
+        linear-gradient(90deg, rgba(12,16,32,.97) 0%, rgba(12,16,32,.85) 50%, rgba(12,16,32,.15) 100%),
+        url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1800&q=90')
+        center/cover;
+      box-shadow: 0 25px 70px rgba(0,0,0,.25);
+    }
+
+    .hero-content {
+      max-width: 600px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 15px;
+      border: 1px solid rgba(213,179,108,.3);
+      border-radius: 30px;
+      color: var(--gold);
+      background: rgba(213,179,108,.08);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(30px, 4vw, 49px);
+      line-height: 1.45;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: #D0D0DD;
+      font-size: 15px;
+      line-height: 2;
+      max-width: 510px;
+      margin-bottom: 25px;
+    }
+
+    .gold-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 0 25px;
+      border-radius: 13px;
+      background: linear-gradient(110deg, #F0D99F, #C49A4E);
+      color: #171626;
+      font-size: 13px;
+      font-weight: 900;
+      transition: .25s;
+    }
+
+    .gold-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(213,179,108,.2);
+    }
+
+    /* Search */
+    .search-area {
+      display: flex;
+      gap: 12px;
+      margin: 35px 0 45px;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 0;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 20px;
+      background: rgba(23,29,50,.9);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+    }
+
+    .search-box span {
+      font-size: 20px;
+      color: var(--gold);
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      outline: 0;
+      color: white;
+      background: transparent;
+      font-size: 14px;
+    }
+
+    .search-box input::placeholder {
+      color: #838AA1;
+    }
+
+    .search-btn {
+      border: 0;
+      border-radius: 14px;
+      padding: 0 27px;
+      background: var(--gold);
+      color: #171626;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 15px;
+      margin-bottom: 23px;
+    }
+
+    .section-title {
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .section-title span {
+      color: var(--gold);
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .view-all {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    /* Categories */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .category {
+      position: relative;
+      min-height: 175px;
+      padding: 22px;
+      border-radius: 19px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      transition: .3s;
+      isolation: isolate;
+    }
+
+    .category::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-size: cover;
+      background-position: center;
+      transition: transform .5s;
+    }
+
+    .category::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(0deg, rgba(8,12,26,.97), rgba(8,12,26,.12));
+    }
+
+    .category:hover {
+      transform: translateY(-5px);
+      border-color: rgba(213,179,108,.5);
+    }
+
+    .category:hover::before {
+      transform: scale(1.08);
+    }
+
+    .cat-books::before {
+      background-image: url('https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=700&q=85');
+    }
+
+    .cat-articles::before {
+      background-image: url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=700&q=85');
+    }
+
+    .cat-stories::before {
+      background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=700&q=85');
+    }
+
+    .cat-research::before {
+      background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=700&q=85');
+    }
+
+    .category-icon {
+      position: absolute;
+      top: 17px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(12,16,32,.7);
+      border: 1px solid rgba(213,179,108,.3);
+      color: var(--gold);
+      font-size: 21px;
+    }
+
+    .category h3 {
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .category p {
+      color: #D0D1DB;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    /* Featured books */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .book-card {
+      padding: 12px;
+      background: linear-gradient(145deg, rgba(31,40,67,.9), rgba(19,25,44,.94));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      transition: .3s;
+      min-width: 0;
+    }
+
+    .book-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(213,179,108,.4);
+      box-shadow: 0 15px 35px rgba(0,0,0,.22);
+    }
+
+    .book-cover {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #202944;
+    }
+
+    .book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: .4s;
+    }
+
+    .book-card:hover .book-cover img {
+      transform: scale(1.05);
+    }
+
+    .book-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      color: #171626;
+      background: var(--gold);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .book-info {
+      padding: 14px 3px 4px;
+    }
+
+    .book-info h3 {
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    .book-info p {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .book-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .book-rating {
+      color: var(--gold);
+      font-size: 11px;
+    }
+
+    .book-open {
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* Learning banner */
+    .learning-banner {
+      min-height: 255px;
+      border-radius: 23px;
+      border: 1px solid rgba(140,117,245,.25);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(12,16,32,.96), rgba(12,16,32,.55)),
+        url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1400&q=85')
+        center/cover;
+    }
+
+    .learning-content {
+      max-width: 540px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .learning-content h2 {
+      font-size: 29px;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .learning-content h2 span {
+      color: var(--gold);
+    }
+
+    .learning-content p {
+      color: #CFD0DE;
+      font-size: 13px;
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+
+    /* Quotes */
+    .quote-card {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      text-align: center;
+      background:
+        linear-gradient(rgba(23,29,50,.89), rgba(23,29,50,.95)),
+        url('https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=85')
+        center/cover;
+    }
+
+    .quote-mark {
+      font-size: 42px;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .quote-card h3 {
+      font-size: 21px;
+      margin: 10px 0;
+    }
+
+    .quote-card p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 70px;
+      padding: 40px 0 25px;
+      border-top: 1px solid var(--border);
+      background: rgba(8,12,25,.6);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .footer-brand img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+    }
+
+    .footer p {
+      color: #8D93A8;
+      font-size: 11px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #B8BDCE;
+      font-size: 11px;
+    }
+
+    /* Responsive */
+    @media(max-width: 950px) {
+      .nav {
+        gap: 14px;
+      }
+
+      .categories,
+      .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 650px) {
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      .header-inner {
+        height: 65px;
+      }
+
+      .brand img {
+        width: 47px;
+        height: 47px;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: 380px;
+        margin-top: 16px;
+        padding: 28px 22px;
+        background-position: 60% center;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 13px;
+      }
+
+      .search-area {
+        margin: 24px 0 35px;
+      }
+
+      .search-btn {
+        padding: 0 16px;
+      }
+
+      .section {
+        margin-bottom: 43px;
+      }
+
+      .section-title {
+        font-size: 21px;
+      }
+
+      .categories {
+        gap: 11px;
+      }
+
+      .category {
+        min-height: 155px;
+        padding: 15px;
+      }
+
+      .category h3 {
+        font-size: 15px;
+      }
+
+      .books-grid {
+        gap: 12px;
+      }
+
+      .book-cover {
+        height: 180px;
+      }
+
+      .book-info h3 {
+        font-size: 12px;
+      }
+
+      .learning-banner {
+        min-height: 270px;
+        padding: 25px 20px;
+      }
+
+      .learning-content h2 {
+        font-size: 24px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media(max-width: 360px) {
+      .categories,
+      .books-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .book-cover {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page-background"></div>
+
+  <header class="header">
+    <div class="container header-inner">
+
+      <a href="../index.html" class="brand">
+        <img src="../assets/logo/logo.svg" alt="HANOON">
+      </a>
+
+      <nav class="nav">
+        <a href="../index.html">الرئيسية</a>
+        <a href="library.html" class="active">المكتبة</a>
+        <a href="articles.html">المقالات</a>
+        <a href="stories.html">القصص</a>
+        <a href="learning.html">التعلم</a>
+        <a href="community.html">المجتمع</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" type="button" aria-label="بحث">⌕</button>
+        <a href="profile.html" class="profile-link">م</a>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-label">✦ عالم لا ينتهي من المعرفة</div>
+
+        <h1>
+          افتح كتابًا...<br>
+          <span>وافتح عالمًا جديدًا</span>
+        </h1>
+
+        <p>
+          اكتشف مكتبة متجددة من الكتب والمقالات والقصص والأبحاث.
+          كل قراءة تمنحك فكرة جديدة، وكل فكرة تقربك من مستقبل أفضل.
+        </p>
+
+        <a href="#categories" class="gold-btn">
+          اكتشف المكتبة <span>←</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Search -->
+    <section class="search-area">
+      <label class="search-box">
+        <span>⌕</span>
+        <input id="librarySearch" type="search"
+          placeholder="ابحث عن كتاب أو مقال أو موضوع...">
+      </label>
+      <button class="search-btn" id="searchButton" type="button">
+        بحث
+      </button>
+    </section>
+
+    <!-- Categories -->
+    <section class="section" id="categories">
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">استكشف <span>الأقسام</span></h2>
+          <p class="section-subtitle">اختر المجال الذي تريد اكتشافه</p>
+        </div>
+      </div>
+
+      <div class="categories">
+
+        <a href="book.html" class="category cat-books">
+          <div class="category-icon">▤</div>
+          <h3>الكتب</h3>
+          <p>رحلات بين صفحات المعرفة</p>
+        </a>
+
+        <a href="articles.html" class="category cat-articles">
+          <div class="category-icon">✎</div>
+          <h3>المقالات</h3>
+          <p>أفكار ورؤى وموضوعات متنوعة</p>
+        </a>
+
+        <a href="stories.html" class="category cat-stories">
+          <div class="category-icon">❖</div>
+          <h3>القصص</h3>
+          <p>حكايات تلهم الخيال والعقل</p>
+        </a>
+
+        <a href="research.html" class="category cat-research">
+          <div class="category-icon">⌕</div>
+          <h3>الأبحاث</h3>
+          <p>اكتشافات ومعرفة متخصصة</p>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Featured books -->
+    <section class="section" id="featuredBooks">
+
+      <div class="section-head">
+        <div>
+          <h2 class="section-title">كتب <span>مختارة</span></h2>
+          <p class="section-subtitle">مجموعة مختارة لتبدأ رحلتك القرائية</p>
+        </div>
+        <a href="book.html" class="view-all">عرض المكتبة ←</a>
+      </div>
+
+      <div class="books-grid">
+
+        <a href="book.html" class="book-card">
+          <div class="book-cover">
+            <img loading="lazy"
+              src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=85"
+              alt="كتاب بين صفحات المعرفة">
+            <span class="book-tag">اختيار مميز</span>
+          </div>
+          <div class="book-info">
+            <h3>رحلة المعرفة</h3>
+            <p>التطوير واكتشاف الذات</p>
+            <div class="book-bottom">
+              <span class="book-rating">★ مميز</span>
+              <span class="book-open">استكشف ←</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="book.html" class="book-card">
+          <div class="book-cover">
+            <img loading="lazy"
+              src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=600&q=85"
+              alt="كتاب القراءة">
+          </div>
+          <div class="book-info">
+            <h3>قوة التفكير</h3>
+            <p>العقل والإبداع</p>
+            <div class="book-bottom">
+              <span class="book-rating">★ مميز</span>
+              <span class="book-open">استكشف ←</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="book.html" class="book-card">
+          <div class="book-cover">
+            <img loading="lazy"
+              src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=600&q=85"
+              alt="كتاب الإلهام">
+          </div>
+          <div class="book-info">
+            <h3>طريق النجاح</h3>
+            <p>الطموح وتحقيق الأهداف</p>
+            <div class="book-bottom">
+              <span class="book-rating">★ مميز</span>
+              <span class="book-open">استكشف ←</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="book.html" class="book-card">
+          <div class="book-cover">
+            <img loading="lazy"
+              src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=85"
+              alt="كتاب الأدب">
+          </div>
+          <div class="book-info">
+            <h3>عالم الحكايات</h3>
+            <p>الأدب والخيال</p>
+            <div class="book-bottom">
+              <span class="book-rating">★ مميز</span>
+              <span class="book-open">استكشف ←</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Learning -->
+    <section class="section">
+      <div class="learning-banner">
+        <div class="learning-content">
+          <div class="hero-label">✦ تعلم بطريقة مختلفة</div>
+          <h2>المعرفة لا تتوقف عند <span>القراءة</span></h2>
+          <p>
+            انتقل من القراءة إلى التعلم التفاعلي.
+            اختبر معلوماتك، تابع تقدمك، واكتسب مهارات جديدة
+            خطوة بخطوة.
+          </p>
+          <a href="learning.html" class="gold-btn">
+            اكتشف مسارات التعلم ←
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote -->
+    <section class="section">
+      <div class="quote-card">
+        <div class="quote-mark">“</div>
+        <h3>القارئ يعيش ألف حياة قبل أن يموت</h3>
+        <p>اجعل لكل يوم صفحة جديدة في رحلتك نحو المعرفة</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+
+      <div class="footer-brand">
+        <img src="../assets/logo/logo.svg" alt="HANOON">
+        <span>المعرفة تصنع الفرق</span>
+      </div>
+
+      <div class="footer-links">
+        <a href="../index.html">الرئيسية</a>
+        <a href="library.html">المكتبة</a>
+        <a href="learning.html">التعلم</a>
+        <a href="community.html">المجتمع</a>
+      </div>
+
+      <p>© HANOON — جميع الحقوق محفوظة</p>
+
+    </div>
+  </footer>
+
+  <script>
+    const searchInput = document.getElementById('librarySearch');
+    const searchButton = document.getElementById('searchButton');
+
+    function searchLibrary() {
+      const query = searchInput.value.trim();
+
+      if (!query) {
+        searchInput.focus();
+        return;
+      }
+
+      const target = '../index.html?search=' + encodeURIComponent(query);
+      window.location.href = target;
+    }
+
+    searchButton.addEventListener('click', searchLibrary);
+
+    searchInput.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        searchLibrary();
+      }
+    });
+  </script>
+
+</body>
+</html>
