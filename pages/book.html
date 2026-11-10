@@ -360,11 +360,14 @@
 
 <script src="../data/books.js"></script>
 
+
 <script>
 (function () {
   "use strict";
 
   const FAVORITES_KEY = "hanoon-book-favorites";
+  const READER_PREFIX = "hanoon_reader_";
+
   const container = document.getElementById("bookContent");
   const params = new URLSearchParams(window.location.search);
   const bookId = params.get("id");
@@ -391,6 +394,10 @@
 
   renderBook(book);
 
+  // ==========================================
+  // حماية النصوص
+  // ==========================================
+
   function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, function (char) {
       return {
@@ -403,9 +410,16 @@
     });
   }
 
+  // ==========================================
+  // المفضلة
+  // ==========================================
+
   function getFavorites() {
     try {
-      const value = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
+      const value = JSON.parse(
+        localStorage.getItem(FAVORITES_KEY) || "[]"
+      );
+
       return Array.isArray(value) ? value : [];
     } catch (error) {
       return [];
@@ -425,110 +439,461 @@
       favorites.push(id);
     }
 
-    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+    localStorage.setItem(
+      FAVORITES_KEY,
+      JSON.stringify(favorites)
+    );
 
-    window.dispatchEvent(new CustomEvent("hanoon:favorites-changed", {
-      detail: { bookId: id, favorites }
-    }));
+    window.dispatchEvent(new CustomEvent(
+      "hanoon:favorites-changed",
+      {
+        detail: { bookId: id, favorites }
+      }
+    ));
 
     return favorites.includes(id);
   }
+
+  // ==========================================
+  // نظام تقدم القراءة
+  // ==========================================
+
+  function getCompletedKey() {
+    return READER_PREFIX + "completed_" + book.id;
+  }
+
+  function getCompletedChapters() {
+    try {
+      const saved = JSON.parse(
+        localStorage.getItem(getCompletedKey()) || "[]"
+      );
+
+      return Array.isArray(saved) ? saved : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function getProgress() {
+    const completed = getCompletedChapters();
+    const total = book.chapters.length;
+
+    const completedCount = book.chapters.filter(chapter =>
+      completed.includes(chapter.id)
+    ).length;
+
+    const percentage = total > 0
+      ? Math.round((completedCount / total) * 100)
+      : 0;
+
+    return {
+      completed,
+      total,
+      completedCount,
+      remaining: total - completedCount,
+      percentage
+    };
+  }
+
+  function getNextChapter() {
+    const completed = getCompletedChapters();
+
+    return book.chapters.find(chapter =>
+      !completed.includes(chapter.id)
+    ) || book.chapters[0] || null;
+  }
+
+  // ==========================================
+  // إنشاء روابط الفصول
+  // ==========================================
+
+  function createChapterURL(chapter) {
+    return "chapter.html?book=" +
+      encodeURIComponent(book.id) +
+      "&chapter=" +
+      encodeURIComponent(chapter.id);
+  }
+
+  // ==========================================
+  // عرض الكتاب
+  // ==========================================
 
   function renderBook(book) {
     document.title = book.title + " | HANOON";
 
     const saved = isFavorite(book.id);
+    const progress = getProgress();
+    const nextChapter = getNextChapter();
+
+    const firstChapterURL = nextChapter
+      ? createChapterURL(nextChapter)
+      : "#chapters";
 
     const chaptersHTML = book.chapters.map(function (chapter, index) {
-      const chapterUrl =
-        "chapter.html?book=" +
-        encodeURIComponent(book.id) +
-        "&chapter=" +
-        encodeURIComponent(chapter.id);
+      const completed = progress.completed.includes(chapter.id);
 
       return `
-        <a class="chapter-card" href="${chapterUrl}">
-          <div class="chapter-number">${String(index + 1).padStart(2, "0")}</div>
+        <a
+          class="chapter-card"
+          href="${createChapterURL(chapter)}"
+          style="
+            position:relative;
+            border-color:${completed
+              ? "rgba(53,189,176,.4)"
+              : "rgba(255,255,255,.06)"};
+          "
+        >
+
+          <div
+            class="chapter-number"
+            style="${completed
+              ? "background:rgba(53,189,176,.15);color:#35BDB0;"
+              : ""}"
+          >
+            ${completed ? "✓" : String(index + 1).padStart(2, "0")}
+          </div>
+
           <div class="chapter-info">
             <h3>${escapeHTML(chapter.title)}</h3>
-            <p>${escapeHTML(chapter.summary || "افتح الفصل لبدء القراءة.")}</p>
+
+            <p>
+              ${escapeHTML(
+                chapter.summary || "افتح الفصل لبدء القراءة."
+              )}
+            </p>
           </div>
-          <span class="chapter-arrow">←</span>
+
+          <span
+            style="
+              color:${completed ? "#35BDB0" : "#D5B36C"};
+              font-size:12px;
+              font-weight:800;
+              white-space:nowrap;
+            "
+          >
+            ${completed ? "مكتمل ✓" : "قراءة ←"}
+          </span>
+
         </a>
       `;
     }).join("");
 
-    const firstChapterUrl = book.chapters.length
-      ? "chapter.html?book=" + encodeURIComponent(book.id) +
-        "&chapter=" + encodeURIComponent(book.chapters[0].id)
-      : "#chapters";
-
     container.innerHTML = `
+
       <section class="book-hero">
+
         <div class="cover-wrap">
+
           <img
             src="${escapeHTML(book.cover)}"
             alt="${escapeHTML(book.title)}"
             onerror="this.style.display='none'"
           >
+
           <div class="cover-overlay"></div>
-          <span class="book-number">الكتاب رقم ${escapeHTML(book.number)}</span>
+
+          <span class="book-number">
+            الكتاب رقم ${escapeHTML(book.number)}
+          </span>
+
         </div>
 
         <div class="book-details">
-          <span class="category">${escapeHTML(book.category)}</span>
-          <h1 class="book-title">${escapeHTML(book.title)}</h1>
-          <p class="book-description">${escapeHTML(book.description)}</p>
+
+          <span class="category">
+            ${escapeHTML(book.category)}
+          </span>
+
+          <h1 class="book-title">
+            ${escapeHTML(book.title)}
+          </h1>
+
+          <p class="book-description">
+            ${escapeHTML(book.description)}
+          </p>
 
           <div class="author">
+
             <img
-              src="${escapeHTML(book.author.image)}"
-              alt="${escapeHTML(book.author.name)}"
+              src="${escapeHTML(book.author?.image || "")}"
+              alt="${escapeHTML(book.author?.name || "كاتب هنون")}"
               onerror="this.style.display='none'"
             >
+
             <div>
-              <div class="author-name">${escapeHTML(book.author.name)}</div>
-              <div class="author-caption">كاتب ومؤسس HANOON</div>
+              <div class="author-name">
+                ${escapeHTML(book.author?.name || "Yousef Elgorf")}
+              </div>
+
+              <div class="author-caption">
+                كاتب ومؤسس HANOON
+              </div>
             </div>
+
           </div>
 
           <div class="book-actions">
-            <a class="action-btn primary-btn" href="${firstChapterUrl}">
-              ابدأ القراءة
+
+            <a class="action-btn primary-btn" href="${firstChapterURL}">
+              ${progress.completedCount > 0
+                ? "واصل القراءة ←"
+                : "ابدأ القراءة"}
             </a>
 
-            <button class="action-btn secondary-btn" id="favoriteBtn" type="button">
+            <button
+              class="action-btn secondary-btn"
+              id="favoriteBtn"
+              type="button"
+            >
               ${saved ? "★ في المفضلة" : "☆ أضف للمفضلة"}
             </button>
 
-            <button class="action-btn secondary-btn" id="shareBtn" type="button">
+            <button
+              class="action-btn secondary-btn"
+              id="shareBtn"
+              type="button"
+            >
               مشاركة الكتاب
             </button>
+
           </div>
+
         </div>
+
       </section>
 
-      <section class="chapters-section" id="chapters">
-        <div class="section-heading">
-          <h2>فهرس الكتاب</h2>
-          <span>${book.chapters.length} فصول</span>
+      <!-- تقدم القراءة -->
+
+      <section
+        id="bookProgress"
+        style="
+          margin-top:25px;
+          padding:24px;
+          border-radius:20px;
+          background:linear-gradient(135deg,#171D32,#202943);
+          border:1px solid rgba(213,179,108,.2);
+        "
+      >
+
+        <div
+          style="
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:12px;
+            margin-bottom:18px;
+          "
+        >
+
+          <div>
+            <h2 style="font-size:19px;margin:0 0 5px;">
+              تقدمك في هذا الكتاب
+            </h2>
+
+            <p style="color:#A7ABC0;font-size:12px;margin:0;">
+              استمر في القراءة حتى تكمل رحلتك المعرفية
+            </p>
+          </div>
+
+          <div
+            id="progressPercentage"
+            style="
+              color:#D5B36C;
+              font-size:30px;
+              font-weight:900;
+            "
+          >
+            ${progress.percentage}%
+          </div>
+
         </div>
-        <div class="chapters-grid">${chaptersHTML}</div>
+
+        <div
+          style="
+            width:100%;
+            height:12px;
+            background:rgba(255,255,255,.08);
+            border-radius:30px;
+            overflow:hidden;
+          "
+        >
+
+          <div
+            id="bookProgressFill"
+            style="
+              width:${progress.percentage}%;
+              height:100%;
+              border-radius:30px;
+              background:linear-gradient(90deg,#8C75F5,#D5B36C,#35BDB0);
+              transition:width .4s ease;
+            "
+          ></div>
+
+        </div>
+
+        <div
+          style="
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:10px;
+            margin-top:20px;
+            text-align:center;
+          "
+        >
+
+          <div style="padding:12px 5px;background:rgba(255,255,255,.04);border-radius:12px;">
+            <strong
+              id="completedCount"
+              style="display:block;color:#35BDB0;font-size:23px;"
+            >
+              ${progress.completedCount}
+            </strong>
+            <span style="color:#A7ABC0;font-size:11px;">
+              فصول مكتملة
+            </span>
+          </div>
+
+          <div style="padding:12px 5px;background:rgba(255,255,255,.04);border-radius:12px;">
+            <strong
+              id="remainingCount"
+              style="display:block;color:#D5B36C;font-size:23px;"
+            >
+              ${progress.remaining}
+            </strong>
+            <span style="color:#A7ABC0;font-size:11px;">
+              فصول متبقية
+            </span>
+          </div>
+
+          <div style="padding:12px 5px;background:rgba(255,255,255,.04);border-radius:12px;">
+            <strong
+              id="totalCount"
+              style="display:block;color:#8C75F5;font-size:23px;"
+            >
+              ${progress.total}
+            </strong>
+            <span style="color:#A7ABC0;font-size:11px;">
+              إجمالي الفصول
+            </span>
+          </div>
+
+        </div>
+
+        <p
+          id="progressMessage"
+          style="
+            color:#A7ABC0;
+            text-align:center;
+            font-size:12px;
+            margin:17px 0 0;
+          "
+        >
+          ${progress.percentage === 100
+            ? "ممتاز! لقد أكملت جميع فصول الكتاب."
+            : "كل فصل تنهيه يقرّبك من إكمال الكتاب."}
+        </p>
+
+      </section>
+
+      <!-- فهرس الفصول -->
+
+      <section class="chapters-section" id="chapters">
+
+        <div class="section-heading">
+
+          <h2>فهرس الكتاب</h2>
+
+          <span>
+            ${progress.completedCount} من ${progress.total} فصول مكتملة
+          </span>
+
+        </div>
+
+        <div class="chapters-grid">
+          ${chaptersHTML}
+        </div>
+
       </section>
 
       <div class="quote-box">
-        <p>«المعرفة لا تكتمل بقراءة الكلمات، بل تبدأ عندما تتحول إلى فهم وعمل»</p>
-        <span>HANOON — المعرفة تصنع الفرق</span>
+
+        <p>
+          «المعرفة لا تكتمل بقراءة الكلمات، بل تبدأ عندما تتحول إلى فهم وعمل»
+        </p>
+
+        <span>
+          HANOON — المعرفة تصنع الفرق
+        </span>
+
       </div>
+
     `;
 
-    document.getElementById("favoriteBtn").addEventListener("click", function () {
-      const nowSaved = toggleFavorite(book.id);
-      this.textContent = nowSaved ? "★ في المفضلة" : "☆ أضف للمفضلة";
-    });
+    // زر المفضلة
 
-    document.getElementById("shareBtn").addEventListener("click", shareBook);
+    document.getElementById("favoriteBtn").addEventListener(
+      "click",
+      function () {
+        const nowSaved = toggleFavorite(book.id);
+
+        this.textContent = nowSaved
+          ? "★ في المفضلة"
+          : "☆ أضف للمفضلة";
+      }
+    );
+
+    // زر المشاركة
+
+    document.getElementById("shareBtn").addEventListener(
+      "click",
+      shareBook
+    );
   }
+
+  // ==========================================
+  // تحديث تقدم الكتاب
+  // ==========================================
+
+  function updateProgressDisplay() {
+    const progress = getProgress();
+
+    const percentage = document.getElementById(
+      "progressPercentage"
+    );
+
+    const fill = document.getElementById(
+      "bookProgressFill"
+    );
+
+    const completed = document.getElementById(
+      "completedCount"
+    );
+
+    const remaining = document.getElementById(
+      "remainingCount"
+    );
+
+    const message = document.getElementById(
+      "progressMessage"
+    );
+
+    if (!percentage || !fill) return;
+
+    percentage.textContent = progress.percentage + "%";
+    fill.style.width = progress.percentage + "%";
+
+    completed.textContent = progress.completedCount;
+    remaining.textContent = progress.remaining;
+
+    message.textContent = progress.percentage === 100
+      ? "ممتاز! لقد أكملت جميع فصول الكتاب."
+      : "كل فصل تنهيه يقرّبك من إكمال الكتاب.";
+  }
+
+  // ==========================================
+  // المشاركة
+  // ==========================================
 
   async function shareBook() {
     const shareData = {
@@ -553,6 +918,10 @@
     }
   }
 
+  // ==========================================
+  // رسائل الخطأ
+  // ==========================================
+
   function showError(title, message) {
     container.innerHTML = `
       <div class="error-state">
@@ -564,8 +933,21 @@
       </div>
     `;
   }
+
+  // ==========================================
+  // تحديث عند تغيير التخزين
+  // ==========================================
+
+  window.addEventListener("storage", function (event) {
+    if (event.key === getCompletedKey()) {
+      updateProgressDisplay();
+      renderBook(book);
+    }
+  });
+
 })();
 </script>
+
 
 </body>
 </html>
