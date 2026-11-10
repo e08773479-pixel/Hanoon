@@ -234,3 +234,204 @@ video {
     transition-duration: .01ms !important;
   }
 }
+
+/* =========================================
+   HANOON - PREMIUM HORIZONTAL NAVIGATION
+========================================= */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 14px;
+  padding: 10px 2.5%;
+  min-width: 0;
+}
+
+.site-header .brand {
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.site-header .brand img {
+  width: 46px;
+  height: 46px;
+}
+
+.main-navigation {
+  display: flex !important;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap !important;
+  gap: 17px;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.main-navigation::-webkit-scrollbar {
+  display: none;
+}
+
+.main-navigation a {
+  flex: 0 0 auto;
+  padding: 11px 0;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.header-controls {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+}
+
+/* صورة المستخدم بجوار القائمة */
+
+.header-profile-link {
+  width: 43px;
+  height: 43px;
+  flex: 0 0 43px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8C75F5, #343E68);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 900;
+  box-shadow: 0 0 15px rgba(213,179,108,.15);
+  transition: .25s ease;
+}
+
+.header-profile-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(213,179,108,.3);
+}
+
+.header-profile-link img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.header-profile-link img[hidden],
+.header-profile-link span[hidden] {
+  display: none !important;
+}
+
+/* الشاشات المتوسطة */
+
+@media (max-width: 1100px) {
+  .site-header {
+    gap: 10px;
+    padding-inline: 2%;
+  }
+
+  .main-navigation {
+    gap: 13px;
+  }
+
+  .main-navigation a {
+    font-size: 11px;
+  }
+
+  .site-header .brand small {
+    display: none;
+  }
+
+  .account-button {
+    padding-inline: 11px;
+    font-size: 11px;
+  }
+}
+
+/* الهواتف والأجهزة اللوحية */
+
+@media (max-width: 768px) {
+  .site-header {
+    flex-wrap: wrap;
+    gap: 9px;
+    padding: 9px 3%;
+  }
+
+  .site-header .brand {
+    order: 1;
+  }
+
+  .menu-toggle {
+    order: 2;
+    display: block;
+    flex: 0 0 42px;
+  }
+
+  .header-controls {
+    order: 3;
+    margin-inline-start: auto;
+    gap: 6px;
+  }
+
+  .header-controls .icon-button {
+    width: 38px;
+    height: 38px;
+  }
+
+  .header-profile-link {
+    width: 39px;
+    height: 39px;
+    flex-basis: 39px;
+  }
+
+  .header-controls .account-button {
+    min-height: 38px;
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+
+  .main-navigation {
+    order: 4;
+    flex: 0 0 100%;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 19px;
+    padding: 5px 2px 9px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .main-navigation a {
+    padding: 9px 0;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 390px) {
+  .site-header .brand img {
+    width: 39px;
+    height: 39px;
+  }
+
+  .site-header .brand strong {
+    font-size: 18px;
+  }
+
+  .header-controls {
+    gap: 4px;
+  }
+
+  .header-controls .account-button {
+    padding-inline: 7px;
+  }
+
+  .main-navigation {
+    gap: 16px;
+  }
+}
