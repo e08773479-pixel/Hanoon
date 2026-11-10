@@ -1,176 +1,365 @@
 
-// =====================================================
-// HANOON ARTICLE READER
-// محرك قراءة المقالات
-// =====================================================
+/* =====================================================
+   HANOON - ARTICLE READER
+   محرك عرض وقراءة المقالات
+   متوافق مع pages/article.html
+===================================================== */
 
 (function () {
   "use strict";
 
-  const API = window.HANOON_ARTICLES_API;
+  const root = document.getElementById("articleRoot");
+  const relatedSection = document.getElementById("relatedSection");
+  const relatedContainer = document.getElementById("arRelated");
+  const toast = document.getElementById("toast");
 
-  if (!API) {
-    console.error("HANOON: Articles database not loaded.");
-    return;
-  }
+  let article = null;
 
-  const $ = selector => document.querySelector(selector);
-
-  const params = new URLSearchParams(location.search);
+  const params = new URLSearchParams(window.location.search);
   const articleId = params.get("id");
 
-  const article = API.getById(articleId);
-
-  const escapeHTML = value =>
-    String(value ?? "").replace(/[&<>"']/g, char => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    })[char]);
-
-  const getFavorites = () => {
-    try {
-      return JSON.parse(localStorage.getItem("hanoon_article_favorites") || "[]");
-    } catch {
-      return [];
-    }
-  };
-
-  const saveFavorites = favorites => {
-    localStorage.setItem(
-      "hanoon_article_favorites",
-      JSON.stringify(favorites)
-    );
-  };
-
-  function showNotFound() {
-    document.title = "المقال غير موجود | هنون";
-
-    const main = $("#articleRoot");
-
-    if (main) {
-      main.innerHTML = `
-        <section class="ar-not-found">
-          <div class="ar-not-found-icon">!</div>
-          <h1>المقال غير موجود</h1>
-          <p>
-            ربما تم تغيير رابط المقال أو أن المقال لم يعد متاحًا.
-          </p>
-          <a href="articles.html">العودة إلى المقالات</a>
-        </section>
-      `;
-    }
-  }
-
-  function renderContent() {
-    const container = $("#arContent");
-
-    if (!container) return;
-
-    container.innerHTML = article.content.map(section => `
-      <section class="ar-content-section">
-        <h2>${escapeHTML(section.heading)}</h2>
-
-        ${section.paragraphs.map(paragraph => `
-          <p>${escapeHTML(paragraph)}</p>
-        `).join("")}
-      </section>
-    `).join("");
-  }
-
-  function renderTags() {
-    const container = $("#arTags");
-
-    if (!container) return;
-
-    container.innerHTML = (article.tags || []).map(tag => `
-      <span class="ar-tag">${escapeHTML(tag)}</span>
-    `).join("");
-  }
-
-  function renderRelated() {
-    const container = $("#arRelated");
-
-    if (!container) return;
-
-    const related = API.getAll()
-      .filter(item =>
-        item.id !== article.id &&
-        item.category === article.category
-      )
-      .slice(0, 3);
-
-    if (!related.length) {
-      container.innerHTML = `
-        <p class="ar-no-related">
-          ستظهر هنا مقالات أخرى من نفس المجال عند إضافتها.
-        </p>
-      `;
-      return;
-    }
-
-    container.innerHTML = related.map(item => `
-      <a class="ar-related-card"
-         href="article.html?id=${encodeURIComponent(item.id)}">
-
-        <img
-          src="${escapeHTML(item.cover)}"
-          alt="${escapeHTML(item.title)}"
-          loading="lazy"
-        >
-
-        <div>
-          <small>${escapeHTML(item.category)}</small>
-          <strong>${escapeHTML(item.title)}</strong>
-          <span>اقرأ المقال ←</span>
-        </div>
-
-      </a>
-    `).join("");
-  }
-
-  function renderFavoriteButton() {
-    const button = $("#arFavorite");
-
-    if (!button) return;
-
-    const favorites = getFavorites();
-    const saved = favorites.includes(article.id);
-
-    button.classList.toggle("active", saved);
-    button.textContent = saved
-      ? "★ محفوظ في المفضلة"
-      : "☆ أضف للمفضلة";
-
-    button.setAttribute("aria-pressed", String(saved));
-  }
-
-  function bindFavorite() {
-    const button = $("#arFavorite");
-
-    if (!button) return;
-
-    button.addEventListener("click", () => {
-      let favorites = getFavorites();
-
-      if (favorites.includes(article.id)) {
-        favorites = favorites.filter(id => id !== article.id);
-      } else {
-        favorites.push(article.id);
-      }
-
-      saveFavorites(favorites);
-      renderFavoriteButton();
+  // تحويل النص إلى HTML آمن
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, function (char) {
+      return {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[char];
     });
   }
 
+  // عرض رسالة للمستخدم
+  function showToast(message) {
+    if (!toast) return;
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(showToast.timer);
+
+    showToast.timer = setTimeout(function () {
+      toast.classList.remove("show");
+    }, 2600);
+  }
+
+  // عرض حالة الخطأ بدل التحميل المستمر
+  function showError(title, message) {
+    document.title = title + " | هنون";
+
+    if (!root) return;
+
+    root.innerHTML = `
+      <section class="error-state">
+        <h2>${escapeHTML(title)}</h2>
+        <p>${escapeHTML(message)}</p>
+        <a href="articles.html">العودة إلى المقالات</a>
+      </section>
+    `;
+
+    if (relatedSection) {
+      relatedSection.hidden = true;
+    }
+  }
+
+  // قراءة المفضلة
+  function getFavorites() {
+    try {
+      const saved = JSON.parse(
+        localStorage.getItem("hanoon_article_favorites") || "[]"
+      );
+
+      return Array.isArray(saved) ? saved : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  // حفظ المفضلة
+  function saveFavorites(items) {
+    try {
+      localStorage.setItem(
+        "hanoon_article_favorites",
+        JSON.stringify(items)
+      );
+
+      return true;
+    } catch (error) {
+      showToast("تعذر حفظ المفضلة على هذا الجهاز");
+      return false;
+    }
+  }
+
+  // تنسيق التاريخ
+  function formatDate(dateValue) {
+    if (!dateValue) return "هنون";
+
+    const date = new Date(dateValue);
+
+    if (Number.isNaN(date.getTime())) {
+      return "هنون";
+    }
+
+    return date.toLocaleDateString("ar-EG", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  }
+
+  // تجهيز محتوى المقال
+  function buildContent(content) {
+    if (typeof content === "string") {
+      return `<p>${escapeHTML(content)}</p>`;
+    }
+
+    if (!Array.isArray(content) || !content.length) {
+      return "<p>لا يوجد محتوى متاح لهذا المقال حاليًا.</p>";
+    }
+
+    return content.map(function (section) {
+      const heading = escapeHTML(section.heading || "");
+
+      const paragraphs = Array.isArray(section.paragraphs)
+        ? section.paragraphs
+        : [];
+
+      return `
+        <section>
+          ${heading ? `<h2>${heading}</h2>` : ""}
+
+          ${paragraphs.map(function (paragraph) {
+            return `<p>${escapeHTML(paragraph)}</p>`;
+          }).join("")}
+        </section>
+      `;
+    }).join("");
+  }
+
+  // تجهيز الوسوم
+  function buildTags(tags) {
+    if (!Array.isArray(tags) || !tags.length) {
+      return "";
+    }
+
+    return tags.map(function (tag) {
+      return `<span class="tag">${escapeHTML(tag)}</span>`;
+    }).join("");
+  }
+
+  // إنشاء واجهة المقال
+  function renderArticle() {
+    const date = formatDate(article.date);
+    const readTime = Math.max(1, Number(article.readTime) || 5);
+    const favorites = getFavorites();
+    const isFavorite = favorites.includes(article.id);
+
+    document.title = article.title + " | هنون";
+
+    const breadcrumbTitle = document.getElementById("breadcrumbTitle");
+
+    if (breadcrumbTitle) {
+      breadcrumbTitle.textContent = article.title;
+    }
+
+    const cover = escapeHTML(article.cover || "");
+
+    root.innerHTML = `
+      <article class="article-card">
+
+        <header class="article-header">
+
+          <div class="category">
+            ✦ ${escapeHTML(article.category || "مقالات هنون")}
+          </div>
+
+          <h1 class="article-title">
+            ${escapeHTML(article.title)}
+          </h1>
+
+          <p class="article-excerpt">
+            ${escapeHTML(article.excerpt || "")}
+          </p>
+
+          <div class="article-meta">
+
+            <div class="meta-item">
+              <span>✍</span>
+              <strong>${escapeHTML(article.author || "فريق هنون")}</strong>
+            </div>
+
+            <div class="meta-item">
+              <span>◷</span>
+              <strong>${readTime} دقائق قراءة</strong>
+            </div>
+
+            <div class="meta-item">
+              <span>▦</span>
+              <strong>${escapeHTML(date)}</strong>
+            </div>
+
+          </div>
+        </header>
+
+        <div class="cover-wrap">
+          <img
+            class="cover-image"
+            id="arCover"
+            src="${cover}"
+            alt="${escapeHTML(article.title)}"
+            loading="eager"
+          >
+        </div>
+
+        <div class="article-body">
+          <div class="article-content" id="arContent">
+            ${buildContent(article.content)}
+          </div>
+        </div>
+
+        <footer class="article-footer">
+
+          <div class="tags" id="arTags">
+            ${buildTags(article.tags)}
+          </div>
+
+          <div class="article-controls">
+
+            <button
+              class="control-btn favorite ${isFavorite ? "active" : ""}"
+              id="arFavorite"
+              type="button"
+              aria-pressed="${isFavorite}"
+            >
+              ${isFavorite ? "★ محفوظ في المفضلة" : "☆ أضف للمفضلة"}
+            </button>
+
+            <button
+              class="control-btn"
+              id="arShare"
+              type="button"
+            >
+              ↗ مشاركة المقال
+            </button>
+
+            <button
+              class="control-btn"
+              id="arPrint"
+              type="button"
+            >
+              ▤ طباعة المقال
+            </button>
+
+          </div>
+
+        </footer>
+
+      </article>
+    `;
+
+    const image = document.getElementById("arCover");
+
+    image.addEventListener("error", function () {
+      this.onerror = null;
+      this.src =
+        "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80";
+    });
+
+    bindActions();
+    renderRelated();
+
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }
+
+  // عرض المقالات المرتبطة
+  function renderRelated() {
+    if (!relatedContainer || !relatedSection) return;
+
+    const API = window.HANOON_ARTICLES_API;
+
+    if (!API || typeof API.getAll !== "function") {
+      relatedSection.hidden = true;
+      return;
+    }
+
+    const allArticles = API.getAll();
+
+    const related = allArticles.filter(function (item) {
+      return item.id !== article.id &&
+        item.category === article.category;
+    }).slice(0, 3);
+
+    if (!related.length) {
+      relatedSection.hidden = true;
+      return;
+    }
+
+    relatedContainer.innerHTML = related.map(function (item) {
+      return `
+        <a
+          class="related-card"
+          href="article.html?id=${encodeURIComponent(item.id)}"
+        >
+
+          <img
+            src="${escapeHTML(item.cover || "")}"
+            alt="${escapeHTML(item.title)}"
+            loading="lazy"
+          >
+
+          <div class="related-info">
+            <small>${escapeHTML(item.category || "مقالات هنون")}</small>
+            <h3>${escapeHTML(item.title)}</h3>
+          </div>
+
+        </a>
+      `;
+    }).join("");
+
+    relatedSection.hidden = false;
+  }
+
+  // زر المفضلة
+  function bindFavorite() {
+    const button = document.getElementById("arFavorite");
+
+    if (!button) return;
+
+    button.addEventListener("click", function () {
+      let favorites = getFavorites();
+
+      if (favorites.includes(article.id)) {
+        favorites = favorites.filter(function (id) {
+          return id !== article.id;
+        });
+
+        showToast("تمت إزالة المقال من المفضلة");
+      } else {
+        favorites.push(article.id);
+        showToast("تمت إضافة المقال إلى المفضلة");
+      }
+
+      if (saveFavorites(favorites)) {
+        const saved = favorites.includes(article.id);
+
+        button.classList.toggle("active", saved);
+        button.textContent = saved
+          ? "★ محفوظ في المفضلة"
+          : "☆ أضف للمفضلة";
+
+        button.setAttribute("aria-pressed", String(saved));
+      }
+    });
+  }
+
+  // مشاركة المقال
   async function shareArticle() {
     const shareData = {
       title: article.title,
-      text: article.excerpt,
-      url: location.href
+      text: article.excerpt || article.title,
+      url: window.location.href
     };
 
     if (navigator.share) {
@@ -178,7 +367,7 @@
         await navigator.share(shareData);
       } catch (error) {
         if (error.name !== "AbortError") {
-          console.error("Share error:", error);
+          showToast("تعذرت المشاركة");
         }
       }
 
@@ -186,76 +375,102 @@
     }
 
     try {
-      await navigator.clipboard.writeText(location.href);
-      alert("تم نسخ رابط المقال.");
-    } catch {
-      window.prompt("انسخ رابط المقال:", location.href);
+      await navigator.clipboard.writeText(window.location.href);
+      showToast("تم نسخ رابط المقال");
+    } catch (error) {
+      window.prompt("انسخ رابط المقال:", window.location.href);
     }
   }
 
+  // ربط الأزرار
   function bindActions() {
-    $("#arShare")?.addEventListener("click", shareArticle);
+    const shareButton = document.getElementById("arShare");
+    const printButton = document.getElementById("arPrint");
 
-    $("#arPrint")?.addEventListener("click", () => {
-      window.print();
-    });
+    if (shareButton) {
+      shareButton.addEventListener("click", shareArticle);
+    }
+
+    if (printButton) {
+      printButton.addEventListener("click", function () {
+        window.print();
+      });
+    }
 
     bindFavorite();
   }
 
-  function renderArticle() {
-    document.title = article.title + " | هنون";
-
-    $("#arCategory").textContent = article.category;
-    $("#arTitle").textContent = article.title;
-    $("#arExcerpt").textContent = article.excerpt;
-    $("#arAuthor").textContent = article.author || "فريق هنون";
-    $("#arReadTime").textContent =
-      `${Number(article.readTime) || 5} دقائق قراءة`;
-
-    $("#arDate").textContent = new Date(
-      article.date
-    ).toLocaleDateString("ar-EG", {
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    });
-
-    const image = $("#arCover");
-
-    image.src = article.cover;
-    image.alt = article.title;
-
-    image.onerror = function () {
-      this.onerror = null;
-      this.src =
-        "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80";
-    };
-
-    renderContent();
-    renderTags();
-    renderRelated();
-    renderFavoriteButton();
-    bindActions();
-  }
-
+  // تشغيل الصفحة
   function initialize() {
-    if (!article) {
-      showNotFound();
+    if (!root) {
+      console.error("HANOON: articleRoot is missing.");
       return;
     }
 
-    renderArticle();
+    // التأكد من تحميل قاعدة البيانات
+    const API = window.HANOON_ARTICLES_API;
+
+    if (!API || typeof API.getById !== "function") {
+      showError(
+        "تعذر تحميل المقالات",
+        "ملف قاعدة بيانات المقالات لم يتم تحميله. تأكد من وجود data/articles.js."
+      );
+      return;
+    }
+
+    // التأكد من وجود رقم المقال
+    if (!articleId) {
+      showError(
+        "لم يتم تحديد المقال",
+        "افتح المقال من صفحة المقالات حتى يتم تحميله بشكل صحيح."
+      );
+      return;
+    }
+
+    // البحث عن المقال
+    article = API.getById(articleId);
+
+    if (!article) {
+      showError(
+        "المقال غير موجود",
+        "لم نعثر على مقال بهذا الرابط. ارجع إلى قائمة المقالات واختر المقال مرة أخرى."
+      );
+      return;
+    }
+
+    // التحقق من البيانات الأساسية
+    if (!article.title || !article.id) {
+      showError(
+        "بيانات المقال غير مكتملة",
+        "بيانات هذا المقال تحتاج إلى مراجعة."
+      );
+      return;
+    }
+
+    try {
+      renderArticle();
+    } catch (error) {
+      console.error("HANOON ARTICLE ERROR:", error);
+
+      showError(
+        "حدث خطأ أثناء عرض المقال",
+        "تعذر تجهيز محتوى المقال. حاول فتحه مرة أخرى."
+      );
+    }
   }
 
+  // التشغيل بعد تحميل الصفحة
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initialize);
   } else {
     initialize();
   }
 
+  // إتاحة أدوات المحرك عند الحاجة
   window.HANOON_ARTICLE_READER = {
-    getCurrentArticle: () => article,
+    getCurrentArticle: function () {
+      return article;
+    },
     refresh: initialize
   };
 
