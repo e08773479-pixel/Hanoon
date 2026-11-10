@@ -450,3 +450,44 @@ video {
     display: flex !important;
   }
 }
+
+/* HANOON - Navigation buttons without horizontal scrolling */
+
+.site-header .main-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  overflow: visible !important;
+  white-space: normal !important;
+}
+
+.site-header .main-navigation a {
+  flex: 0 1 auto;
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Mobile navigation */
+@media (max-width: 768px) {
+  .site-header .main-navigation {
+    display: none !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+
+  .site-header .main-navigation.is-open {
+    display: flex !important;
+  }
+
+  .site-header .main-navigation a {
+    flex: 0 1 auto;
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+}
