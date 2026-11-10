@@ -73,54 +73,69 @@
 
 
   <!-- رأس الموقع -->
-  <header class="site-header" id="siteHeader">
-    <a class="brand" href="index.html">
-      <img src="assets/logo/logo.svg" alt="HANOON">
-      <span>
-        <strong>HANOON</strong>
-        <small>المعرفة تصنع الفرق</small>
-      </span>
-    </a>
+  
+<header class="site-header" id="siteHeader">
 
-    <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false">
-      <span></span><span></span><span></span>
+  <a class="brand" href="index.html">
+    <img src="assets/logo/logo.svg" alt="HANOON">
+    <span>
+      <strong>HANOON</strong>
+      <small>المعرفة تصنع الفرق</small>
+    </span>
+  </a>
+
+  <button class="menu-toggle" id="menuToggle"
+    aria-label="فتح القائمة" aria-expanded="false" type="button">
+    <span></span><span></span><span></span>
+  </button>
+
+  <nav class="main-navigation" id="mainNavigation">
+    <a class="active" href="index.html">الرئيسية</a>
+    <a href="pages/library.html">المكتبة</a>
+    <a href="pages/articles.html">المقالات</a>
+    <a href="pages/stories.html">القصص</a>
+    <a href="pages/poetry.html">الشعر والأدب</a>
+    <a href="pages/research.html">الأبحاث</a>
+    <a href="pages/learning.html">التعلم</a>
+    <a href="pages/exams.html">الاختبارات</a>
+    <a href="pages/achievements.html">إنجازاتي</a>
+    <a href="pages/community.html">المجتمع</a>
+  </nav>
+
+  <div class="header-controls">
+
+    <button id="searchToggle" class="icon-button"
+      aria-label="البحث" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="10.8" cy="10.8" r="6.8"></circle>
+        <path d="m16 16 5 5"></path>
+      </svg>
     </button>
 
+    <button id="themeToggle" class="icon-button"
+      aria-label="تغيير المظهر" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
+      </svg>
+    </button>
 
+    <a class="header-profile-link"
+      id="headerProfileLink"
+      href="pages/profile.html"
+      aria-label="ملفي الشخصي"
+      title="ملفي الشخصي">
+      <span id="headerProfileInitial">م</span>
+      <img id="headerProfileImage" src="" alt="صورة المستخدم" hidden>
+    </a>
 
-<nav class="main-navigation" id="mainNavigation">
-  <a class="active" href="index.html">الرئيسية</a>
-  <a href="pages/library.html">المكتبة</a>
-  <a href="pages/profile.html">ملفي الشخصي</a>
-  <a href="pages/achievements.html">إنجازاتي</a>
-  <a href="pages/articles.html">المقالات</a>
-  <a href="pages/stories.html">القصص</a>
-  <a href="pages/learning.html">التعلم</a>
-  <a href="pages/exams.html">الاختبارات</a>
-  <a href="pages/community.html">المجتمع</a>
-</nav>
+    <a class="account-button" href="pages/auth.html" id="accountButton">
+      تسجيل الدخول
+    </a>
 
+  </div>
+</header>
 
-
-    <div class="header-controls">
-      <button id="searchToggle" class="icon-button" aria-label="البحث">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="10.8" cy="10.8" r="6.8"></circle>
-          <path d="m16 16 5 5"></path>
-        </svg>
-      </button>
-
-      <button id="themeToggle" class="icon-button" aria-label="تغيير المظهر">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"></path>
-        </svg>
-      </button>
-
-      <a class="account-button" href="pages/auth.html" id="accountButton">
-        تسجيل الدخول
-      </a>
-    </div>
   </header>
 
   <!-- البحث -->
