@@ -1,0 +1,713 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0C1020">
+<title>HANOON | تفاصيل الكتاب</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --navy:#0C1020;
+  --panel:#171D32;
+  --gold:#D5B36C;
+  --purple:#8C75F5;
+  --teal:#35BDB0;
+  --white:#F5EAD1;
+  --muted:#A9AEC2;
+  --border:rgba(213,179,108,.17);
+}
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body {
+  font-family:'Cairo',sans-serif;
+  background:var(--navy);
+  color:var(--white);
+  overflow-x:hidden;
+}
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+button {
+  font-family:inherit;
+  cursor:pointer;
+}
+
+.background {
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    linear-gradient(rgba(12,16,32,.93),rgba(12,16,32,.98)),
+    url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1800&q=85') center/cover;
+}
+
+.container {
+  width:min(1150px,calc(100% - 36px));
+  margin:auto;
+}
+
+/* HEADER */
+
+header {
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(12,16,32,.9);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+
+.header-inner {
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo img {
+  width:52px;
+  height:52px;
+  object-fit:contain;
+}
+
+.header-links {
+  display:flex;
+  gap:24px;
+}
+
+.header-links a {
+  color:#B8BDCE;
+  font-size:13px;
+}
+
+.header-links a:hover {
+  color:var(--gold);
+}
+
+.back-link {
+  color:var(--gold);
+  font-size:13px;
+  font-weight:800;
+}
+
+/* BREADCRUMB */
+
+.breadcrumb {
+  padding:24px 0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.breadcrumb span {
+  color:var(--gold);
+}
+
+/* BOOK HERO */
+
+.book-hero {
+  display:grid;
+  grid-template-columns:310px 1fr;
+  gap:55px;
+  align-items:center;
+  padding:35px;
+  border:1px solid var(--border);
+  border-radius:26px;
+  background:
+    linear-gradient(120deg,rgba(28,36,62,.94),rgba(15,21,39,.95)),
+    url('https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1400&q=85') center/cover;
+  box-shadow:0 25px 70px rgba(0,0,0,.22);
+}
+
+.cover-area {
+  position:relative;
+}
+
+.book-cover {
+  width:100%;
+  height:420px;
+  object-fit:cover;
+  border-radius:10px 19px 19px 10px;
+  border:1px solid rgba(213,179,108,.4);
+  box-shadow:15px 20px 35px rgba(0,0,0,.4);
+}
+
+.cover-glow {
+  position:absolute;
+  inset:-15px;
+  z-index:-1;
+  border-radius:25px;
+  background:rgba(213,179,108,.13);
+  filter:blur(25px);
+}
+
+.book-details {
+  min-width:0;
+}
+
+.book-label {
+  display:inline-block;
+  padding:7px 14px;
+  border-radius:20px;
+  background:rgba(213,179,108,.12);
+  border:1px solid var(--border);
+  color:var(--gold);
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:17px;
+}
+
+.book-details h1 {
+  font-size:clamp(29px,4vw,44px);
+  font-weight:900;
+  margin-bottom:10px;
+}
+
+.book-subtitle {
+  color:var(--gold);
+  font-size:14px;
+  margin-bottom:20px;
+}
+
+.author {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:22px;
+}
+
+.author img {
+  width:45px;
+  height:45px;
+  object-fit:cover;
+  border-radius:50%;
+}
+
+.author strong {
+  display:block;
+  font-size:13px;
+}
+
+.author small {
+  color:var(--muted);
+  font-size:11px;
+}
+
+.description {
+  color:#C6CAD8;
+  font-size:13px;
+  line-height:2.2;
+  margin-bottom:22px;
+}
+
+.book-stats {
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  margin-bottom:26px;
+}
+
+.stat {
+  color:var(--muted);
+  font-size:11px;
+}
+
+.stat strong {
+  display:block;
+  color:var(--white);
+  font-size:14px;
+}
+
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.primary-btn,
+.secondary-btn {
+  min-height:49px;
+  padding:0 22px;
+  border-radius:13px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  font-size:13px;
+  font-weight:900;
+}
+
+.primary-btn {
+  background:linear-gradient(110deg,#F1D99F,#C49A4E);
+  color:#171626;
+  border:0;
+}
+
+.secondary-btn {
+  border:1px solid var(--border);
+  color:var(--gold);
+  background:rgba(255,255,255,.04);
+}
+
+/* CONTENT SECTIONS */
+
+.section {
+  margin-top:55px;
+}
+
+.section-title {
+  font-size:24px;
+  font-weight:900;
+  margin-bottom:20px;
+}
+
+.section-title span {
+  color:var(--gold);
+}
+
+.content-card {
+  padding:28px;
+  background:linear-gradient(145deg,rgba(28,36,62,.88),rgba(18,24,43,.95));
+  border:1px solid var(--border);
+  border-radius:20px;
+}
+
+.content-card p {
+  color:#C4C8D6;
+  line-height:2.3;
+  font-size:14px;
+}
+
+/* CHAPTERS */
+
+.chapters {
+  display:grid;
+  gap:12px;
+}
+
+.chapter {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:17px 20px;
+  background:rgba(23,29,50,.9);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;
+  transition:.25s;
+}
+
+.chapter:hover {
+  border-color:var(--gold);
+  transform:translateX(-3px);
+}
+
+.chapter-number {
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:rgba(213,179,108,.12);
+  color:var(--gold);
+  font-weight:900;
+}
+
+.chapter-info {
+  flex:1;
+}
+
+.chapter-info strong {
+  display:block;
+  font-size:13px;
+}
+
+.chapter-info small {
+  color:var(--muted);
+  font-size:11px;
+}
+
+.chapter-arrow {
+  color:var(--gold);
+}
+
+/* AUTHOR */
+
+.author-card {
+  display:flex;
+  align-items:center;
+  gap:22px;
+}
+
+.author-card img {
+  width:100px;
+  height:100px;
+  object-fit:cover;
+  border-radius:20px;
+}
+
+.author-card h3 {
+  margin-bottom:7px;
+  font-size:18px;
+}
+
+.author-card p {
+  font-size:12px;
+}
+
+/* QUOTE */
+
+.quote {
+  padding:36px;
+  text-align:center;
+  border:1px solid rgba(140,117,245,.25);
+  border-radius:20px;
+  background:
+    linear-gradient(rgba(12,16,32,.8),rgba(12,16,32,.92)),
+    url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85') center/cover;
+}
+
+.quote h3 {
+  font-size:22px;
+  line-height:1.8;
+}
+
+.quote p {
+  color:var(--gold);
+  font-size:12px;
+  margin-top:12px;
+}
+
+/* FOOTER */
+
+footer {
+  margin-top:70px;
+  padding:30px 0;
+  border-top:1px solid var(--border);
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+
+footer img {
+  width:45px;
+  height:45px;
+  object-fit:contain;
+  margin-bottom:10px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px) {
+  .book-hero {
+    grid-template-columns:1fr;
+    gap:30px;
+    padding:22px;
+  }
+
+  .cover-area {
+    width:min(260px,85%);
+    margin:auto;
+  }
+
+  .book-cover {
+    height:350px;
+  }
+
+  .book-details {
+    text-align:center;
+  }
+
+  .author {
+    justify-content:center;
+  }
+
+  .book-stats,
+  .actions {
+    justify-content:center;
+  }
+
+  .header-links {
+    display:none;
+  }
+}
+
+@media(max-width:450px) {
+  .book-cover {
+    height:300px;
+  }
+
+  .book-hero {
+    padding:17px;
+  }
+
+  .content-card {
+    padding:19px;
+  }
+
+  .section-title {
+    font-size:21px;
+  }
+
+  .author-card {
+    flex-direction:column;
+    text-align:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<header>
+  <div class="container header-inner">
+    <a href="../index.html" class="logo">
+      <img src="../assets/logo/logo.svg" alt="HANOON">
+    </a>
+
+    <nav class="header-links">
+      <a href="../index.html">الرئيسية</a>
+      <a href="library.html">المكتبة</a>
+      <a href="articles.html">المقالات</a>
+      <a href="learning.html">التعلم</a>
+      <a href="community.html">المجتمع</a>
+    </nav>
+
+    <a href="library.html" class="back-link">← العودة للمكتبة</a>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="breadcrumb">
+    الرئيسية / المكتبة / <span>تفاصيل الكتاب</span>
+  </div>
+
+  <!-- BOOK INFORMATION -->
+
+  <section class="book-hero">
+
+    <div class="cover-area">
+      <div class="cover-glow"></div>
+
+      <img
+        class="book-cover"
+        src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=900&q=90"
+        alt="غلاف كتاب رحلة المعرفة">
+    </div>
+
+    <div class="book-details">
+
+      <span class="book-label">✦ كتاب مميز</span>
+
+      <h1>رحلة المعرفة</h1>
+
+      <div class="book-subtitle">
+        رحلة لاكتشاف الذات وبناء المستقبل
+      </div>
+
+      <div class="author">
+        <img
+          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=85"
+          alt="صورة الكاتب">
+        <div>
+          <strong>فريق هنون المعرفي</strong>
+          <small>كاتب ومساهم في المحتوى</small>
+        </div>
+      </div>
+
+      <p class="description">
+        المعرفة ليست مجرد معلومات نحفظها، بل رحلة نكتشف فيها العالم
+        ونفهم أنفسنا ونصنع مستقبلنا. يقدم هذا الكتاب أفكارًا ملهمة
+        تساعدك على تطوير طريقة تفكيرك، وتنظيم أهدافك، والاستمرار
+        في التعلم والنمو.
+      </p>
+
+      <div class="book-stats">
+        <div class="stat">
+          <strong>6</strong>
+          فصول
+        </div>
+
+        <div class="stat">
+          <strong>45</strong>
+          دقيقة قراءة تقديرية
+        </div>
+
+        <div class="stat">
+          <strong>عربي</strong>
+          اللغة
+        </div>
+
+        <div class="stat">
+          <strong>تطوير الذات</strong>
+          التصنيف
+        </div>
+      </div>
+
+      <div class="actions">
+        <a href="#chapters" class="primary-btn">
+          ابدأ القراءة ←
+        </a>
+
+        <button class="secondary-btn" id="favoriteButton" type="button">
+          ♡ أضف للمفضلة
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DESCRIPTION -->
+
+  <section class="section">
+    <h2 class="section-title">عن <span>الكتاب</span></h2>
+
+    <div class="content-card">
+      <p>
+        في عالم تتسارع فيه المعلومات وتتغير فيه الأفكار، تصبح
+        المعرفة واحدة من أهم الأدوات التي يمتلكها الإنسان.
+        هذا الكتاب يدعوك إلى إعادة اكتشاف علاقتك بالتعلم والقراءة
+        والتفكير، ويأخذك في رحلة تبدأ من الفضول وتنتهي بخطوات
+        عملية نحو تطوير نفسك.
+
+        ستتعرف على أهمية القراءة اليومية، وكيفية بناء عادات مفيدة،
+        وكيف تحول ما تتعلمه إلى خبرة حقيقية في حياتك.
+      </p>
+    </div>
+  </section>
+
+  <!-- CHAPTERS -->
+
+  <section class="section" id="chapters">
+
+    <h2 class="section-title">فهرس <span>الفصول</span></h2>
+
+    <div class="chapters">
+
+      <a href="lesson.html" class="chapter">
+        <span class="chapter-number">01</span>
+        <div class="chapter-info">
+          <strong>البداية: لماذا نبحث عن المعرفة؟</strong>
+          <small>مقدمة الكتاب</small>
+        </div>
+        <span class="chapter-arrow">←</span>
+      </a>
+
+      <a href="lesson.html" class="chapter">
+        <span class="chapter-number">02</span>
+        <div class="chapter-info">
+          <strong>قوة القراءة والتفكير</strong>
+          <small>الفصل الثاني</small>
+        </div>
+        <span class="chapter-arrow">←</span>
+      </a>
+
+      <a href="lesson.html" class="chapter">
+        <span class="chapter-number">03</span>
+        <div class="chapter-info">
+          <strong>اكتشاف القدرات الشخصية</strong>
+          <small>الفصل الثالث</small>
+        </div>
+        <span class="chapter-arrow">←</span>
+      </a>
+
+      <a href="lesson.html" class="chapter">
+        <span class="chapter-number">04</span>
+        <div class="chapter-info">
+          <strong>بناء العادات الإيجابية</strong>
+          <small>الفصل الرابع</small>
+        </div>
+        <span class="chapter-arrow">←</span>
+      </a>
+
+      <a href="lesson.html" class="chapter">
+        <span class="chapter-number">05</span>
+        <div class="chapter-info">
+          <strong>تحويل المعرفة إلى عمل</strong>
+          <small>الفصل الخامس</small>
+        </div>
+        <span class="chapter-arrow">←</span>
+      </a>
+
+      <a href="lesson.html" class="chapter">
+        <span class="chapter-number">06</span>
+        <div class="chapter-info">
+          <strong>رحلتك لا تنتهي</strong>
+          <small>الفصل الأخير</small>
+        </div>
+        <span class="chapter-arrow">←</span>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- AUTHOR INFORMATION -->
+
+  <section class="section">
+
+    <h2 class="section-title">عن <span>الكاتب</span></h2>
+
+    <div class="content-card author-card">
+
+      <img
+        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=85"
+        alt="صورة الكاتب">
+
+      <div>
+        <h3>فريق هنون المعرفي</h3>
+        <p>
+          مساهمون في نشر المعرفة وصناعة محتوى عربي
+          يهدف إلى الإلهام والتعلم وتطوير الذات.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+
+  <section class="section">
+    <div class="quote">
+      <h3>
+        كل كتاب تفتحه هو باب جديد،
+        وكل فكرة تتعلمها هي خطوة نحو مستقبل أفضل.
+      </h3>
+      <p>HANOON — المعرفة تصنع الفرق</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <img src="../assets/logo/logo.svg" alt="HANOON">
+  <p>© HANOON — المعرفة تصنع الفرق</p>
+</footer>
+
+<script>
+const favoriteButton = document.getElementById('favoriteButton');
+
+favoriteButton.addEventListener('click', function() {
+  const active = this.dataset.active === 'true';
+
+  this.dataset.active = String(!active);
+  this.textContent = active ? '♡ أضف للمفضلة' : '♥ تمت الإضافة محليًا';
+});
+</script>
+
+</body>
+</html>
