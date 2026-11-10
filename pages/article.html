@@ -1,862 +1,262 @@
 
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <link rel="stylesheet" href="../css/fixed-viewport.css">
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
-
-<meta name="theme-color" content="#0C1020">
-<title>قوة المعرفة في صناعة المستقبل | HANOON</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="../css/theme.css">
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/components.css">
-<link rel="stylesheet" href="../css/layout.css">
-<link rel="stylesheet" href="../css/pages.css">
-
-<style>
-:root {
-  --gold:#D5B36C;
-  --navy:#0C1020;
-  --panel:#171D32;
-  --purple:#8C75F5;
-  --teal:#35BDB0;
-  --cream:#F5EAD1;
-}
-
-* { box-sizing:border-box; }
-
-body {
-  margin:0;
-  background:var(--navy);
-  color:#fff;
-  font-family:'Cairo',sans-serif;
-  overflow-x:hidden;
-}
-
-a { color:inherit;text-decoration:none; }
-
-.topbar {
-  position:relative;
-  z-index:5;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px 7%;
-  background:rgba(12,16,32,.92);
-  border-bottom:1px solid rgba(213,179,108,.15);
-  backdrop-filter:blur(18px);
-}
-
-.brand {
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.brand img { width:46px;height:46px;object-fit:contain; }
-
-.brand span {
-  color:var(--gold);
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-.nav-links {
-  display:flex;
-  gap:22px;
-  color:#c4c4d1;
-  font-size:13px;
-}
-
-.nav-links a:hover { color:var(--gold); }
-
-.back-link {
-  padding:8px 17px;
-  border:1px solid rgba(213,179,108,.4);
-  border-radius:30px;
-  color:var(--gold);
-  font-size:12px;
-}
-
-.article-hero {
-  position:relative;
-  min-height:490px;
-  display:flex;
-  align-items:end;
-  padding:65px 9%;
-  background:
-    linear-gradient(0deg,rgba(7,10,22,.98),rgba(7,10,22,.05) 90%),
-    linear-gradient(90deg,rgba(7,10,22,.65),transparent),
-    url("https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?auto=format&fit=crop&w=2000&q=90") center/cover;
-}
-
-.hero-content {
-  position:relative;
-  z-index:1;
-  max-width:850px;
-}
-
-.tag {
-  display:inline-block;
-  padding:7px 16px;
-  color:var(--gold);
-  background:rgba(213,179,108,.15);
-  border:1px solid rgba(213,179,108,.4);
-  border-radius:30px;
-  font-size:12px;
-}
-
-.article-hero h1 {
-  margin:20px 0 12px;
-  font-size:clamp(32px,5vw,57px);
-  line-height:1.5;
-  font-weight:900;
-}
-
-.article-hero p {
-  color:#d0d0db;
-  line-height:2;
-  max-width:650px;
-}
-
-.article-meta {
-  display:flex;
-  align-items:center;
-  gap:22px;
-  flex-wrap:wrap;
-  margin-top:25px;
-  color:#c3c3d0;
-  font-size:12px;
-}
-
-.author {
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.author-avatar {
-  width:38px;
-  height:38px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  color:var(--navy);
-  background:linear-gradient(135deg,var(--gold),#fff0bf);
-  font-weight:900;
-}
-
-.article-layout {
-  display:grid;
-  grid-template-columns:minmax(0,780px) 280px;
-  gap:45px;
-  max-width:1200px;
-  margin:auto;
-  padding:65px 25px;
-  align-items:start;
-}
-
-.article-content {
-  min-width:0;
-}
-
-.article-actions {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-  padding-bottom:22px;
-  margin-bottom:30px;
-  border-bottom:1px solid rgba(255,255,255,.09);
-}
-
-.action-btn {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:9px 15px;
-  color:#c6c6d4;
-  background:#171D32;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:12px;
-  cursor:pointer;
-  font-family:inherit;
-  font-size:12px;
-  transition:.2s;
-}
-
-.action-btn:hover,
-.action-btn.active {
-  color:var(--gold);
-  border-color:var(--gold);
-}
-
-.article-text {
-  color:#d5d5df;
-  font-size:16px;
-  line-height:2.5;
-}
-
-.article-text h2 {
-  margin:45px 0 15px;
-  color:var(--cream);
-  font-size:25px;
-  font-weight:900;
-}
-
-.article-text h3 {
-  color:var(--gold);
-  font-size:19px;
-  margin-top:30px;
-}
-
-.article-text p { margin:17px 0; }
-
-.article-text strong { color:var(--gold); }
-
-.article-image {
-  width:100%;
-  height:390px;
-  margin:28px 0;
-  object-fit:cover;
-  border-radius:20px;
-  border:1px solid rgba(213,179,108,.2);
-}
-
-.article-caption {
-  margin-top:-20px;
-  margin-bottom:25px;
-  text-align:center;
-  color:#9292a5;
-  font-size:12px;
-}
-
-.article-quote {
-  margin:35px 0;
-  padding:28px;
-  border-right:4px solid var(--gold);
-  border-radius:12px;
-  background:linear-gradient(120deg,rgba(213,179,108,.12),rgba(140,117,245,.08));
-  color:var(--cream);
-  font-size:20px;
-  font-weight:700;
-  line-height:2;
-}
-
-.article-list {
-  padding:22px 30px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:16px;
-  background:#171D32;
-}
-
-.article-list li {
-  margin:10px 0;
-  color:#c5c5d2;
-}
-
-.sidebar {
-  position:sticky;
-  top:20px;
-}
-
-.side-card {
-  padding:22px;
-  margin-bottom:20px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
-  background:linear-gradient(145deg,#1b2239,#12182b);
-}
-
-.side-card h3 {
-  margin:0 0 15px;
-  color:var(--gold);
-  font-size:17px;
-}
-
-.side-card p {
-  color:#aaaabb;
-  font-size:12px;
-  line-height:2;
-}
-
-.progress-box {
-  width:100%;
-  height:6px;
-  margin-top:12px;
-  overflow:hidden;
-  border-radius:20px;
-  background:#30364a;
-}
-
-.progress-fill {
-  width:0%;
-  height:100%;
-  background:linear-gradient(90deg,var(--purple),var(--gold));
-  transition:width .2s;
-}
-
-.related {
-  display:flex;
-  gap:12px;
-  align-items:center;
-  margin:15px 0;
-}
-
-.related img {
-  width:75px;
-  height:70px;
-  object-fit:cover;
-  border-radius:10px;
-}
-
-.related strong {
-  display:block;
-  font-size:12px;
-  line-height:1.7;
-}
-
-.related small {
-  color:#9999aa;
-  font-size:10px;
-}
-
-.author-box {
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin-top:45px;
-  padding:25px;
-  border:1px solid rgba(213,179,108,.2);
-  border-radius:18px;
-  background:rgba(213,179,108,.06);
-}
-
-.author-box .author-avatar {
-  width:55px;
-  height:55px;
-  flex-shrink:0;
-  font-size:19px;
-}
-
-.author-box h3 { margin:0;color:var(--gold); }
-.author-box p { margin:5px 0 0;color:#aaaabb;font-size:12px;line-height:1.9; }
-
-.related-section {
-  padding:60px 7%;
-  background:
-    linear-gradient(rgba(12,16,32,.95),rgba(12,16,32,.97)),
-    url("https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1800&q=80") center/cover;
-}
-
-.section-title {
-  margin-bottom:28px;
-  font-size:28px;
-  font-weight:900;
-}
-
-.section-title span { color:var(--gold); }
-
-.related-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}
-
-.related-card {
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;
-  background:#171D32;
-  transition:.3s;
-}
-
-.related-card:hover { transform:translateY(-6px); }
-
-.related-card img {
-  width:100%;
-  height:190px;
-  object-fit:cover;
-}
-
-.related-card div { padding:18px; }
-
-.related-card h3 {
-  margin:0;
-  font-size:16px;
-  line-height:1.8;
-}
-
-.related-card p {
-  color:#aaaabb;
-  font-size:12px;
-  line-height:1.9;
-}
-
-.related-card a {
-  color:var(--gold);
-  font-size:12px;
-  font-weight:800;
-}
-
-.footer {
-  padding:30px 7%;
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:15px;
-  color:#9999aa;
-  font-size:12px;
-}
-
-.footer strong { color:var(--gold); }
-
-.toast {
-  position:fixed;
-  bottom:25px;
-  right:50%;
-  transform:translate(50%,20px);
-  padding:12px 22px;
-  border:1px solid rgba(213,179,108,.4);
-  border-radius:12px;
-  color:var(--cream);
-  background:#202943;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:20;
-}
-
-.toast.show {
-  opacity:1;
-  transform:translate(50%,0);
-}
-
-@media(max-width:900px) {
-  .article-layout {
-    grid-template-columns:1fr;
+// =====================================================
+// HANOON ARTICLE READER
+// محرك قراءة المقالات
+// =====================================================
+
+(function () {
+  "use strict";
+
+  const API = window.HANOON_ARTICLES_API;
+
+  if (!API) {
+    console.error("HANOON: Articles database not loaded.");
+    return;
   }
-  .sidebar {
-    position:static;
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-  }
-  .side-card { margin:0; }
-}
 
-@media(max-width:600px) {
-  .topbar { padding:12px 5%; }
-  .brand img { width:39px;height:39px; }
-  .nav-links { display:none; }
-  .article-hero {
-    min-height:470px;
-    padding:45px 6%;
-    background-position:58% center;
-  }
-  .article-hero h1 { font-size:32px; }
-  .article-hero p { font-size:13px; }
-  .article-layout { padding:40px 5%; }
-  .article-text { font-size:14px; }
-  .article-text h2 { font-size:22px; }
-  .article-image { height:240px; }
-  .article-quote { font-size:17px; }
-  .sidebar { grid-template-columns:1fr; }
-  .related-grid { grid-template-columns:1fr; }
-  .related-section { padding:45px 5%; }
-  .footer { justify-content:center;text-align:center; }
-}
-</style>
-</head>
-
-<body>
-
-<header class="topbar">
-  <a class="brand" href="../index.html">
-    <img src="../assets/logo/logo.svg" alt="HANOON">
-    <span>HANOON</span>
-  </a>
-
-  <nav class="nav-links">
-    <a href="../index.html">الرئيسية</a>
-    <a href="library.html">المكتبة</a>
-    <a href="articles.html">المقالات</a>
-    <a href="learning.html">التعلم</a>
-  </nav>
-
-  <a class="back-link" href="articles.html">العودة للمقالات</a>
-</header>
-
-<section class="article-hero">
-  <div class="hero-content">
-    <span class="tag">فكر وثقافة · مقال مميز</span>
-
-    <h1>قوة المعرفة في صناعة مستقبل الإنسان</h1>
-
-    <p>
-      المعرفة ليست مجرد معلومات نجمعها، بل هي القوة التي تمنح الإنسان
-      القدرة على فهم العالم وتطوير ذاته وصناعة مستقبل أفضل.
-    </p>
-
-    <div class="article-meta">
-      <div class="author">
-        <div class="author-avatar">هـ</div>
-        <span>فريق HANOON</span>
-      </div>
-      <span>10 نوفمبر 2026</span>
-      <span>8 دقائق قراءة</span>
-    </div>
-  </div>
-</section>
-
-<main class="article-layout">
-
-  <article class="article-content">
-
-    <div class="article-actions">
-      <button class="action-btn" id="likeBtn">♡ إعجاب <span id="likeCount">0</span></button>
-      <button class="action-btn" id="saveBtn">☆ حفظ المقال</button>
-      <button class="action-btn" id="shareBtn">↗ مشاركة</button>
-      <button class="action-btn" id="fontBtn">A+ تكبير الخط</button>
-    </div>
-
-    <div class="article-text" id="articleText">
-
-      <p>
-        منذ بداية التاريخ، كان الإنسان يبحث عن إجابات لأسئلته.
-        كيف يعمل العالم؟ لماذا تحدث الأشياء؟ وكيف يمكن أن تصبح الحياة أفضل؟
-        ومن هذه الأسئلة بدأت رحلة المعرفة التي غيرت وجه الحضارة الإنسانية.
-      </p>
-
-      <h2>المعرفة.. أكثر من مجرد معلومات</h2>
-
-      <p>
-        يعتقد البعض أن المعرفة تعني امتلاك قدر كبير من المعلومات،
-        لكن الحقيقة أعمق من ذلك بكثير. فالمعرفة الحقيقية هي القدرة على
-        فهم المعلومات وتحليلها واستخدامها في اتخاذ قرارات واعية.
-      </p>
-
-      <p>
-        قد يقرأ شخص عشرات الكتب دون أن يتغير تفكيره، بينما يستطيع شخص آخر
-        أن يستفيد من فكرة واحدة ويحولها إلى خطوة عملية تغير حياته.
-        الفرق هنا ليس في كمية ما نعرفه، بل في الطريقة التي نستخدم بها ما نتعلمه.
-      </p>
-
-      <img class="article-image"
-        src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1400&q=85"
-        alt="كتب مفتوحة في مكتبة"
-        loading="lazy">
-
-      <p class="article-caption">القراءة تفتح أبوابًا جديدة للفهم والاكتشاف.</p>
-
-      <h2>كيف تصنع المعرفة مستقبل الإنسان؟</h2>
-
-      <p>
-        تبدأ صناعة المستقبل من طريقة التفكير. فالإنسان الذي يتعلم باستمرار
-        يصبح أكثر قدرة على فهم التحديات والتعامل معها، وأكثر استعدادًا
-        لاكتشاف الفرص التي قد لا يلاحظها الآخرون.
-      </p>
-
-      <h3>1. تمنحنا القدرة على الاختيار</h3>
-
-      <p>
-        عندما نفهم الخيارات المتاحة أمامنا، نستطيع اتخاذ قرارات أفضل.
-        المعرفة تقلل الاعتماد على التخمين، وتساعدنا على رؤية النتائج
-        المحتملة قبل اتخاذ الخطوة.
-      </p>
-
-      <h3>2. توسع حدود الخيال</h3>
-
-      <p>
-        كل مجال نتعلمه يضيف زاوية جديدة لرؤيتنا للعالم.
-        فالعلم يساعدنا على تفسير الظواهر، والتاريخ يعلمنا من تجارب السابقين،
-        والأدب يجعلنا أكثر قدرة على فهم الإنسان ومشاعره.
-      </p>
-
-      <div class="article-quote">
-        «كلما اتسعت معرفتك، اتسعت أمامك مساحة الأشياء التي تستطيع أن تصنعها».
-      </div>
-
-      <h3>3. تجعلنا أكثر قدرة على التغيير</h3>
-
-      <p>
-        لا يحدث التطور الحقيقي بمجرد انتظار الظروف المناسبة.
-        يبدأ عندما يقرر الإنسان أن يتعلم مهارة جديدة، أو يراجع فكرة قديمة،
-        أو يجرب طريقًا مختلفًا.
-      </p>
-
-      <img class="article-image"
-        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=85"
-        alt="التعلم والعمل باستخدام التكنولوجيا"
-        loading="lazy">
-
-      <h2>التعلم المستمر سر التقدم</h2>
-
-      <p>
-        العالم يتغير بسرعة، والمهارات التي كانت كافية بالأمس قد تحتاج
-        إلى تطوير اليوم. لهذا أصبح التعلم المستمر ضرورة وليس مجرد اختيار.
-      </p>
-
-      <p>
-        ويمكن أن يبدأ التعلم من عادات بسيطة:
-      </p>
-
-      <ul class="article-list">
-        <li>خصص وقتًا يوميًا للقراءة.</li>
-        <li>تعلم شيئًا جديدًا كل أسبوع.</li>
-        <li>اسأل عن الأشياء التي لا تفهمها.</li>
-        <li>ناقش أفكارك مع أشخاص مختلفين.</li>
-        <li>حوّل ما تتعلمه إلى تجربة عملية.</li>
-      </ul>
-
-      <h2>المعرفة مسؤولية أيضًا</h2>
-
-      <p>
-        كلما عرفنا أكثر، أصبحت مسؤوليتنا أكبر في استخدام ما نعرفه.
-        فالعلم يمكن أن يبني ويطور، ويمكن أن يُساء استخدامه إذا انفصل
-        عن الأخلاق والوعي.
-      </p>
-
-      <p>
-        لذلك لا ينبغي أن يكون هدف التعلم هو التفوق الشخصي فقط،
-        بل أن نستخدم المعرفة في مساعدة الآخرين وتحسين المجتمع
-        وصناعة أثر إيجابي يستمر بعدنا.
-      </p>
-
-      <div class="article-quote">
-        لا تجعل المعرفة تقف عند حدود عقلك؛ دعها تظهر في أفعالك،
-        وفي الطريقة التي تعامل بها الآخرين.
-      </div>
-
-      <h2>الخلاصة: ابدأ رحلتك اليوم</h2>
-
-      <p>
-        ليس مطلوبًا منك أن تعرف كل شيء، وليس عليك أن تصل إلى الكمال
-        في يوم واحد. المطلوب فقط ألا تتوقف عن التعلم.
-      </p>
-
-      <p>
-        اقرأ صفحة، تعلم مهارة، اسأل سؤالًا، واكتشف فكرة جديدة.
-        فالمستقبل لا يصنعه من ينتظر التغيير، بل من يستعد له ويشارك في صنعه.
-      </p>
-
-      <p><strong>المعرفة تصنع الفرق.. والفرق يبدأ منك.</strong></p>
-
-    </div>
-
-    <div class="author-box">
-      <div class="author-avatar">هـ</div>
-      <div>
-        <h3>فريق HANOON</h3>
-        <p>نقدم محتوى معرفيًا يهدف إلى نشر الوعي وتشجيع القراءة والتعلم والتفكير.</p>
-      </div>
-    </div>
-
-  </article>
-
-  <aside class="sidebar">
-
-    <div class="side-card">
-      <h3>رحلتك في القراءة</h3>
-      <p>يتقدم المؤشر مع تحركك داخل المقال.</p>
-      <div class="progress-box">
-        <div class="progress-fill" id="readingProgress"></div>
-      </div>
-      <p id="progressText">0% مكتمل</p>
-    </div>
-
-    <div class="side-card">
-      <h3>عن هذا المقال</h3>
-      <p>التصنيف: فكر وثقافة</p>
-      <p>وقت القراءة: 8 دقائق تقريبًا</p>
-      <p>اللغة: العربية</p>
-      <p>المنصة: HANOON</p>
-    </div>
-
-    <div class="side-card">
-      <h3>مقالات قد تعجبك</h3>
-
-      <a class="related" href="article.html">
-        <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=250&q=80" alt="شروق الشمس">
-        <div>
-          <strong>كيف تبني عادة صغيرة تغير حياتك؟</strong>
-          <small>تطوير الذات</small>
-        </div>
-      </a>
-
-      <a class="related" href="article.html">
-        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=250&q=80" alt="مختبر">
-        <div>
-          <strong>العلم ورحلة الاكتشاف</strong>
-          <small>علوم ومعرفة</small>
-        </div>
-      </a>
-
-      <a class="related" href="article.html">
-        <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=250&q=80" alt="كتب">
-        <div>
-          <strong>القراءة أسلوب حياة</strong>
-          <small>فكر وثقافة</small>
-        </div>
-      </a>
-    </div>
-
-  </aside>
-
-</main>
-
-<section class="related-section">
-  <h2 class="section-title">اكتشف المزيد من <span>المعرفة</span></h2>
-
-  <div class="related-grid">
-
-    <div class="related-card">
-      <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=800&q=80" alt="شروق الشمس" loading="lazy">
-      <div>
-        <h3>ابدأ بنفسك.. واصنع التغيير</h3>
-        <p>رحلة عملية نحو بناء عادات أفضل وتطوير شخصيتك.</p>
-        <a href="articles.html">اكتشف المقالات ←</a>
-      </div>
-    </div>
-
-    <div class="related-card">
-      <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80" alt="علوم" loading="lazy">
-      <div>
-        <h3>العلم يفتح أبواب المستقبل</h3>
-        <p>اكتشف كيف يغير البحث العلمي عالمنا باستمرار.</p>
-        <a href="articles.html">اكتشف المقالات ←</a>
-      </div>
-    </div>
-
-    <div class="related-card">
-      <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=800&q=80" alt="مكتبة" loading="lazy">
-      <div>
-        <h3>اجعل القراءة جزءًا من يومك</h3>
-        <p>أفكار بسيطة لبناء علاقة مستمرة مع الكتب.</p>
-        <a href="library.html">اكتشف المكتبة ←</a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<footer class="footer">
-  <span>© HANOON — جميع الحقوق محفوظة</span>
-  <strong>المعرفة تصنع الفرق</strong>
-  <a href="../index.html">الرئيسية ↑</a>
-</footer>
-
-<div class="toast" id="toast"></div>
-
-<script>
-const toast = document.getElementById('toast');
-
-function showToast(message) {
-  toast.textContent = message;
-  toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 2200);
-}
-
-// إعجاب محلي للواجهة الحالية
-const likeBtn = document.getElementById('likeBtn');
-const likeCount = document.getElementById('likeCount');
-let liked = false;
-let likes = 0;
-
-likeBtn.addEventListener('click', () => {
-  liked = !liked;
-  likes = Math.max(0, likes + (liked ? 1 : -1));
-  likeCount.textContent = likes;
-  likeBtn.classList.toggle('active', liked);
-  likeBtn.firstChild.textContent = liked ? '♥ إعجاب ' : '♡ إعجاب ';
-});
-
-// حفظ محلي على نفس الجهاز
-const saveBtn = document.getElementById('saveBtn');
-const articleKey = 'hanoon_saved_article_knowledge';
-
-function updateSaveButton() {
-  const saved = localStorage.getItem(articleKey) === 'true';
-  saveBtn.classList.toggle('active', saved);
-  saveBtn.textContent = saved ? '★ تم حفظ المقال' : '☆ حفظ المقال';
-}
-
-saveBtn.addEventListener('click', () => {
-  const saved = localStorage.getItem(articleKey) === 'true';
-  localStorage.setItem(articleKey, saved ? 'false' : 'true');
-  updateSaveButton();
-  showToast(saved ? 'تم إلغاء حفظ المقال' : 'تم حفظ المقال على جهازك');
-});
-
-updateSaveButton();
-
-// مشاركة المقال
-document.getElementById('shareBtn').addEventListener('click', async () => {
-  const shareData = {
-    title: document.title,
-    text: 'اقرأ هذا المقال على HANOON',
-    url: window.location.href
+  const $ = selector => document.querySelector(selector);
+
+  const params = new URLSearchParams(location.search);
+  const articleId = params.get("id");
+
+  const article = API.getById(articleId);
+
+  const escapeHTML = value =>
+    String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[char]);
+
+  const getFavorites = () => {
+    try {
+      return JSON.parse(localStorage.getItem("hanoon_article_favorites") || "[]");
+    } catch {
+      return [];
+    }
   };
 
-  try {
-    if (navigator.share) {
-      await navigator.share(shareData);
-    } else if (navigator.clipboard) {
-      await navigator.clipboard.writeText(window.location.href);
-      showToast('تم نسخ رابط المقال');
-    } else {
-      showToast('المشاركة غير مدعومة في هذا المتصفح');
-    }
-  } catch (error) {
-    if (error.name !== 'AbortError') {
-      showToast('تعذرت المشاركة حاليًا');
+  const saveFavorites = favorites => {
+    localStorage.setItem(
+      "hanoon_article_favorites",
+      JSON.stringify(favorites)
+    );
+  };
+
+  function showNotFound() {
+    document.title = "المقال غير موجود | هنون";
+
+    const main = $("#articleRoot");
+
+    if (main) {
+      main.innerHTML = `
+        <section class="ar-not-found">
+          <div class="ar-not-found-icon">!</div>
+          <h1>المقال غير موجود</h1>
+          <p>
+            ربما تم تغيير رابط المقال أو أن المقال لم يعد متاحًا.
+          </p>
+          <a href="articles.html">العودة إلى المقالات</a>
+        </section>
+      `;
     }
   }
-});
 
-// تكبير وتصغير الخط
-let fontSize = 16;
-const articleText = document.getElementById('articleText');
+  function renderContent() {
+    const container = $("#arContent");
 
-document.getElementById('fontBtn').addEventListener('click', () => {
-  fontSize = fontSize >= 22 ? 16 : fontSize + 2;
-  articleText.style.fontSize = fontSize + 'px';
-  document.getElementById('fontBtn').textContent =
-    fontSize >= 22 ? 'A− تصغير الخط' : 'A+ تكبير الخط';
-});
+    if (!container) return;
 
-// متابعة تقدم القراءة
-function updateReadingProgress() {
-  const article = document.querySelector('.article-content');
-  const rect = article.getBoundingClientRect();
-  const articleTop = window.scrollY + rect.top;
-  const articleHeight = article.offsetHeight;
-  const viewportBottom = window.scrollY + window.innerHeight;
+    container.innerHTML = article.content.map(section => `
+      <section class="ar-content-section">
+        <h2>${escapeHTML(section.heading)}</h2>
 
-  const progress = Math.max(
-    0,
-    Math.min(100, ((viewportBottom - articleTop) / articleHeight) * 100)
-  );
+        ${section.paragraphs.map(paragraph => `
+          <p>${escapeHTML(paragraph)}</p>
+        `).join("")}
+      </section>
+    `).join("");
+  }
 
-  document.getElementById('readingProgress').style.width = progress + '%';
-  document.getElementById('progressText').textContent =
-    Math.round(progress) + '% مكتمل';
-}
+  function renderTags() {
+    const container = $("#arTags");
 
-window.addEventListener('scroll', updateReadingProgress, { passive:true });
-window.addEventListener('resize', updateReadingProgress);
-updateReadingProgress();
-  <script src="../js/global-back.js"></script>
-</script>
+    if (!container) return;
 
-</body>
-</html>
+    container.innerHTML = (article.tags || []).map(tag => `
+      <span class="ar-tag">${escapeHTML(tag)}</span>
+    `).join("");
+  }
+
+  function renderRelated() {
+    const container = $("#arRelated");
+
+    if (!container) return;
+
+    const related = API.getAll()
+      .filter(item =>
+        item.id !== article.id &&
+        item.category === article.category
+      )
+      .slice(0, 3);
+
+    if (!related.length) {
+      container.innerHTML = `
+        <p class="ar-no-related">
+          ستظهر هنا مقالات أخرى من نفس المجال عند إضافتها.
+        </p>
+      `;
+      return;
+    }
+
+    container.innerHTML = related.map(item => `
+      <a class="ar-related-card"
+         href="article.html?id=${encodeURIComponent(item.id)}">
+
+        <img
+          src="${escapeHTML(item.cover)}"
+          alt="${escapeHTML(item.title)}"
+          loading="lazy"
+        >
+
+        <div>
+          <small>${escapeHTML(item.category)}</small>
+          <strong>${escapeHTML(item.title)}</strong>
+          <span>اقرأ المقال ←</span>
+        </div>
+
+      </a>
+    `).join("");
+  }
+
+  function renderFavoriteButton() {
+    const button = $("#arFavorite");
+
+    if (!button) return;
+
+    const favorites = getFavorites();
+    const saved = favorites.includes(article.id);
+
+    button.classList.toggle("active", saved);
+    button.textContent = saved
+      ? "★ محفوظ في المفضلة"
+      : "☆ أضف للمفضلة";
+
+    button.setAttribute("aria-pressed", String(saved));
+  }
+
+  function bindFavorite() {
+    const button = $("#arFavorite");
+
+    if (!button) return;
+
+    button.addEventListener("click", () => {
+      let favorites = getFavorites();
+
+      if (favorites.includes(article.id)) {
+        favorites = favorites.filter(id => id !== article.id);
+      } else {
+        favorites.push(article.id);
+      }
+
+      saveFavorites(favorites);
+      renderFavoriteButton();
+    });
+  }
+
+  async function shareArticle() {
+    const shareData = {
+      title: article.title,
+      text: article.excerpt,
+      url: location.href
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Share error:", error);
+        }
+      }
+
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(location.href);
+      alert("تم نسخ رابط المقال.");
+    } catch {
+      window.prompt("انسخ رابط المقال:", location.href);
+    }
+  }
+
+  function bindActions() {
+    $("#arShare")?.addEventListener("click", shareArticle);
+
+    $("#arPrint")?.addEventListener("click", () => {
+      window.print();
+    });
+
+    bindFavorite();
+  }
+
+  function renderArticle() {
+    document.title = article.title + " | هنون";
+
+    $("#arCategory").textContent = article.category;
+    $("#arTitle").textContent = article.title;
+    $("#arExcerpt").textContent = article.excerpt;
+    $("#arAuthor").textContent = article.author || "فريق هنون";
+    $("#arReadTime").textContent =
+      `${Number(article.readTime) || 5} دقائق قراءة`;
+
+    $("#arDate").textContent = new Date(
+      article.date
+    ).toLocaleDateString("ar-EG", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+
+    const image = $("#arCover");
+
+    image.src = article.cover;
+    image.alt = article.title;
+
+    image.onerror = function () {
+      this.onerror = null;
+      this.src =
+        "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80";
+    };
+
+    renderContent();
+    renderTags();
+    renderRelated();
+    renderFavoriteButton();
+    bindActions();
+  }
+
+  function initialize() {
+    if (!article) {
+      showNotFound();
+      return;
+    }
+
+    renderArticle();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialize);
+  } else {
+    initialize();
+  }
+
+  window.HANOON_ARTICLE_READER = {
+    getCurrentArticle: () => article,
+    refresh: initialize
+  };
+
+})();
