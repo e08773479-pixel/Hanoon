@@ -1,25 +1,13 @@
 
 /* ==========================================
-   HANOON - INDEPENDENT CHAPTER LOADER
-   تحميل كل فصل من ملف مستقل
+   HANOON - SMART CHAPTER LOADER
+   تحميل الفصل المستقل مع دعم المحتوى الحالي
 ========================================== */
 
 (function () {
   "use strict";
 
-  /**
-   * تحميل فصل محدد من مجلد الكتاب
-   *
-   * مثال:
-   * bookId = human-life
-   * chapterNumber = 1
-   *
-   * المسار:
-   * content/books/human-life/chapter-01.js
-   */
-
   async function getChapter(bookId, chapterNumber) {
-    // التحقق من رقم ومعرّف الكتاب
     if (
       typeof bookId !== "string" ||
       !/^[a-zA-Z0-9_-]+$/.test(bookId) ||
@@ -29,26 +17,22 @@
       throw new Error("بيانات الكتاب أو الفصل غير صحيحة.");
     }
 
-    // تحويل 1 إلى 01 و2 إلى 02 وهكذا
     const number = String(chapterNumber).padStart(2, "0");
 
-    // تحديد مسار ملف الفصل
     const filePath =
       `../content/books/${encodeURIComponent(bookId)}/chapter-${number}.js`;
 
+    // أولًا: محاولة تحميل الملف المستقل
     try {
-      // تحميل الفصل كملف JavaScript مستقل
       const chapterModule = await import(filePath);
-
       const chapter = chapterModule.default;
 
-      // التأكد من صحة بيانات الفصل
       if (
         !chapter ||
         typeof chapter !== "object" ||
         typeof chapter.content !== "string"
       ) {
-        throw new Error("ملف الفصل غير مكتمل أو بصيغة غير صحيحة.");
+        throw new Error("صيغة ملف الفصل غير صحيحة.");
       }
 
       return {
@@ -56,23 +40,43 @@
         summary: chapter.summary || "",
         content: chapter.content,
         bookId,
-        chapterNumber
+        chapterNumber,
+        source: "independent-file"
       };
 
     } catch (error) {
-      console.error("HANOON Chapter Loader:", error);
-
-      throw new Error(
-        `تعذر تحميل الفصل رقم ${chapterNumber}. تأكد من وجود ملف الفصل في مجلد الكتاب.`
+      console.info(
+        `HANOON: الملف المستقل للفصل ${number} غير متاح حاليًا، سيتم استخدام المحتوى الحالي.`
       );
     }
+
+    // ثانيًا: استخدام المحتوى الموجود في books.js مؤقتًا
+    const book = window.HANOON_BOOKS_API?.getById(bookId);
+
+    const chapter = book?.chapters?.[chapterNumber - 1];
+
+    if (!chapter) {
+      throw new Error("لم يتم العثور على بيانات هذا الفصل.");
+    }
+
+    if (typeof chapter.content !== "string") {
+      throw new Error("محتوى الفصل غير متاح.");
+    }
+
+    return {
+      title: chapter.title || "",
+      summary: chapter.summary || "",
+      content: chapter.content,
+      bookId,
+      chapterNumber,
+      source: "books-data"
+    };
   }
 
-  // إتاحة نظام تحميل الفصول لباقي صفحات الموقع
   window.HANOON_CONTENT_API = {
     getChapter
   };
 
-  console.info("HANOON Independent Chapter Loader Ready.");
+  console.info("HANOON Smart Chapter Loader Ready.");
 
 })();
