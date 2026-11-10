@@ -2,967 +2,1173 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#0C1020">
-<meta name="description" content="مكتبة HANOON الرقمية: كتب وقصص وروايات وعلوم ومعرفة بلا حدود">
-<title>HANOON | المكتبة الكبرى</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0C1020">
+  <meta name="description" content="مكتبة هنون الرقمية: اكتشف الكتب والمعرفة والعلوم والأدب والتطوير.">
+  <title>المكتبة الرقمية | HANOON</title>
 
-<link rel="stylesheet" href="../css/fixed-viewport.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<style>
-:root {
-  --navy:#0C1020;
-  --panel:#171D32;
-  --panel2:#202944;
-  --gold:#D5B36C;
-  --purple:#8C75F5;
-  --teal:#35BDB0;
-  --white:#F5EAD1;
-  --muted:#A9AEC2;
-  --border:rgba(213,179,108,.17);
-  --radius:22px;
-}
+  <link rel="stylesheet" href="../css/theme.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/fixed-viewport.css">
 
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;overflow-x:hidden}
-body{
-  background:var(--navy);
-  color:var(--white);
-  font-family:'Cairo',sans-serif;
-  min-height:100vh;
-  overflow-x:hidden;
-}
-a{text-decoration:none;color:inherit}
-button,input,select{font-family:inherit}
-button{cursor:pointer}
-img{max-width:100%}
+  <style>
+    :root {
+      --gold: #D5B36C;
+      --purple: #8C75F5;
+      --teal: #35BDB0;
+      --bg: #0C1020;
+      --surface: #171D32;
+      --surface2: #202840;
+      --text: #F5EAD1;
+      --muted: #A8AEC2;
+      --border: rgba(255,255,255,.09);
+    }
 
-.container{width:min(1300px,calc(100% - 38px));margin:auto}
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-.background-glow{
-  position:fixed;
-  inset:0;
-  z-index:-3;
-  pointer-events:none;
-  background:
-    radial-gradient(ellipse at 10% 10%,rgba(140,117,245,.12),transparent 35%),
-    radial-gradient(ellipse at 90% 45%,rgba(213,179,108,.09),transparent 35%),
-    var(--navy);
-}
-.background-photo{
-  position:fixed;
-  inset:0;
-  z-index:-4;
-  background:
-    linear-gradient(rgba(12,16,32,.94),rgba(12,16,32,.98)),
-    url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=2000&q=85') center/cover;
-}
+    html {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
 
-/* HEADER */
-.header{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(12,16,32,.92);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--border);
-}
-.header-inner{
-  min-height:76px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
-.brand{display:flex;align-items:center;gap:12px}
-.brand img{width:50px;height:50px;object-fit:contain}
-.brand-name{font-size:20px;font-weight:900;color:var(--gold)}
-.brand-name small{display:block;font-size:9px;color:var(--muted);font-weight:500}
-.nav{display:flex;align-items:center;gap:23px}
-.nav a{font-size:12px;color:#C2C5D4;transition:.2s}
-.nav a:hover,.nav a.active{color:var(--gold)}
-.header-actions{display:flex;align-items:center;gap:9px}
-.header-btn{
-  min-width:42px;height:42px;padding:0 12px;
-  border:1px solid var(--border);
-  border-radius:13px;
-  background:rgba(255,255,255,.04);
-  color:var(--white);
-  font-size:12px;
-}
-.profile-link{
-  width:42px;height:42px;border-radius:50%;
-  display:grid;place-items:center;
-  background:linear-gradient(135deg,#F3DDA5,#B78A43);
-  color:#171626;font-weight:900;
-}
+    body {
+      margin: 0;
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Cairo", sans-serif;
+    }
 
-/* HERO */
-.hero{
-  min-height:490px;
-  margin-top:24px;
-  border:1px solid rgba(213,179,108,.28);
-  border-radius:30px;
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  padding:55px;
-  background:
-    linear-gradient(90deg,rgba(12,16,32,.98),rgba(12,16,32,.83) 48%,rgba(12,16,32,.18)),
-    url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1900&q=90') center/cover;
-  box-shadow:0 25px 70px rgba(0,0,0,.25);
-}
-.hero::after{
-  content:"";
-  position:absolute;
-  width:350px;height:350px;
-  border:1px solid rgba(213,179,108,.17);
-  border-radius:50%;
-  left:-100px;bottom:-180px;
-  box-shadow:0 0 0 35px rgba(213,179,108,.025),0 0 0 75px rgba(213,179,108,.02);
-}
-.hero-content{max-width:650px;position:relative;z-index:2}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:9px;
-  padding:9px 16px;
-  border:1px solid rgba(213,179,108,.35);
-  border-radius:30px;
-  color:var(--gold);
-  background:rgba(213,179,108,.08);
-  font-size:12px;font-weight:800;
-  margin-bottom:22px;
-}
-.hero h1{font-size:clamp(34px,5vw,58px);line-height:1.45;font-weight:900;margin-bottom:15px}
-.hero h1 span{color:var(--gold)}
-.hero p{font-size:15px;color:#D0D0DD;line-height:2.1;max-width:560px;margin-bottom:28px}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-.gold-btn,.outline-btn{
-  min-height:49px;padding:0 25px;
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  border-radius:13px;font-size:13px;font-weight:900;
-  transition:.25s;
-}
-.gold-btn{background:linear-gradient(110deg,#F0D99F,#C49A4E);color:#171626}
-.outline-btn{border:1px solid rgba(213,179,108,.4);color:var(--gold);background:rgba(12,16,32,.5)}
-.gold-btn:hover,.outline-btn:hover{transform:translateY(-3px)}
+    button, input, select {
+      font-family: inherit;
+    }
 
-/* STATS */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin:25px 0 55px;
-}
-.stat{
-  padding:22px 15px;
-  text-align:center;
-  border:1px solid var(--border);
-  border-radius:18px;
-  background:linear-gradient(145deg,rgba(31,40,67,.85),rgba(19,25,44,.92));
-}
-.stat strong{display:block;font-size:27px;color:var(--gold);font-weight:900}
-.stat span{font-size:11px;color:var(--muted)}
+    button {
+      cursor: pointer;
+    }
 
-/* GENERAL SECTIONS */
-.section{margin-bottom:65px}
-.section-head{
-  display:flex;align-items:end;justify-content:space-between;
-  gap:15px;margin-bottom:24px;
-}
-.section-title{font-size:26px;font-weight:900}
-.section-title span{color:var(--gold)}
-.section-subtitle{font-size:12px;color:var(--muted);margin-top:5px}
-.view-all{font-size:12px;color:var(--gold);font-weight:800;white-space:nowrap}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-/* CATEGORY GRID */
-.category-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:17px;
-}
-.category-card{
-  min-height:205px;
-  border-radius:20px;
-  position:relative;
-  overflow:hidden;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  justify-content:end;
-  border:1px solid rgba(255,255,255,.12);
-  isolation:isolate;
-  transition:.3s;
-}
-.category-card::before{
-  content:"";position:absolute;inset:0;z-index:-2;
-  background:var(--photo) center/cover;
-  transition:.5s;
-}
-.category-card::after{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(0deg,rgba(8,12,26,.98),rgba(8,12,26,.08));
-}
-.category-card:hover{transform:translateY(-5px);border-color:var(--gold)}
-.category-card:hover::before{transform:scale(1.08)}
-.category-icon{
-  position:absolute;top:15px;right:15px;
-  width:43px;height:43px;border-radius:13px;
-  display:grid;place-items:center;
-  color:var(--gold);font-size:21px;
-  background:rgba(12,16,32,.72);
-  border:1px solid rgba(213,179,108,.3);
-}
-.category-card h3{font-size:18px;font-weight:900}
-.category-card p{font-size:11px;color:#D0D1DB;margin-top:4px}
+    .library-page {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 8% 10%, rgba(140,117,245,.15), transparent 32%),
+        radial-gradient(ellipse at 90% 35%, rgba(53,189,176,.10), transparent 30%),
+        linear-gradient(180deg, #0C1020, #10172A 55%, #0C1020);
+    }
 
-/* SEARCH AND FILTERS */
-.library-tools{
-  padding:22px;
-  border:1px solid var(--border);
-  border-radius:22px;
-  background:rgba(23,29,50,.9);
-  margin-bottom:25px;
-}
-.search-row{display:flex;gap:12px}
-.search-box{
-  flex:1;min-width:0;height:55px;
-  display:flex;align-items:center;gap:12px;
-  padding:0 17px;
-  background:rgba(255,255,255,.04);
-  border:1px solid var(--border);
-  border-radius:13px;
-}
-.search-box span{font-size:20px;color:var(--gold)}
-.search-box input{
-  width:100%;height:100%;border:0;outline:0;
-  background:transparent;color:white;font-size:13px;
-}
-.search-box input::placeholder{color:#838AA1}
-.search-submit{
-  border:0;border-radius:13px;padding:0 25px;
-  background:var(--gold);color:#171626;font-weight:900;
-}
-.filters{
-  display:flex;gap:9px;flex-wrap:wrap;margin-top:17px;
-}
-.filter-btn{
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:30px;padding:8px 16px;
-  background:rgba(255,255,255,.035);
-  color:#C6CAD8;font-size:11px;
-}
-.filter-btn.active,.filter-btn:hover{
-  background:rgba(213,179,108,.14);
-  border-color:var(--gold);color:var(--gold);
-}
-.sort-row{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;margin-top:17px;
-}
-.sort-row label{font-size:11px;color:var(--muted)}
-.sort-row select{
-  border:1px solid var(--border);border-radius:10px;
-  padding:9px 12px;background:var(--panel2);
-  color:var(--white);font-size:11px;outline:none;
-}
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 12px 5%;
+      background: rgba(12,16,32,.88);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+    }
 
-/* BOOKS */
-.books-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:20px;
-}
-.book-card{
-  min-width:0;
-  overflow:hidden;
-  border-radius:19px;
-  border:1px solid rgba(255,255,255,.08);
-  background:linear-gradient(145deg,rgba(31,40,67,.96),rgba(19,25,44,.97));
-  transition:.3s;
-}
-.book-card:hover{
-  transform:translateY(-6px);
-  border-color:rgba(213,179,108,.5);
-  box-shadow:0 18px 35px rgba(0,0,0,.25);
-}
-.book-cover{height:245px;position:relative;overflow:hidden;background:#202944}
-.book-cover img{width:100%;height:100%;object-fit:cover;display:block;transition:.5s}
-.book-card:hover .book-cover img{transform:scale(1.06)}
-.book-tag{
-  position:absolute;top:11px;right:11px;
-  padding:6px 11px;border-radius:20px;
-  background:var(--gold);color:#171626;
-  font-size:10px;font-weight:900;
-}
-.favorite-btn{
-  position:absolute;top:10px;left:10px;
-  width:36px;height:36px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.2);
-  background:rgba(12,16,32,.78);
-  color:white;font-size:18px;
-}
-.favorite-btn.saved{color:#ff718c}
-.book-info{padding:15px}
-.book-info h3{font-size:14px;font-weight:900;margin-bottom:6px}
-.book-info p{font-size:11px;color:var(--muted);line-height:1.8;min-height:40px}
-.book-meta{
-  display:flex;justify-content:space-between;gap:8px;
-  margin-top:12px;padding-top:11px;
-  border-top:1px solid rgba(255,255,255,.07);
-}
-.book-meta span{font-size:10px;color:var(--gold)}
-.book-open{display:block;text-align:center;margin-top:13px;padding:9px;border-radius:10px;background:rgba(53,189,176,.1);color:var(--teal);font-size:11px;font-weight:900}
-.empty-state{
-  display:none;padding:40px;text-align:center;
-  border:1px dashed var(--border);border-radius:18px;color:var(--muted);
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--gold);
+      font-size: 23px;
+    }
 
-/* FEATURED BACKGROUND BANNERS */
-.visual-banner{
-  min-height:310px;border-radius:25px;
-  border:1px solid var(--border);
-  display:flex;align-items:center;
-  padding:40px;position:relative;overflow:hidden;
-  background:
-    linear-gradient(90deg,rgba(12,16,32,.97),rgba(12,16,32,.65)),
-    url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1500&q=85') center/cover;
-}
-.visual-banner.purple{
-  background:
-    linear-gradient(90deg,rgba(12,16,32,.96),rgba(12,16,32,.55)),
-    url('https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1500&q=85') center/cover;
-}
-.banner-content{max-width:600px;position:relative;z-index:1}
-.banner-content h2{font-size:30px;font-weight:900;margin:13px 0}
-.banner-content h2 span{color:var(--gold)}
-.banner-content p{font-size:13px;line-height:2;color:#D0D0DD;margin-bottom:20px}
+    .brand-mark {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gold), #8b6937);
+      color: #171525;
+      font-size: 23px;
+      box-shadow: 0 5px 22px rgba(213,179,108,.2);
+    }
 
-/* READING PATH */
-.path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
-.path-card{
-  border:1px solid var(--border);border-radius:19px;
-  overflow:hidden;background:var(--panel);
-}
-.path-image{height:155px;overflow:hidden}
-.path-image img{width:100%;height:100%;object-fit:cover;transition:.4s}
-.path-card:hover img{transform:scale(1.05)}
-.path-content{padding:17px}
-.path-content h3{font-size:15px;margin-bottom:7px}
-.path-content p{font-size:11px;line-height:1.9;color:var(--muted)}
-.path-link{display:inline-block;margin-top:12px;color:var(--gold);font-size:11px;font-weight:800}
+    .top-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 13px;
+    }
 
-/* QUOTE */
-.quote-card{
-  padding:40px 25px;text-align:center;
-  border:1px solid var(--border);border-radius:23px;
-  background:
-    linear-gradient(rgba(23,29,50,.9),rgba(23,29,50,.95)),
-    url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1400&q=85') center/cover;
-}
-.quote-mark{font-size:45px;color:var(--gold);line-height:1}
-.quote-card h2{font-size:23px;margin:13px 0}
-.quote-card p{font-size:12px;color:var(--muted)}
+    .top-links a:hover {
+      color: var(--gold);
+    }
 
-/* FOOTER */
-.footer{
-  margin-top:75px;padding:45px 0 25px;
-  border-top:1px solid var(--border);
-  background:rgba(8,12,25,.8);
-}
-.footer-inner{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:20px;flex-wrap:wrap;
-}
-.footer-brand{display:flex;align-items:center;gap:12px;color:var(--gold);font-weight:900}
-.footer-brand img{width:48px;height:48px;object-fit:contain}
-.footer-links{display:flex;gap:18px;flex-wrap:wrap}
-.footer-links a{font-size:11px;color:#B8BDCE}
-.footer p{font-size:10px;color:#8D93A8}
+    .back-home {
+      border: 1px solid rgba(213,179,108,.35);
+      border-radius: 30px;
+      padding: 8px 16px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+    }
 
-/* TOAST */
-.toast{
-  position:fixed;bottom:22px;left:50%;
-  transform:translate(-50%,20px);
-  padding:12px 20px;border-radius:12px;
-  background:var(--gold);color:#171626;
-  font-size:12px;font-weight:900;
-  opacity:0;pointer-events:none;transition:.25s;z-index:200;
-}
-.toast.show{opacity:1;transform:translate(-50%,0)}
+    .hero {
+      position: relative;
+      min-height: 340px;
+      padding: 65px 6% 50px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(12,16,32,.95), rgba(12,16,32,.55)),
+        url("https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1800&q=90") center/cover;
+      border-bottom: 1px solid var(--border);
+    }
 
-/* RESPONSIVE */
-@media(max-width:1000px){
-  .nav{gap:12px}
-  .books-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .category-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:700px){
-  .container{width:calc(100% - 26px)}
-  .header-inner{min-height:65px}
-  .brand img{width:43px;height:43px}
-  .brand-name{font-size:17px}
-  .nav{display:none}
-  .hero{min-height:430px;padding:27px 22px;margin-top:15px;background-position:60% center}
-  .hero h1{font-size:34px}
-  .hero p{font-size:13px}
-  .stats{grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:42px}
-  .stat{padding:17px 8px}
-  .stat strong{font-size:23px}
-  .section{margin-bottom:48px}
-  .section-title{font-size:21px}
-  .category-grid{gap:11px}
-  .category-card{min-height:165px;padding:14px}
-  .category-card h3{font-size:15px}
-  .books-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  .book-cover{height:190px}
-  .book-info{padding:11px}
-  .book-info h3{font-size:12px}
-  .book-info p{font-size:10px}
-  .library-tools{padding:14px}
-  .search-row{gap:8px}
-  .search-submit{padding:0 14px}
-  .filter-btn{padding:7px 12px;font-size:10px}
-  .visual-banner{min-height:290px;padding:23px 19px}
-  .banner-content h2{font-size:24px}
-  .path-grid{grid-template-columns:1fr}
-  .path-image{height:180px}
-  .footer-inner{flex-direction:column;text-align:center}
-  .footer-brand{justify-content:center}
-  .footer-links{justify-content:center}
-}
-@media(max-width:370px){
-  .book-cover{height:155px}
-  .hero h1{font-size:29px}
-  .header-btn{padding:0 9px}
-}
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      border: 1px solid rgba(213,179,108,.2);
+      left: -110px;
+      bottom: -220px;
+      box-shadow: 0 0 0 35px rgba(213,179,108,.025), 0 0 0 70px rgba(213,179,108,.02);
+    }
 
-/* Keep natural vertical reading; prevent horizontal movement */
-body,main,.container{max-width:100%}
-img{user-select:none;-webkit-user-drag:none}
-</style>
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      margin: 0 0 14px;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.4;
+      font-weight: 900;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      max-width: 590px;
+      color: #d1d2dc;
+      font-size: 14px;
+      line-height: 2.1;
+      margin: 0;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .hero-stat {
+      min-width: 115px;
+      padding: 10px 15px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 13px;
+      background: rgba(20,25,43,.68);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-stat strong {
+      display: block;
+      color: var(--gold);
+      font-size: 21px;
+    }
+
+    .hero-stat span {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .page-container {
+      width: min(1250px, 92%);
+      margin: auto;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 15px;
+      margin: 38px 0 20px;
+    }
+
+    .section-heading h2 {
+      font-size: 23px;
+      margin: 0 0 4px;
+      font-weight: 900;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .gold-line {
+      width: 55px;
+      height: 3px;
+      border-radius: 10px;
+      background: var(--gold);
+      margin-top: 9px;
+    }
+
+    .featured-wrap {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 18px;
+    }
+
+    .featured-card {
+      min-height: 250px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: end;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      isolation: isolate;
+    }
+
+    .featured-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      transition: transform .5s;
+    }
+
+    .featured-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .featured-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(0deg, rgba(7,10,20,.97), rgba(7,10,20,.1));
+    }
+
+    .featured-info {
+      padding: 24px;
+      width: 100%;
+    }
+
+    .featured-info small {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .featured-info h3 {
+      font-size: 23px;
+      margin: 8px 0;
+    }
+
+    .featured-info p {
+      color: #d1d2dc;
+      font-size: 12px;
+      line-height: 1.9;
+      max-width: 500px;
+      margin: 0 0 12px;
+    }
+
+    .gold-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #e7cb8a, #b28b4d);
+      color: #171525;
+      padding: 9px 19px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .tools-area {
+      margin-top: 45px;
+      padding: 23px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(31,39,62,.92), rgba(20,26,44,.9));
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: 1fr 190px 160px;
+      gap: 12px;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-box span {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      opacity: .7;
+    }
+
+    .search-box input,
+    .filter-select {
+      width: 100%;
+      height: 49px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.11);
+      background: rgba(9,13,27,.65);
+      color: white;
+      outline: none;
+      padding: 0 15px;
+      font-size: 12px;
+    }
+
+    .search-box input {
+      padding-right: 46px;
+    }
+
+    .search-box input:focus,
+    .filter-select:focus {
+      border-color: var(--gold);
+    }
+
+    .filter-select option {
+      background: #171d32;
+      color: white;
+    }
+
+    .category-list {
+      display: flex;
+      gap: 9px;
+      flex-wrap: wrap;
+      margin-top: 17px;
+    }
+
+    .category-btn {
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.035);
+      color: var(--muted);
+      padding: 8px 15px;
+      border-radius: 30px;
+      font-size: 11px;
+      transition: .2s;
+    }
+
+    .category-btn.active,
+    .category-btn:hover {
+      background: rgba(213,179,108,.15);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .result-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 28px 0 16px;
+      gap: 12px;
+    }
+
+    .result-bar strong {
+      color: var(--gold);
+    }
+
+    .result-bar span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+      padding-bottom: 55px;
+    }
+
+    .book-card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: linear-gradient(160deg, #202840, #141a2d);
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+    }
+
+    .book-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(213,179,108,.55);
+      box-shadow: 0 16px 32px rgba(0,0,0,.25);
+    }
+
+    .book-cover {
+      height: 225px;
+      position: relative;
+      overflow: hidden;
+      background: #222a40;
+    }
+
+    .book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s;
+    }
+
+    .book-card:hover .book-cover img {
+      transform: scale(1.07);
+    }
+
+    .book-number {
+      position: absolute;
+      top: 11px;
+      right: 11px;
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      color: #1a1722;
+      background: var(--gold);
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .favorite-btn {
+      position: absolute;
+      top: 11px;
+      left: 11px;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(8,12,25,.72);
+      color: white;
+      font-size: 18px;
+      display: grid;
+      place-items: center;
+    }
+
+    .favorite-btn.active {
+      color: #ff758b;
+      border-color: #ff758b;
+    }
+
+    .book-info {
+      padding: 15px;
+    }
+
+    .book-category {
+      display: inline-block;
+      color: var(--teal);
+      font-size: 10px;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .book-info h3 {
+      font-size: 15px;
+      font-weight: 900;
+      margin: 0 0 7px;
+      min-height: 28px;
+    }
+
+    .book-description {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.9;
+      min-height: 61px;
+      margin: 0;
+    }
+
+    .book-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 7px;
+      padding: 11px 0;
+      border-top: 1px solid var(--border);
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .book-author {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #d9c79d;
+    }
+
+    .book-author img {
+      width: 22px;
+      height: 22px;
+      object-fit: cover;
+      border-radius: 50%;
+      background: #333;
+    }
+
+    .book-open {
+      width: 100%;
+      border: 1px solid rgba(213,179,108,.4);
+      border-radius: 10px;
+      background: rgba(213,179,108,.09);
+      color: var(--gold);
+      padding: 9px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .book-open:hover {
+      background: var(--gold);
+      color: #171525;
+    }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 55px 15px;
+      border: 1px dashed var(--border);
+      border-radius: 17px;
+      color: var(--muted);
+      margin-bottom: 50px;
+    }
+
+    .empty-state strong {
+      display: block;
+      font-size: 20px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .author-banner {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      padding: 27px;
+      margin: 10px 0 50px;
+      border-radius: 20px;
+      border: 1px solid rgba(213,179,108,.22);
+      background:
+        linear-gradient(100deg, rgba(13,18,35,.96), rgba(28,34,57,.9)),
+        url("https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=1200&q=80") center/cover;
+    }
+
+    .author-banner img {
+      width: 95px;
+      height: 95px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      background: #252b40;
+    }
+
+    .author-banner h3 {
+      margin: 0 0 6px;
+      color: var(--gold);
+      font-size: 19px;
+    }
+
+    .author-banner p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .footer {
+      padding: 30px 5%;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 2;
+    }
+
+    .footer strong {
+      color: var(--gold);
+    }
+
+    .loading-state {
+      grid-column: 1 / -1;
+      padding: 50px 15px;
+      text-align: center;
+      color: var(--gold);
+    }
+
+    @media (max-width: 1000px) {
+      .books-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        min-height: 62px;
+        padding: 9px 4%;
+      }
+
+      .brand {
+        font-size: 19px;
+      }
+
+      .brand-mark {
+        width: 37px;
+        height: 37px;
+      }
+
+      .top-links {
+        display: none;
+      }
+
+      .hero {
+        min-height: 330px;
+        padding: 48px 5%;
+        background-position: 60% center;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 12px;
+      }
+
+      .hero-stat {
+        min-width: 95px;
+        padding: 8px 11px;
+      }
+
+      .featured-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-card {
+        min-height: 210px;
+      }
+
+      .tools-area {
+        padding: 15px;
+      }
+
+      .search-row {
+        grid-template-columns: 1fr;
+      }
+
+      .books-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .book-cover {
+        height: 180px;
+      }
+
+      .book-info {
+        padding: 11px;
+      }
+
+      .book-info h3 {
+        font-size: 13px;
+      }
+
+      .book-description {
+        font-size: 10px;
+        min-height: 58px;
+      }
+
+      .book-meta {
+        font-size: 9px;
+      }
+
+      .section-heading h2 {
+        font-size: 19px;
+      }
+
+      .author-banner {
+        gap: 15px;
+        padding: 18px;
+      }
+
+      .author-banner img {
+        width: 70px;
+        height: 70px;
+      }
+
+      .author-banner h3 {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .books-grid {
+        gap: 9px;
+      }
+
+      .book-cover {
+        height: 155px;
+      }
+
+      .book-info {
+        padding: 9px;
+      }
+
+      .hero-stats {
+        gap: 7px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<div class="background-photo"></div>
-<div class="background-glow"></div>
+<div class="library-page">
 
-<header class="header">
-  <div class="container header-inner">
+  <header class="topbar">
     <a href="../index.html" class="brand">
-      <img src="../assets/logo/logo.svg" alt="HANOON">
-      <span class="brand-name">HANOON<small>المعرفة تصنع الفرق</small></span>
+      <span class="brand-mark">ه</span>
+      HANOON
     </a>
 
-    <nav class="nav">
-      <a href="../index.html">الرئيسية</a>
-      <a href="library.html" class="active">المكتبة</a>
-      <a href="articles.html">المقالات</a>
-      <a href="stories.html">القصص</a>
-      <a href="learning.html">التعلم</a>
-      <a href="community.html">المجتمع</a>
-    </nav>
-
-    <div class="header-actions">
-      <button class="header-btn" id="favoritesShortcut" type="button">♡ <span id="favoriteCount">0</span></button>
-      <a href="profile.html" class="profile-link">م</a>
-    </div>
-  </div>
-</header>
-
-<main class="container">
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="eyebrow">✦ مرحبًا بك في عالم HANOON</div>
-      <h1>هنا تبدأ الحكاية...<br><span>وهنا تكبر المعرفة</span></h1>
-      <p>
-        ليست مجرد مكتبة، بل عالم كامل من الكتب والقصص والأفكار.
-        اكتشف عوالم جديدة، تعلم مهارات مختلفة، واصنع لنفسك طريقًا مليئًا بالمعرفة.
-      </p>
-      <div class="hero-actions">
-        <a href="#allBooks" class="gold-btn">اكتشف الكتب ←</a>
-        <a href="#categories" class="outline-btn">استكشف الأقسام</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <section class="stats">
-    <div class="stat"><strong>30+</strong><span>كتابًا في خطة المكتبة</span></div>
-    <div class="stat"><strong>7</strong><span>مجالات معرفية</span></div>
-    <div class="stat"><strong>∞</strong><span>أفكار لا تنتهي</span></div>
-    <div class="stat"><strong>24/7</strong><span>عالم المعرفة بين يديك</span></div>
-  </section>
-
-  <!-- CATEGORIES -->
-  <section class="section" id="categories">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">اكتشف <span>العوالم</span></h2>
-        <p class="section-subtitle">كل قسم يفتح لك بابًا جديدًا للمعرفة</p>
-      </div>
-    </div>
-
-    <div class="category-grid">
-      <a href="#allBooks" class="category-card" style="--photo:url('https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=700&q=85')">
-        <div class="category-icon">▤</div><h3>الكتب العامة</h3><p>معرفة متنوعة وأفكار جديدة</p>
-      </a>
-      <a href="stories.html" class="category-card" style="--photo:url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=700&q=85')">
-        <div class="category-icon">❖</div><h3>القصص والروايات</h3><p>حكايات تأخذك إلى عوالم أخرى</p>
-      </a>
-      <a href="#allBooks" class="category-card" data-category-link="development" style="--photo:url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=700&q=85')">
-        <div class="category-icon">✦</div><h3>التنمية البشرية</h3><p>تطوير الذات وبناء الشخصية</p>
-      </a>
-      <a href="#allBooks" class="category-card" data-category-link="science" style="--photo:url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=700&q=85')">
-        <div class="category-icon">⚗</div><h3>العلوم والمعرفة</h3><p>اكتشاف العالم من حولك</p>
-      </a>
-      <a href="#allBooks" class="category-card" data-category-link="technology" style="--photo:url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=85')">
-        <div class="category-icon">⌘</div><h3>التكنولوجيا</h3><p>البرمجة والعالم الرقمي</p>
-      </a>
-      <a href="#allBooks" class="category-card" data-category-link="history" style="--photo:url('https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=700&q=85')">
-        <div class="category-icon">◈</div><h3>التاريخ والحضارات</h3><p>رحلة بين الماضي والحاضر</p>
-      </a>
-      <a href="articles.html" class="category-card" style="--photo:url('https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=700&q=85')">
-        <div class="category-icon">✎</div><h3>المقالات</h3><p>موضوعات وأفكار مختارة</p>
-      </a>
-      <a href="research.html" class="category-card" style="--photo:url('https://images.unsplash.com/photo-1532619675605-1ede6c2ed2b0?auto=format&fit=crop&w=700&q=85')">
-        <div class="category-icon">⌕</div><h3>الأبحاث</h3><p>معرفة متخصصة واكتشافات</p>
-      </a>
-    </div>
-  </section>
-
-  <!-- SEARCH -->
-  <section class="section" id="allBooks">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">المكتبة <span>الكبرى</span></h2>
-        <p class="section-subtitle">ابحث واكتشف واختر كتابك القادم</p>
-      </div>
-    </div>
-
-    <div class="library-tools">
-      <div class="search-row">
-        <label class="search-box">
-          <span>⌕</span>
-          <input id="bookSearch" type="search" placeholder="ابحث باسم الكتاب أو موضوعه...">
-        </label>
-        <button class="search-submit" id="searchBtn" type="button">بحث</button>
-      </div>
-
-      <div class="filters" id="filters">
-        <button class="filter-btn active" data-filter="all">كل الكتب</button>
-        <button class="filter-btn" data-filter="development">تطوير الذات</button>
-        <button class="filter-btn" data-filter="psychology">علم النفس</button>
-        <button class="filter-btn" data-filter="society">العلاقات</button>
-        <button class="filter-btn" data-filter="technology">التكنولوجيا</button>
-        <button class="filter-btn" data-filter="science">العلوم</button>
-        <button class="filter-btn" data-filter="history">التاريخ</button>
-        <button class="filter-btn" data-filter="literature">الأدب</button>
-        <button class="filter-btn" data-filter="favorites">مفضلتي ♡</button>
-      </div>
-
-      <div class="sort-row">
-        <label id="resultsCount">عرض الكتب</label>
-        <select id="sortBooks" aria-label="ترتيب الكتب">
-          <option value="default">الترتيب الافتراضي</option>
-          <option value="name">حسب الاسم</option>
-          <option value="newest">الأحدث أولًا</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="books-grid" id="booksGrid">
-
-      <article class="book-card" data-id="human-life" data-category="development" data-name="الإنسان والحياة" data-date="5">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=650&q=85" alt="الإنسان والحياة">
-          <span class="book-tag">اختيار المحرر</span>
-          <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>الإنسان والحياة</h3><p>رحلة لفهم الحياة واكتشاف الذات وبناء مستقبل أفضل.</p>
-          <div class="book-meta"><span>تطوير الذات</span><span>كتاب معرفي</span></div>
-          <a class="book-open" href="book.html?id=human-life">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="human-psyche" data-category="psychology" data-name="النفس البشرية" data-date="4">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=650&q=85" alt="النفس البشرية">
-          <span class="book-tag">مميز</span><button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>النفس البشرية</h3><p>اكتشف المشاعر والدوافع وطريقة التفكير وفهم الذات.</p>
-          <div class="book-meta"><span>علم النفس</span><span>كتاب معرفي</span></div>
-          <a class="book-open" href="book.html?id=human-psyche">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="human-relations" data-category="society" data-name="العلاقات الإنسانية" data-date="3">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=650&q=85" alt="العلاقات الإنسانية">
-          <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>العلاقات الإنسانية</h3><p>التواصل الفعال وفهم الآخرين وبناء علاقات صحية.</p>
-          <div class="book-meta"><span>العلاقات</span><span>كتاب معرفي</span></div>
-          <a class="book-open" href="book.html?id=human-relations">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="programming-intro" data-category="technology" data-name="مدخل البرمجة" data-date="12">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=650&q=85" alt="مدخل البرمجة">
-          <span class="book-tag">تقنية</span><button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>مدخل البرمجة</h3><p>من التفكير المنطقي إلى كتابة أول برنامج لك.</p>
-          <div class="book-meta"><span>البرمجة</span><span>تقنية</span></div>
-          <a class="book-open" href="book.html?id=programming-intro">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="cyber-security" data-category="technology" data-name="أساسيات الأمن السيبراني" data-date="11">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=650&q=85" alt="الأمن السيبراني">
-          <span class="book-tag">تقنية</span><button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>أساسيات الأمن السيبراني</h3><p>مبادئ حماية المعلومات والخصوصية والأمان الرقمي.</p>
-          <div class="book-meta"><span>الأمن الرقمي</span><span>تقنية</span></div>
-          <a class="book-open" href="book.html?id=cyber-security">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="power-thinking" data-category="psychology" data-name="قوة التفكير" data-date="10">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=650&q=85" alt="قوة التفكير">
-          <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>قوة التفكير</h3><p>كيف تطور طريقة تفكيرك وتحول الأفكار إلى قرارات.</p>
-          <div class="book-meta"><span>التفكير</span><span>علم النفس</span></div>
-          <a class="book-open" href="book.html?id=power-thinking">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="success-road" data-category="development" data-name="طريق النجاح" data-date="9">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=650&q=85" alt="طريق النجاح">
-          <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>طريق النجاح</h3><p>الأهداف والانضباط والاستمرار رغم الصعوبات.</p>
-          <div class="book-meta"><span>النجاح</span><span>تطوير الذات</span></div>
-          <a class="book-open" href="book.html?id=success-road">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="time-management" data-category="development" data-name="إدارة الوقت" data-date="8">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=650&q=85" alt="إدارة الوقت">
-          <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>إدارة الوقت</h3><p>تنظيم يومك وبناء عادات تساعدك على الإنجاز.</p>
-          <div class="book-meta"><span>الإنتاجية</span><span>تطوير الذات</span></div>
-          <a class="book-open" href="book.html?id=time-management">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="world-science" data-category="science" data-name="رحلة في عالم العلوم" data-date="7">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=650&q=85" alt="عالم العلوم">
-          <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>رحلة في عالم العلوم</h3><p>أسئلة علمية ومفاهيم تساعدك على فهم الكون.</p>
-          <div class="book-meta"><span>العلوم</span><span>معرفة</span></div>
-          <a class="book-open" href="book.html?id=world-science">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="history-civilizations" data-category="history" data-name="حكايات الحضارات" data-date="6">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=650&q=85" alt="حكايات الحضارات">
-          <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>حكايات الحضارات</h3><p>جولة بين حضارات تركت أثرًا في تاريخ البشرية.</p>
-          <div class="book-meta"><span>التاريخ</span><span>ثقافة</span></div>
-          <a class="book-open" href="book.html?id=history-civilizations">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="art-of-reading" data-category="literature" data-name="فن القراءة" data-date="2">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=650&q=85" alt="فن القراءة">
-          <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>فن القراءة</h3><p>كيف تقرأ بوعي وتستفيد من كل صفحة تمر بها.</p>
-          <div class="book-meta"><span>القراءة</span><span>الأدب</span></div>
-          <a class="book-open" href="book.html?id=art-of-reading">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-      <article class="book-card" data-id="creative-mind" data-category="psychology" data-name="العقل المبدع" data-date="1">
-        <div class="book-cover">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1453738773917-9c3eff1db985?auto=format&fit=crop&w=650&q=85" alt="العقل المبدع">
-          <button class="favorite-btn" aria-label="إضافة للمفضلة">♡</button>
-        </div>
-        <div class="book-info">
-          <h3>العقل المبدع</h3><p>تنمية الخيال والابتكار وصناعة الأفكار الجديدة.</p>
-          <div class="book-meta"><span>الإبداع</span><span>علم النفس</span></div>
-          <a class="book-open" href="book.html?id=creative-mind">اكتشف الكتاب ←</a>
-        </div>
-      </article>
-
-    </div>
-
-    <div class="empty-state" id="emptyState">
-      لا توجد كتب تطابق بحثك حاليًا. جرّب كلمة أو تصنيفًا آخر.
-    </div>
-  </section>
-
-  <!-- STORIES BANNER -->
-  <section class="section">
-    <div class="visual-banner purple">
-      <div class="banner-content">
-        <div class="eyebrow">✦ عوالم من الخيال والإلهام</div>
-        <h2>كل قصة تحمل <span>حياة أخرى</span></h2>
-        <p>اكتشف القصص والروايات التي تأخذك إلى تجارب إنسانية مختلفة، وتترك في داخلك فكرة لا تنسى.</p>
-        <a href="stories.html" class="gold-btn">اكتشف عالم القصص ←</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- READING PATHS -->
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2 class="section-title">ابدأ <span>رحلتك</span></h2>
-        <p class="section-subtitle">مسارات مقترحة تساعدك على اختيار ما تقرأه</p>
-      </div>
-    </div>
-
-    <div class="path-grid">
-      <article class="path-card">
-        <div class="path-image">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85" alt="تطوير الذات">
-        </div>
-        <div class="path-content">
-          <h3>رحلة تطوير الذات</h3>
-          <p>ابدأ بفهم نفسك، ونظم وقتك، وابنِ عادات تساعدك على التقدم.</p>
-          <a href="#allBooks" class="path-link" data-path="development">اكتشف الكتب ←</a>
-        </div>
-      </article>
-
-      <article class="path-card">
-        <div class="path-image">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85" alt="التكنولوجيا">
-        </div>
-        <div class="path-content">
-          <h3>عالم التقنية والبرمجة</h3>
-          <p>تعرف على البرمجة والتفكير المنطقي والأمان في العالم الرقمي.</p>
-          <a href="#allBooks" class="path-link" data-path="technology">اكتشف الكتب ←</a>
-        </div>
-      </article>
-
-      <article class="path-card">
-        <div class="path-image">
-          <img loading="lazy" src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=900&q=85" alt="المعرفة">
-        </div>
-        <div class="path-content">
-          <h3>رحلة المعرفة والثقافة</h3>
-          <p>وسع مداركك من خلال العلوم والتاريخ والأدب والأفكار المتنوعة.</p>
-          <a href="#allBooks" class="path-link" data-path="science">اكتشف الكتب ←</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- LEARNING BANNER -->
-  <section class="section">
-    <div class="visual-banner">
-      <div class="banner-content">
-        <div class="eyebrow">✦ القراءة بداية الطريق</div>
-        <h2>حوّل المعرفة إلى <span>مهارة حقيقية</span></h2>
-        <p>لا تتوقف عند القراءة. انتقل إلى مسارات التعلم، وتابع تقدمك، واختبر معلوماتك خطوة بخطوة.</p>
-        <a href="learning.html" class="gold-btn">اكتشف مسارات التعلم ←</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- QUOTE -->
-  <section class="section">
-    <div class="quote-card">
-      <div class="quote-mark">“</div>
-      <h2>لا تنتظر أن يتغير الطريق، ابدأ بتغيير خطوتك الأولى</h2>
-      <p>HANOON — المعرفة تصنع الفرق</p>
-    </div>
-  </section>
-
-</main>
-
-<footer class="footer">
-  <div class="container footer-inner">
-    <div class="footer-brand">
-      <img src="../assets/logo/logo.svg" alt="HANOON">
-      <span>HANOON — المعرفة تصنع الفرق</span>
-    </div>
-    <div class="footer-links">
+    <nav class="top-links">
       <a href="../index.html">الرئيسية</a>
       <a href="library.html">المكتبة</a>
       <a href="articles.html">المقالات</a>
       <a href="stories.html">القصص</a>
-      <a href="learning.html">التعلم</a>
-    </div>
-    <p>© HANOON — جميع الحقوق محفوظة</p>
-  </div>
-</footer>
+    </nav>
 
-<div class="toast" id="toast">تم تحديث المفضلة</div>
+    <a href="../index.html" class="back-home">العودة للرئيسية ←</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">HANOON DIGITAL LIBRARY</div>
+      <h1>عالم من المعرفة<br><span>ينتظرك لتكتشفه</span></h1>
+      <p>
+        اكتشف مكتبة هنون، واقرأ في مجالات مختلفة من العلوم والأدب
+        والتكنولوجيا وتطوير الذات. كل كتاب رحلة مستقلة من الأفكار والمعرفة.
+      </p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong id="totalBooks">--</strong>
+          <span>كتابًا متاحًا</span>
+        </div>
+        <div class="hero-stat">
+          <strong id="totalChapters">--</strong>
+          <span>فصلًا معرفيًا</span>
+        </div>
+        <div class="hero-stat">
+          <strong id="totalCategories">--</strong>
+          <span>مجالًا مختلفًا</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="page-container">
+
+    <section>
+      <div class="section-heading">
+        <div>
+          <h2>اختيارات مميزة</h2>
+          <div class="gold-line"></div>
+        </div>
+        <p>كتب تستحق أن تبدأ بها</p>
+      </div>
+
+      <div class="featured-wrap" id="featuredBooks">
+        <div class="loading-state">جاري تجهيز الاختيارات...</div>
+      </div>
+    </section>
+
+    <section class="tools-area">
+      <div class="section-heading" style="margin:0 0 17px">
+        <div>
+          <h2>اكتشف المكتبة</h2>
+          <p>ابحث عن الكتاب أو المجال الذي يهمك</p>
+        </div>
+      </div>
+
+      <div class="search-row">
+        <div class="search-box">
+          <span>⌕</span>
+          <input id="bookSearch" type="search" placeholder="ابحث باسم الكتاب أو الموضوع أو المجال...">
+        </div>
+
+        <select class="filter-select" id="sortBooks">
+          <option value="default">الترتيب الافتراضي</option>
+          <option value="title">ترتيب أبجدي</option>
+          <option value="chapters">الأكثر فصولًا</option>
+        </select>
+
+        <select class="filter-select" id="favoriteFilter">
+          <option value="all">كل الكتب</option>
+          <option value="favorites">المفضلة فقط</option>
+        </select>
+      </div>
+
+      <div class="category-list" id="categoryList">
+        <button class="category-btn active" data-category="all">كل المجالات</button>
+      </div>
+    </section>
+
+    <div class="result-bar">
+      <div>
+        <strong id="resultCount">0</strong>
+        <span>كتاب في المكتبة</span>
+      </div>
+      <span id="activeCategory">كل المجالات</span>
+    </div>
+
+    <section>
+      <div class="books-grid" id="booksGrid">
+        <div class="loading-state">جاري تحميل الكتب...</div>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <strong>لم نعثر على كتب مطابقة</strong>
+        جرّب البحث بكلمات مختلفة أو اختر مجالًا آخر.
+      </div>
+    </section>
+
+    <section class="author-banner">
+      <img
+        src="../assets/avatars/yousef.jpg"
+        alt="صورة الكاتب"
+        onerror="this.style.display='none'"
+      >
+      <div>
+        <h3>Yousef Elgorf</h3>
+        <p>
+          المعرفة تصنع الفرق.
+          نؤمن في هنون أن كل فكرة جديدة يمكن أن تكون بداية لطريق مختلف.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <strong>HANOON</strong>
+    <br>
+    المعرفة تصنع الفرق
+    <br>
+    جميع الحقوق محفوظة © <span id="currentYear"></span>
+  </footer>
+
+</div>
+
+<script src="../data/books.js"></script>
 
 <script>
-(function(){
-  const cards = Array.from(document.querySelectorAll('.book-card'));
-  const search = document.getElementById('bookSearch');
-  const filters = Array.from(document.querySelectorAll('.filter-btn'));
-  const sort = document.getElementById('sortBooks');
-  const empty = document.getElementById('emptyState');
-  const results = document.getElementById('resultsCount');
-  const favoriteCount = document.getElementById('favoriteCount');
-  const toast = document.getElementById('toast');
+(() => {
+  "use strict";
 
-  let activeFilter = 'all';
+  const API = window.HANOON_BOOKS_API;
+
+  const grid = document.getElementById("booksGrid");
+  const featured = document.getElementById("featuredBooks");
+  const searchInput = document.getElementById("bookSearch");
+  const sortSelect = document.getElementById("sortBooks");
+  const favoriteFilter = document.getElementById("favoriteFilter");
+  const categoryList = document.getElementById("categoryList");
+  const emptyState = document.getElementById("emptyState");
+
+  if (!API || !Array.isArray(API.getAll())) {
+    grid.innerHTML = `
+      <div class="loading-state">
+        تعذر تحميل بيانات الكتب. تأكد من وجود الملف data/books.js ومساره الصحيح.
+      </div>`;
+    return;
+  }
+
+  const allBooks = API.getAll();
+  let activeCategory = "all";
   let favorites = [];
 
   try {
-    favorites = JSON.parse(localStorage.getItem('hanoon-library-favorites') || '[]');
+    favorites = JSON.parse(localStorage.getItem("hanoon-book-favorites") || "[]");
     if (!Array.isArray(favorites)) favorites = [];
-  } catch(e) {
+  } catch {
     favorites = [];
   }
 
-  function showToast(message){
-    toast.textContent = message;
-    toast.classList.add('show');
-    clearTimeout(showToast.timer);
-    showToast.timer = setTimeout(()=>toast.classList.remove('show'),1900);
+  document.getElementById("currentYear").textContent =
+    new Date().getFullYear();
+
+  const categories = [
+    ...new Set(allBooks.map(book => book.category))
+  ];
+
+  const chapterTotal = allBooks.reduce(
+    (total, book) => total + book.chapters.length, 0
+  );
+
+  document.getElementById("totalBooks").textContent = allBooks.length;
+  document.getElementById("totalChapters").textContent = chapterTotal;
+  document.getElementById("totalCategories").textContent = categories.length;
+
+  function safeText(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+    })[char]);
   }
 
-  function updateFavorites(){
-    favoriteCount.textContent = favorites.length;
-    cards.forEach(card=>{
-      const button = card.querySelector('.favorite-btn');
-      const saved = favorites.includes(card.dataset.id);
-      button.classList.toggle('saved',saved);
-      button.textContent = saved ? '♥' : '♡';
-      button.setAttribute('aria-pressed',saved ? 'true' : 'false');
-    });
-    try {
-      localStorage.setItem('hanoon-library-favorites',JSON.stringify(favorites));
-    } catch(e) {}
+  function saveFavorites() {
+    localStorage.setItem(
+      "hanoon-book-favorites",
+      JSON.stringify(favorites)
+    );
   }
 
-  function render(){
-    const query = search.value.trim().toLowerCase();
-    let visible = 0;
+  function createCategories() {
+    categoryList.innerHTML = `
+      <button class="category-btn active" data-category="all">
+        كل المجالات
+      </button>
+    `;
 
-    cards.forEach(card=>{
-      const name = (card.dataset.name + ' ' + card.innerText).toLowerCase();
-      const category = card.dataset.category;
-      const matchesText = !query || name.includes(query);
-      const matchesFilter =
-        activeFilter === 'all' ||
-        (activeFilter === 'favorites' && favorites.includes(card.dataset.id)) ||
-        category === activeFilter;
-
-      const show = matchesText && matchesFilter;
-      card.style.display = show ? '' : 'none';
-      if(show) visible++;
+    categories.forEach(category => {
+      const button = document.createElement("button");
+      button.className = "category-btn";
+      button.dataset.category = category;
+      button.textContent = category;
+      categoryList.appendChild(button);
     });
-
-    empty.style.display = visible ? 'none' : 'block';
-    results.textContent = 'عدد الكتب المعروضة: ' + visible;
   }
 
-  filters.forEach(button=>{
-    button.addEventListener('click',()=>{
-      filters.forEach(item=>item.classList.remove('active'));
-      button.classList.add('active');
-      activeFilter = button.dataset.filter;
-      render();
+  function openBook(bookId) {
+    location.href = `book.html?id=${encodeURIComponent(bookId)}`;
+  }
+
+  function renderFeatured() {
+    const selected = allBooks.slice(0, 2);
+
+    featured.innerHTML = selected.map((book, index) => `
+      <article class="featured-card">
+        <img
+          src="${safeText(book.cover)}"
+          alt="${safeText(book.title)}"
+          loading="${index === 0 ? "eager" : "lazy"}"
+        >
+        <div class="featured-info">
+          <small>${index === 0 ? "اختيار المحرر" : "اكتشف هذا الكتاب"}</small>
+          <h3>${safeText(book.title)}</h3>
+          <p>${safeText(book.description)}</p>
+          <button class="gold-button" data-open="${safeText(book.id)}">
+            اكتشف الكتاب ←
+          </button>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  function getFilteredBooks() {
+    const query = searchInput.value.trim().toLowerCase();
+
+    let results = allBooks.filter(book => {
+      const matchesCategory =
+        activeCategory === "all" || book.category === activeCategory;
+
+      const searchableText = [
+        book.title,
+        book.category,
+        book.description,
+        book.author.name,
+        ...book.chapters.map(chapter => chapter.title)
+      ].join(" ").toLowerCase();
+
+      const matchesSearch = !query || searchableText.includes(query);
+
+      const matchesFavorite =
+        favoriteFilter.value !== "favorites" ||
+        favorites.includes(book.id);
+
+      return matchesCategory && matchesSearch && matchesFavorite;
     });
-  });
 
-  cards.forEach(card=>{
-    card.querySelector('.favorite-btn').addEventListener('click',event=>{
-      event.preventDefault();
-      event.stopPropagation();
-      const id = card.dataset.id;
-      if(favorites.includes(id)){
-        favorites = favorites.filter(item=>item !== id);
-        showToast('تم حذف الكتاب من المفضلة');
-      } else {
-        favorites.push(id);
-        showToast('تمت إضافة الكتاب للمفضلة');
-      }
-      updateFavorites();
-      render();
-    });
-  });
-
-  search.addEventListener('input',render);
-  document.getElementById('searchBtn').addEventListener('click',render);
-  search.addEventListener('keydown',event=>{
-    if(event.key === 'Enter') render();
-  });
-
-  sort.addEventListener('change',()=>{
-    const grid = document.getElementById('booksGrid');
-    const sorted = [...cards];
-
-    if(sort.value === 'name'){
-      sorted.sort((a,b)=>a.dataset.name.localeCompare(b.dataset.name,'ar'));
-    } else if(sort.value === 'newest'){
-      sorted.sort((a,b)=>Number(b.dataset.date)-Number(a.dataset.date));
-    } else {
-      sorted.sort((a,b)=>cards.indexOf(a)-cards.indexOf(b));
+    if (sortSelect.value === "title") {
+      results.sort((a, b) => a.title.localeCompare(b.title, "ar"));
     }
 
-    sorted.forEach(card=>grid.appendChild(card));
-  });
+    if (sortSelect.value === "chapters") {
+      results.sort((a, b) => b.chapters.length - a.chapters.length);
+    }
 
-  document.getElementById('favoritesShortcut').addEventListener('click',()=>{
-    activeFilter = 'favorites';
-    filters.forEach(item=>{
-      item.classList.toggle('active',item.dataset.filter === 'favorites');
+    return results;
+  }
+
+  function renderBooks() {
+    const results = getFilteredBooks();
+
+    document.getElementById("resultCount").textContent = results.length;
+
+    document.getElementById("activeCategory").textContent =
+      activeCategory === "all" ? "كل المجالات" : activeCategory;
+
+    emptyState.style.display = results.length ? "none" : "block";
+    grid.style.display = results.length ? "grid" : "none";
+
+    grid.innerHTML = results.map(book => {
+      const isFavorite = favorites.includes(book.id);
+
+      return `
+        <article class="book-card">
+          <div class="book-cover">
+            <img
+              src="${safeText(book.cover)}"
+              alt="${safeText(book.title)}"
+              loading="lazy"
+            >
+
+            <span class="book-number">${book.number}</span>
+
+            <button
+              class="favorite-btn ${isFavorite ? "active" : ""}"
+              data-favorite="${safeText(book.id)}"
+              aria-label="إضافة إلى المفضلة"
+              title="إضافة إلى المفضلة"
+            >${isFavorite ? "♥" : "♡"}</button>
+          </div>
+
+          <div class="book-info">
+            <span class="book-category">${safeText(book.category)}</span>
+
+            <h3>${safeText(book.title)}</h3>
+
+            <p class="book-description">
+              ${safeText(book.description)}
+            </p>
+
+            <div class="book-meta">
+              <span>📖 ${book.chapters.length} فصول</span>
+              <span>كتاب ${book.number}</span>
+            </div>
+
+            <div class="book-meta" style="border:0;margin-top:0;padding-top:0">
+              <span class="book-author">
+                <img
+                  src="${safeText(book.author.image)}"
+                  alt=""
+                  onerror="this.style.display='none'"
+                >
+                ${safeText(book.author.name)}
+              </span>
+            </div>
+
+            <button class="book-open" data-open="${safeText(book.id)}">
+              عرض الكتاب والفصول ←
+            </button>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  categoryList.addEventListener("click", event => {
+    const button = event.target.closest("[data-category]");
+    if (!button) return;
+
+    activeCategory = button.dataset.category;
+
+    categoryList.querySelectorAll(".category-btn").forEach(item => {
+      item.classList.toggle("active", item === button);
     });
-    render();
-    document.getElementById('allBooks').scrollIntoView({behavior:'smooth'});
+
+    renderBooks();
   });
 
-  document.querySelectorAll('[data-category-link],[data-path]').forEach(link=>{
-    link.addEventListener('click',()=>{
-      const category = link.dataset.categoryLink || link.dataset.path;
-      activeFilter = category;
-      filters.forEach(item=>{
-        item.classList.toggle('active',item.dataset.filter === category);
-      });
-      render();
-    });
+  grid.addEventListener("click", event => {
+    const favoriteButton = event.target.closest("[data-favorite]");
+    const openButton = event.target.closest("[data-open]");
+
+    if (favoriteButton) {
+      const id = favoriteButton.dataset.favorite;
+
+      if (favorites.includes(id)) {
+        favorites = favorites.filter(item => item !== id);
+      } else {
+        favorites.push(id);
+      }
+
+      saveFavorites();
+      renderBooks();
+      return;
+    }
+
+    if (openButton) {
+      openBook(openButton.dataset.open);
+    }
   });
 
-  updateFavorites();
-  render();
+  featured.addEventListener("click", event => {
+    const button = event.target.closest("[data-open]");
+    if (button) openBook(button.dataset.open);
+  });
+
+  searchInput.addEventListener("input", renderBooks);
+  sortSelect.addEventListener("change", renderBooks);
+  favoriteFilter.addEventListener("change", renderBooks);
+
+  createCategories();
+  renderFeatured();
+  renderBooks();
+
 })();
 </script>
 
